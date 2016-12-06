@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IBrandDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertBrand" parameterType="com.cjt.trade.model.Brand">
+		INSERT INTO brand (
+			trade_id,
+			`name`,
+			`order`,
+			title,
+			keyword,
+			subscription,
+			logo_url,
+			content
+		)
+		VALUES
+			(
+				#{tradeId},
+				#{name},
+				#{order},
+				#{title},
+				#{keyword},
+				#{subscription},
+				#{logoUrl},
+				#{content}
+			)
+	</insert>
+	
+	<delete id="deleteBrand" parameterType="int">
+		DELETE
+		FROM
+			brand
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<select id="getAllBrands" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.model.Brand">
+		SELECT
+			b.id 'id',
+			b.trade_id 'tradeId',
+			t.name 'tradeName',
+			b.`name` 'name',
+			b.`order` 'order',
+			b.title 'title',
+			b.keyword 'keyword',
+			b.subscription 'subscription',
+			b.logo_url 'logoUrl',
+			b.content 'content'
+		FROM
+			brand b
+		LEFT JOIN trade t ON b.trade_id = t.id
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllBrandsCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			brand
+	</select>
+	
+	<select id="getBrandById" parameterType="int" resultType="com.cjt.trade.model.Brand">
+		SELECT
+			trade_id 'tradeId',
+			`name` 'name',
+			`order` 'order',
+			title 'title',
+			keyword 'keyword',
+			subscription 'subscription',
+			logo_url 'logoUrl',
+			content 'content'
+		FROM
+			brand
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateBrand" parameterType="com.cjt.trade.model.Brand">
+		UPDATE brand
+		SET 
+			trade_id = #{tradeId},
+			`name` = #{name},
+			`order` = #{order},
+			title = #{title},
+			keyword = #{keyword},
+			subscription = #{subscription},
+			logo_url = #{logoUrl},
+			content = #{content}
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

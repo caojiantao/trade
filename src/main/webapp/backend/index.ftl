@@ -140,8 +140,8 @@
                             <li state='closed'>
                                 <span>品牌类型</span>
                                 <ul>
-                                    <li>品牌添加</li>
-                                    <li>品牌列表</li>
+                            		<li><a href="javascript:addTab('品牌列表','brandList.action')">品牌列表</a></li>
+                                    <li><a href="javascript:addTab('品牌添加','brandAdd.action')">品牌添加</a></li>
                                 </ul>
                             </li>
 

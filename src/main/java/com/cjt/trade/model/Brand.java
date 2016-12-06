@@ -5,6 +5,8 @@ public class Brand{
     private Integer id;
 
     private Integer tradeId;
+    
+    private String tradeName;
 
     private String name;
 
@@ -13,8 +15,12 @@ public class Brand{
     private String title;
 
     private String keyword;
+    
+    private String subscription;
 
     private String logoUrl;
+    
+    private String content;
 
     public Integer getId() {
         return id;
@@ -28,7 +34,15 @@ public class Brand{
         return tradeId;
     }
 
-    public void setTradeId(Integer tradeId) {
+    public String getTradeName() {
+		return tradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		this.tradeName = tradeName;
+	}
+
+	public void setTradeId(Integer tradeId) {
         this.tradeId = tradeId;
     }
 
@@ -71,4 +85,20 @@ public class Brand{
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
+	public String getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(String subscription) {
+		this.subscription = subscription;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }

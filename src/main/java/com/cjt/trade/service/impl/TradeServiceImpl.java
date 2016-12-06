@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cjt.trade.dao.ITradeDao;
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Trade;
 import com.cjt.trade.service.ITradeService;
 
@@ -28,12 +29,12 @@ public class TradeServiceImpl implements ITradeService {
 	}
 
 	@Override
-	public List<Trade> getAllTrade(BaseDto dto) {
-		return tradeDao.getAllTrade(dto);
+	public List<Trade> getAllTrades(BaseDto dto) {
+		return tradeDao.getAllTrades(dto);
 	}
 	@Override
-	public int getAllTradeCount(BaseDto dto) {
-		return tradeDao.getAllTradeCount(dto);
+	public int getAllTradesCount(BaseDto dto) {
+		return tradeDao.getAllTradesCount(dto);
 	}
 
 	@Override
@@ -44,5 +45,10 @@ public class TradeServiceImpl implements ITradeService {
 	@Override
 	public int updateTrade(Trade trade) {
 		return tradeDao.updateTrade(trade);
+	}
+
+	@Override
+	public List<MapModel> getAllTradesOpt() {
+		return tradeDao.getAllTradesOpt();
 	}
 }

@@ -18,7 +18,7 @@
 			id = #{id}
 	</delete>
 	
-	<select id="getAllTrade" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.model.Trade">
+	<select id="getAllTrades" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.model.Trade">
 		SELECT
 			*
 		FROM
@@ -26,7 +26,15 @@
 		LIMIT #{start}, #{limit}
 	</select>
 	
-	<select id="getAllTradeCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+	<select id="getAllTradesOpt" resultType="com.cjt.trade.model.MapModel">
+		SELECT
+			id 'key',
+			name 'value'
+		FROM
+			trade
+	</select>
+	
+	<select id="getAllTradesCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM

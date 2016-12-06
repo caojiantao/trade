@@ -30,14 +30,18 @@ public class CategoryController extends BaseController {
 
 	@RequestMapping(value = "getAllTrades.action")
 	@ResponseBody
-	public JSONObject getAllOrders(BaseDto dto) {
-		int page = dto.getPage();
-		int rows = dto.getRows();
+	public JSONObject getAllTrades(int page, int rows, BaseDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
-		List<Trade> orders = tradeService.getAllTrade(dto);
-		int count = tradeService.getAllTradeCount(dto);
+		List<Trade> orders = tradeService.getAllTrades(dto);
+		int count = tradeService.getAllTradesCount(dto);
 		return JSONUtil.toGridJson(orders, count);
+	}
+	
+	@RequestMapping(value = "getAllTradesOpt.action")
+	@ResponseBody
+	public String getAllTradesOpt(){
+		return JSONObject.toJSONString(tradeService.getAllTradesOpt());
 	}
 	
 	@RequestMapping(value = "addTrade.action")

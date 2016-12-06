@@ -70,15 +70,6 @@
                 }
             });
         });
-        
-        function clearForm(){
-        	$("input[name='deliveryName']").val('');
-        	$("input[name='emsNo']").val('');
-        	$("input[name='title']").val('');
-        	$("input[name='keyword']").val('');
-        	$("textarea[name='subscription']").html('');
-        	editor.html('');
-        }
     </script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Trade;
 
 /**
@@ -14,15 +15,14 @@ import com.cjt.trade.model.Trade;
 @Service
 public interface ITradeService {
 
-public void insert(Trade trade);
+	public int insertTrade(Trade trade);
 	
-	public void deleteById(int id);
+	public int deleteTrade(int id);
 	
-	public void deleteByIds(List<Integer> ids);
+	public List<Trade> getAllTrade(BaseDto dto);
+	public int getAllTradeCount(BaseDto dto);
 	
-	public Trade queryTradeById(int id);
+	public Trade getTradeById(int id);
 	
-	public List<Trade> queryTradesByIdList(List<Integer> ids);
-	
-	public void updateTrade(Trade trade);
+	public int updateTrade(Trade trade);
 }

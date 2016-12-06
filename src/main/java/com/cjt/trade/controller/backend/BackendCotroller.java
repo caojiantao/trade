@@ -14,14 +14,10 @@ import com.cjt.trade.constant.GlobalConfig;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.model.Admin;
 import com.cjt.trade.service.IAdminServcie;
-import com.cjt.trade.service.ITradeService;
 
 @Controller
 @RequestMapping("/backend")
 public class BackendCotroller extends BaseController {
-	
-    @Resource
-    private ITradeService tradeService;
     
     @Resource
     private IAdminServcie adminServcie;

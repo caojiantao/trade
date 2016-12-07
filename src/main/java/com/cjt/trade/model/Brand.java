@@ -19,6 +19,8 @@ public class Brand{
     private String subscription;
 
     private String logoUrl;
+
+    private String logoRealUrl;
     
     private String content;
 
@@ -85,6 +87,14 @@ public class Brand{
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
+	public String getLogoRealUrl() {
+		return logoRealUrl;
+	}
+
+	public void setLogoRealUrl(String logoRealUrl) {
+		this.logoRealUrl = logoRealUrl;
+	}
 
 	public String getSubscription() {
 		return subscription;

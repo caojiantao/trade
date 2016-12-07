@@ -54,7 +54,7 @@ public class SystemController extends BaseController {
 		}
         String path = PathUtil.getRootPath();
         String fileName = GlobalConfig.LOGO_NAME;
-        File targetFile = new File(path, fileName);  
+        File targetFile = new File(path, fileName);
         if(targetFile.exists()){  
         	targetFile.delete();
         }

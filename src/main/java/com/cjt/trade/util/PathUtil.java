@@ -35,6 +35,6 @@ public class PathUtil implements GlobalConfig{
 	 * 获取“商品品牌logo”的url地址(例/upload/brand/)
 	 */
 	public static String getBrandUrlPath(){
-		return getLogoUrlPath() + "/" + UPLOAD_BRAND + "/";
+		return getLogoUrlPath() + UPLOAD_BRAND + "/";
 	}
 }

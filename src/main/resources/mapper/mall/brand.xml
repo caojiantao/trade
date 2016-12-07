@@ -13,6 +13,7 @@
 			keyword,
 			subscription,
 			logo_url,
+			logo_real_url,
 			content
 		)
 		VALUES
@@ -24,6 +25,7 @@
 				#{keyword},
 				#{subscription},
 				#{logoUrl},
+				#{logoRealUrl},
 				#{content}
 			)
 	</insert>
@@ -47,6 +49,7 @@
 			b.keyword 'keyword',
 			b.subscription 'subscription',
 			b.logo_url 'logoUrl',
+			b.logo_real_url 'logoRealUrl',
 			b.content 'content'
 		FROM
 			brand b
@@ -63,6 +66,7 @@
 	
 	<select id="getBrandById" parameterType="int" resultType="com.cjt.trade.model.Brand">
 		SELECT
+			id 'id',
 			trade_id 'tradeId',
 			`name` 'name',
 			`order` 'order',
@@ -70,6 +74,7 @@
 			keyword 'keyword',
 			subscription 'subscription',
 			logo_url 'logoUrl',
+			logo_real_url 'logoRealUrl',
 			content 'content'
 		FROM
 			brand
@@ -80,13 +85,15 @@
 	<update id="updateBrand" parameterType="com.cjt.trade.model.Brand">
 		UPDATE brand
 		SET 
-			trade_id = #{tradeId},
 			`name` = #{name},
 			`order` = #{order},
 			title = #{title},
 			keyword = #{keyword},
 			subscription = #{subscription},
-			logo_url = #{logoUrl},
+		 	<if test="logoUrl != null and logoRealUrl != null">
+				logo_url = #{logoUrl},
+				logo_real_url = #{logoRealUrl},
+			</if>
 			content = #{content}
 		WHERE
 			id = #{id}

@@ -75,6 +75,7 @@
 	        <tr>
 	            <td>logo</td>
 	            <td>
+                	<input type="text" name="logoRealUrl" hidden="hidden">
 	            	<img id="logoImg" style="width:277px;height:68px;">
 	            	<input id="selector" name="file" type="file" />
 	            </td>
@@ -94,8 +95,9 @@
     </div>
     
     <script type="text/javascript">
+    	var edtor;
         KindEditor.ready(function(K) {
-            K.create('textarea[name="subscription"]', {
+            editor = K.create('textarea[name="subscription"]', {
             	width : '750px',
                 autoHeightMode : true,
                 cssData: 'body {font-size:14px;}',
@@ -168,9 +170,15 @@
                 },
                 success: function (brand) {
 					if(brand != undefined && brand != null){
-						$("input[name='tradeId']").val(brand.id);
+						$("input[name='id']").val(brand.id);
+						$("select[name='tradeId']").val(brand.tradeId);
 						$("input[name='name']").val(brand.name);
 						$("input[name='order']").val(brand.order);
+						$("input[name='title']").val(brand.title);
+						$("input[name='keyword']").val(brand.keyword);
+						editor.html(brand.subscription);
+						$("#logoImg").attr("src", brand.logoUrl);
+						$("input[name='logoRealUrl']").val(brand.logoRealUrl);
 						
 						$(".editDiv").css("display", "block");
 						$(".listDiv").css("display", "none");

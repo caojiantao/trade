@@ -16,6 +16,7 @@ import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Brand;
 import com.cjt.trade.service.IBrandService;
+import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
 import com.cjt.trade.util.PathUtil;
 
@@ -65,9 +66,10 @@ public class BrandController extends BaseController {
 		if (file.getSize() == 0) {
 			return;
 		}
+		FileUtil.deleteFile(brand.getLogoRealUrl());
         String path = PathUtil.getBrandPath();
-        String fileName = file.getOriginalFilename();
-        File targetFile = new File(path, fileName);  
+        String fileName = FileUtil.getFileName(file.getOriginalFilename());
+        File targetFile = new File(path, fileName);
         if(targetFile.exists()){
         	targetFile.delete();
         }
@@ -78,6 +80,7 @@ public class BrandController extends BaseController {
         } catch (Exception e) {  
             e.printStackTrace();
         }
+        brand.setLogoRealUrl(targetFile.getAbsolutePath());
         brand.setLogoUrl(PathUtil.getBrandUrlPath() + fileName);
 	}
 

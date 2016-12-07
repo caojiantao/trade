@@ -1,6 +1,7 @@
 package com.cjt.trade.constant;
 
-public class GlobalConfig {
+
+public interface GlobalConfig {
 	
 	/**
 	 * 存储在session中的用户信息name
@@ -16,4 +17,7 @@ public class GlobalConfig {
 	 * 网站logo图片名称(保存在服务器)
 	 */
 	public static final String LOGO_NAME = "logo.png";
+	
+	public static final String UPLOAD_ROOT	= "upload";
+	public static final String UPLOAD_BRAND = "brand";
 }

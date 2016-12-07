@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +19,7 @@ import com.cjt.trade.model.Admin;
 import com.cjt.trade.model.Website;
 import com.cjt.trade.service.IAdminServcie;
 import com.cjt.trade.service.IWebsiteService;
+import com.cjt.trade.util.PathUtil;
 
 @Controller
 @RequestMapping("/backend/")
@@ -41,19 +41,19 @@ public class SystemController extends BaseController {
 	}
 	
 	@RequestMapping(value="/updateWebsite.action")
-	public String updateWebsite(@RequestParam MultipartFile file, HttpServletRequest request, Website website, Model model){
-		setLogoUrl(file, request, website);
+	public String updateWebsite(MultipartFile file, Website website, Model model){
+		setLogoUrl(file, website);
 		websiteService.updateWebsite(website);
 		model.addAttribute("returnUrl", "website.action");
 		return "success";
 	}
 	
-	public void setLogoUrl(MultipartFile file, HttpServletRequest request, Website website){
+	public void setLogoUrl(MultipartFile file, Website website){
 		if (file.getSize() == 0) {
 			return;
 		}
-        String path = getUploadPath(request);
-        String fileName = GlobalConfig.LOGO_NAME;  
+        String path = PathUtil.getRootPath();
+        String fileName = GlobalConfig.LOGO_NAME;
         File targetFile = new File(path, fileName);  
         if(targetFile.exists()){  
         	targetFile.delete();
@@ -63,9 +63,9 @@ public class SystemController extends BaseController {
         try {  
             file.transferTo(targetFile);  
         } catch (Exception e) {  
-            e.printStackTrace();  
+            e.printStackTrace();
         }
-        website.setLogoUrl("/upload/" + fileName);
+        website.setLogoUrl(PathUtil.getLogoUrlPath() + fileName);
 	}
 	
 	@RequestMapping(value="/admin.action")

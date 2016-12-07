@@ -37,7 +37,7 @@
                 <td>行业名称</td>
                 <td>
                 	<select name="tradeId" style="width:200px;">
-                		<option>---请选择---</option>
+                		<option value="0">---请选择---</option>
                 	</select>
 				</td>
             </tr>
@@ -145,14 +145,12 @@
 					if(opts != undefined && opts != null){
 						for(index in opts){
 							var opt = opts[index];
-							var option = $($("#tradeId").find("option")[0]).clone();
+							var option = $($("select[name='tradeId']").find("option").get(0)).clone();
 							option.val(opt.key);
 							option.html(opt.value);
-							$("#tradeId").append(option);
+							$("select[name='tradeId']").append(option);
 						}
 					}
-					$(".editDiv").css("display", "block");
-					$(".listDiv").css("display", "none");
                 },
                 error: function (data) {
                     $.messager.alert("警告", "网络异常！");
@@ -170,6 +168,9 @@
                 },
                 success: function (brand) {
 					if(brand != undefined && brand != null){
+						$("input[name='tradeId']").val(brand.id);
+						$("input[name='name']").val(brand.name);
+						$("input[name='order']").val(brand.order);
 						
 						$(".editDiv").css("display", "block");
 						$(".listDiv").css("display", "none");

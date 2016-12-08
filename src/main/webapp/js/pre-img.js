@@ -1,3 +1,7 @@
+/**
+ * 当选择图片文件的能够预览，选择文件id指定为"#selector"
+ * 预览控件id指定为"#logoImg"
+ */
 $(function() {
 	$("#selector").change(function() {
 		var $file = $(this);

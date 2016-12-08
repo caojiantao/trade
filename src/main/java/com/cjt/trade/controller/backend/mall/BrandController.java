@@ -42,7 +42,7 @@ public class BrandController extends BaseController {
 		return JSONUtil.toGridJson(brands, count);
 	}
 	
-	@RequestMapping(value = "addbrand.action")
+	@RequestMapping(value = "addBrand.action")
 	public String addbrand(Brand brand, Model model) {
 		int lines = brandService.insertBrand(brand);
 		if (lines > 0) {

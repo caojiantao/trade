@@ -85,6 +85,7 @@
 	<update id="updateBrand" parameterType="com.cjt.trade.model.Brand">
 		UPDATE brand
 		SET 
+			trade_id = #{tradeId},
 			`name` = #{name},
 			`order` = #{order},
 			title = #{title},

@@ -81,6 +81,12 @@
 	            </td>
 	        </tr>
             <tr>
+                <td>描述</td>
+                <td>
+                	<textarea name="content"></textarea>
+            	</td>
+            </tr>
+            <tr>
                 <td colspan="2">
                 	<input type="button" value="取消" onclick="cancel()" style="width:100px;">
                 	<input type="submit" value="保存" style="width:100px;">
@@ -95,9 +101,9 @@
     </div>
     
     <script type="text/javascript">
-    	var edtor;
+    	var editor;
         KindEditor.ready(function(K) {
-            editor = K.create('textarea[name="subscription"]', {
+            editor = K.create('textarea[name="content"]', {
             	width : '750px',
                 autoHeightMode : true,
                 cssData: 'body {font-size:14px;}',
@@ -176,9 +182,10 @@
 						$("input[name='order']").val(brand.order);
 						$("input[name='title']").val(brand.title);
 						$("input[name='keyword']").val(brand.keyword);
-						editor.html(brand.subscription);
+						$("textarea[name='subscription']").val(brand.subscription);
 						$("#logoImg").attr("src", brand.logoUrl);
 						$("input[name='logoRealUrl']").val(brand.logoRealUrl);
+						editor.html(brand.content);
 						
 						$(".editDiv").css("display", "block");
 						$(".listDiv").css("display", "none");

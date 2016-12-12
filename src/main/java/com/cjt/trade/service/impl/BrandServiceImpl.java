@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.cjt.trade.dao.IBrandDao;
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Brand;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.service.IBrandService;
+import com.cjt.trade.vo.BrandVo;
 
 @Service
 public class BrandServiceImpl implements IBrandService {
@@ -28,7 +30,7 @@ public class BrandServiceImpl implements IBrandService {
 	}
 
 	@Override
-	public List<Brand> getAllBrands(BaseDto dto) {
+	public List<BrandVo> getAllBrands(BaseDto dto) {
 		return brandDao.getAllBrands(dto);
 	}
 
@@ -45,6 +47,11 @@ public class BrandServiceImpl implements IBrandService {
 	@Override
 	public int updateBrand(Brand brand) {
 		return brandDao.updateBrand(brand);
+	}
+
+	@Override
+	public List<MapModel> getAllBrandsOptByTradeId(int tradeId) {
+		return brandDao.getAllBrandsOptByTradeId(tradeId);
 	}
 
 }

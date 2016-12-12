@@ -148,8 +148,8 @@
                             <li state='closed'>
                                 <span>产品类型</span>
                                 <ul>
-                                    <li>产品添加</li>
-                                    <li>产品列表</li>
+                            		<li><a href="javascript:addTab('产品列表','productList.action')">产品列表</a></li>
+                                    <li><a href="javascript:addTab('产品添加','productAdd.action')">产品添加</a></li>
                                 </ul>
                             </li>
                         </ul>

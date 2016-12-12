@@ -20,4 +20,5 @@ public interface GlobalConfig {
 	
 	public static final String UPLOAD_ROOT	= "upload";
 	public static final String UPLOAD_BRAND = "brand";
+	public static final String UPLOAD_PRODUCT = "product";
 }

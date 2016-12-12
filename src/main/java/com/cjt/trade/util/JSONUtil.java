@@ -23,15 +23,16 @@ public class JSONUtil {
 		    "total": 1
 		}
 	 */
-	public static JSONObject toGridJson(Object obj, int totalCount) {
+	@SuppressWarnings("rawtypes")
+	public static JSONObject toGridJson(List vos, int totalCount) {
 		JSONObject reult = new JSONObject();
 		// 如果数据集对象为null做个特殊处理
-		if (obj == null) {
+		if (vos == null) {
 			reult.put("total", totalCount);
 			reult.put("rows", new JSONArray());
 			return reult;
 		}
-		JSONArray jsonArray = JSONArray.parseArray(JSONObject.toJSONString(obj));
+		JSONArray jsonArray = JSONArray.parseArray(JSONObject.toJSONString(vos));
 		reult.put("total", totalCount);
 		reult.put("rows", jsonArray);
 		return reult;

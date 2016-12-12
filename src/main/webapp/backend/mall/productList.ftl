@@ -11,6 +11,7 @@
     <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="${base}/js/pre-img.js"></script>
+    <script type="text/javascript" src="${base}/js/select.js"></script>
 
     <style type="text/css">
     	.editDiv{
@@ -40,9 +41,15 @@
                 		<option value="0">---请选择---</option>
                 	</select>
 				</td>
+				<td>品牌类型</td>
+                <td>
+                	<select name="brandId" style="width:200px;">
+                		<option value="0">---请选择---</option>
+                	</select>
+				</td>
             </tr>
             <tr>
-                <td>品牌名</td>
+                <td>产品类型</td>
                 <td>
                 	<input type="text" name="name">
             	</td>
@@ -115,12 +122,11 @@
     
     	$(function(){
     		getData();
-    		initSelect();
     	});
         
         function getData(){
         	$("#result").datagrid({
-				url : 'getAllBrands.action',
+				url : 'getAllProducts.action',
 				method : 'get',
 				loadMsg : "数据装载中....",
 				pagination : true,
@@ -130,8 +136,9 @@
 				singleSelect : true,
 				rownumbers: true,
 			    columns:[[
-			        {field:'tradeName',title:'行业类型',width:200},
-			        {field:'name',title:'品牌类型',width:200},
+			        {field:'tradeName',title:'商品行业',width:200},
+			        {field:'brandName',title:'品牌类型',width:200},
+			        {field:'name',title:'产品类型',width:200},
 			        {field:'order',title:'排序',width:200},
 			        {field:'operator', title:'操作',width:200,
 			        	formatter: function(value,row,index){
@@ -141,28 +148,6 @@
 			        }
 			    ]]
 			});
-        }
-        
-        function initSelect(){
-        	$.ajax({
-                type: "get",
-                url: "getAllTradesOpt.action",
-                dataType: "json",
-                success: function (opts) {
-					if(opts != undefined && opts != null){
-						for(index in opts){
-							var opt = opts[index];
-							var option = $($("select[name='tradeId']").find("option").get(0)).clone();
-							option.val(opt.key);
-							option.html(opt.value);
-							$("select[name='tradeId']").append(option);
-						}
-					}
-                },
-                error: function (data) {
-                    $.messager.alert("警告", "网络异常！");
-                }
-            });
         }
         
         function editObj(id){

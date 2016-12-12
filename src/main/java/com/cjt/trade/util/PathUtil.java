@@ -18,10 +18,17 @@ public class PathUtil implements GlobalConfig{
 	}
 
 	/**
-	 * 获取“商品行业”文件上传的根路径(例D:\\upload\\brand)
+	 * 获取“品牌类型”文件上传的根路径(例D:\\upload\\brand)
 	 */
 	public static String getBrandPath() {
 		return getRootPath() + File.separatorChar + UPLOAD_BRAND;
+	}
+	
+	/**
+	 * 获取“产品类型”文件上传的根路径(例D:\\upload\\product)
+	 */
+	public static String getProductPath() {
+		return getRootPath() + File.separatorChar + UPLOAD_PRODUCT;
 	}
 	
 	/**
@@ -36,5 +43,12 @@ public class PathUtil implements GlobalConfig{
 	 */
 	public static String getBrandUrlPath(){
 		return getLogoUrlPath() + UPLOAD_BRAND + "/";
+	}
+	
+	/**
+	 * 获取“产品类型logo”的url地址(例/upload/product/)
+	 */
+	public static String getProductUrlPath(){
+		return getLogoUrlPath() + UPLOAD_PRODUCT + "/";
 	}
 }

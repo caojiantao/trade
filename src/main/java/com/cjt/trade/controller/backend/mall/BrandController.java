@@ -19,6 +19,7 @@ import com.cjt.trade.service.IBrandService;
 import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
 import com.cjt.trade.util.PathUtil;
+import com.cjt.trade.vo.BrandVo;
 
 @Controller
 @RequestMapping(value="/backend/")
@@ -37,13 +38,20 @@ public class BrandController extends BaseController {
 	public JSONObject getAllBrands(int page, int rows, BaseDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
-		List<Brand> brands = brandService.getAllBrands(dto);
+		List<BrandVo> vos = brandService.getAllBrands(dto);
 		int count = brandService.getAllBrandsCount(dto);
-		return JSONUtil.toGridJson(brands, count);
+		return JSONUtil.toGridJson(vos, count);
+	}
+	
+	@RequestMapping(value = "getAllBrandsOptByTradeId.action")
+	@ResponseBody
+	public String getAllBrandsOptByTradeId(int tradeId){
+		return JSONObject.toJSONString(brandService.getAllBrandsOptByTradeId(tradeId));
 	}
 	
 	@RequestMapping(value = "addBrand.action")
-	public String addbrand(Brand brand, Model model) {
+	public String addbrand(MultipartFile file, Brand brand, Model model) {
+		setLogoUrl(file, brand);
 		int lines = brandService.insertBrand(brand);
 		if (lines > 0) {
 			model.addAttribute("returnUrl", "brandAdd.action");
@@ -95,9 +103,9 @@ public class BrandController extends BaseController {
 		return JSONObject.toJSONString(brandService.getBrandById(id));
 	}
 
-	@RequestMapping(value = "deletebrandById.action")
+	@RequestMapping(value = "deleteBrandById.action")
 	@ResponseBody
-	public boolean deletebrandById(int id) {
+	public boolean deleteBrandById(int id) {
 		int lines = brandService.deleteBrand(id);
 		return lines > 0;
 	}

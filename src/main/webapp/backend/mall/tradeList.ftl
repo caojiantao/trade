@@ -19,17 +19,9 @@
             background-color: #E7E7E7;
             padding: 5px 10px;
         }
-        
-        .operator{
-        	margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
-	<div class="operator">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="getAllTrades()">刷新</a>
-	</div>
-
     <div class="addTrade">
         <form action="updateTrade.action" enctype="multipart/form-data" method="post">
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
@@ -77,7 +69,6 @@
 				singleSelect : true,
 				rownumbers: true,
 			    columns:[[
-			        {field:'id',title:'ID',width:200},
 			        {field:'name',title:'类型',width:200},
 			        {field:'order',title:'排序',width:200},
 			        {field:'operator', title:'操作',width:200,

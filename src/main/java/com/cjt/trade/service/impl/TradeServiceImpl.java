@@ -11,6 +11,7 @@ import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Trade;
 import com.cjt.trade.service.ITradeService;
+import com.cjt.trade.vo.TradeVo;
 
 @Service
 public class TradeServiceImpl implements ITradeService {
@@ -29,7 +30,7 @@ public class TradeServiceImpl implements ITradeService {
 	}
 
 	@Override
-	public List<Trade> getAllTrades(BaseDto dto) {
+	public List<TradeVo> getAllTrades(BaseDto dto) {
 		return tradeDao.getAllTrades(dto);
 	}
 	@Override

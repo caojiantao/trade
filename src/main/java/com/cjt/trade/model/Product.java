@@ -13,10 +13,40 @@ public class Product {
     private String title;
 
     private String keyword;
+    
+    private String subscription;
+
+    private String logoRealUrl;
 
     private String logoUrl;
+    
+    private String content;
 
-    public Integer getId() {
+    public String getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(String subscription) {
+		this.subscription = subscription;
+	}
+
+	public String getLogoRealUrl() {
+		return logoRealUrl;
+	}
+
+	public void setLogoRealUrl(String logoRealUrl) {
+		this.logoRealUrl = logoRealUrl;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getId() {
         return id;
     }
 

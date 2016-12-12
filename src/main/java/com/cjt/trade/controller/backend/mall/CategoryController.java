@@ -15,6 +15,7 @@ import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Trade;
 import com.cjt.trade.service.ITradeService;
 import com.cjt.trade.util.JSONUtil;
+import com.cjt.trade.vo.TradeVo;
 
 @Controller
 @RequestMapping(value = "/backend/")
@@ -33,9 +34,9 @@ public class CategoryController extends BaseController {
 	public JSONObject getAllTrades(int page, int rows, BaseDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
-		List<Trade> orders = tradeService.getAllTrades(dto);
+		List<TradeVo> vos = tradeService.getAllTrades(dto);
 		int count = tradeService.getAllTradesCount(dto);
-		return JSONUtil.toGridJson(orders, count);
+		return JSONUtil.toGridJson(vos, count);
 	}
 	
 	@RequestMapping(value = "getAllTradesOpt.action")

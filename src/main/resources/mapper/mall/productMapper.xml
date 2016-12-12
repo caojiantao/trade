@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IProductDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertProduct" parameterType="com.cjt.trade.model.Product">
+		INSERT INTO product (
+			trade_id,
+			brand_id,
+			`name`,
+			`order`,
+			title,
+			keyword,
+			subscription,
+			logo_url,
+			logo_real_url,
+			content
+		)
+		VALUES
+			(
+				#{tradeId},
+				#{brandId},
+				#{name},
+				#{order},
+				#{title},
+				#{keyword},
+				#{subscription},
+				#{logoUrl},
+				#{logoRealUrl},
+				#{content}
+			)
+	</insert>
+	
+	<delete id="deleteProduct" parameterType="int">
+		DELETE
+		FROM
+			product
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<select id="getAllProducts" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.ProductVo">
+		SELECT
+			p.id 'id',
+			t.`name` 'tradeName',
+			b.`name` 'brandName',
+			p.`name` 'name',
+			p.`order` 'order'
+		FROM
+			product p
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllProductsCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			product
+	</select>
+	
+	<select id="getProductById" parameterType="int" resultType="com.cjt.trade.model.Product">
+		SELECT
+			id 'id',
+			brand_id 'brandId',
+			`name` 'name',
+			`order` 'order',
+			title 'title',
+			keyword 'keyword',
+			subscription 'subscription',
+			logo_url 'logoUrl',
+			logo_real_url 'logoRealUrl',
+			content 'content'
+		FROM
+			product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateBrand" parameterType="com.cjt.trade.model.Brand">
+		UPDATE product
+		SET 
+			brand_id = #{brandId},
+			`name` = #{name},
+			`order` = #{order},
+			title = #{title},
+			keyword = #{keyword},
+			subscription = #{subscription},
+		 	<if test="logoUrl != null and logoRealUrl != null">
+				logo_url = #{logoUrl},
+				logo_real_url = #{logoRealUrl},
+			</if>
+			content = #{content}
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

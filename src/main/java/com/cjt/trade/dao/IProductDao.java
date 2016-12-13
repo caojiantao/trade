@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
 import com.cjt.trade.vo.ProductVo;
 
@@ -22,6 +23,8 @@ public interface IProductDao {
 	
 	public List<ProductVo> getAllProducts(BaseDto dto);
 	public int getAllProductsCount(BaseDto dto);
+	
+	public List<MapModel> getAllProductsOptByBrandId(int brandId);
 	
 	public Product getProductById(int id);
 	

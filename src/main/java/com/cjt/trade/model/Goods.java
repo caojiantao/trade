@@ -19,10 +19,40 @@ public class Goods {
     private String title;
 
     private String keyword;
+    
+    private String subscription;
 
     private String logoUrl;
 
-    public Integer getId() {
+    private String logoRealUrl;
+    
+    private String content;
+
+    public String getLogoRealUrl() {
+		return logoRealUrl;
+	}
+
+	public void setLogoRealUrl(String logoRealUrl) {
+		this.logoRealUrl = logoRealUrl;
+	}
+
+	public String getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(String subscription) {
+		this.subscription = subscription;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getId() {
         return id;
     }
 

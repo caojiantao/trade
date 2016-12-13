@@ -31,7 +31,7 @@
 </head>
 <body>
     <div class="editDiv">
-        <form action="updateProduct.action" enctype="multipart/form-data" method="post">
+        <form action="updateGoods.action" enctype="multipart/form-data" method="post">
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
             <tr>
                 <input type="text" name="id" hidden="hidden">
@@ -43,19 +43,15 @@
                 	<select name="brandId" style="width:200px;">
                 		<option value="0">---请选择---</option>
                 	</select>
+                	<select name="productId" style="width:200px;">
+                		<option value="0">---请选择---</option>
+                	</select>
 				</td>
             </tr>
             <tr>
-                <td>产品类型</td>
+                <td>商品名称</td>
                 <td>
                 	<input type="text" name="name">
-            	</td>
-            </tr>
-            <tr>
-                <td>排序</td>
-                <td>
-                	<input type="text" name="order">
-            		<span>(请输入数字，数值越大，越靠前)</span>
             	</td>
             </tr>
             <tr>
@@ -123,7 +119,7 @@
         
         function getData(){
         	$("#result").datagrid({
-				url : 'getAllProducts.action',
+				url : 'getAllGoods.action',
 				method : 'get',
 				loadMsg : "数据装载中....",
 				pagination : true,
@@ -135,8 +131,9 @@
 			    columns:[[
 			        {field:'tradeName',title:'商品行业',width:200},
 			        {field:'brandName',title:'品牌类型',width:200},
-			        {field:'name',title:'产品类型',width:200},
-			        {field:'order',title:'排序',width:200},
+			        {field:'productName',title:'产品类型',width:200},
+			        {field:'name',title:'商品名称',width:200},
+			        {field:'updateTime',title:'更新时间',width:200},
 			        {field:'operator', title:'操作',width:200,
 			        	formatter: function(value,row,index){
 			        		return '<a href="javascript:void(0)" onclick="editObj(' + row.id + ')">修改</a>' + '&nbsp;&nbsp;|&nbsp;&nbsp;' 
@@ -150,27 +147,29 @@
         function editObj(id){
         	$.ajax({
                 type: "get",
-                url: "getProductById.action",
+                url: "getGoodsById.action",
                 dataType: "json",
                 data: {
                     'id':id
                 },
-                success: function (product) {
-					if(product != undefined && product != null){
-						$("input[name='id']").val(product.id);
-						$("select[name='tradeId']").val(product.tradeId);
+                success: function (goods) {
+					if(goods != undefined && goods != null){
+						$("input[name='id']").val(goods.id);
+						$("select[name='tradeId']").val(goods.tradeId);
 						// 手动触发select change事件，从而初始化二级菜单“品牌行业”
 						$("select[name='tradeId']").change();
-						$("select[name='brandId']").val(product.brandId);
-						$("input[name='name']").val(product.name);
-						$("input[name='order']").val(product.order);
-						$("input[name='title']").val(product.title);
-						$("input[name='keyword']").val(product.keyword);
-						$("textarea[name='subscription']").val(product.subscription);
+						$("select[name='brandId']").val(goods.brandId);
+						// 手动触发select change事件，从而初始化三级菜单“产品类型”
+						$("select[name='brandId']").change();
+						$("select[name='productId']").val(goods.productId);
+						$("input[name='name']").val(goods.name);
+						$("input[name='title']").val(goods.title);
+						$("input[name='keyword']").val(goods.keyword);
+						$("textarea[name='subscription']").val(goods.subscription);
 						// 防止logoUrl为null导致图片路径不变
-						$("#logoImg").attr("src", product.logoUrl == undefined ? "" : product.logoUrl);
-						$("input[name='logoRealUrl']").val(product.logoRealUrl);
-						editor.html(product.content);
+						$("#logoImg").attr("src", goods.logoUrl == undefined ? "" : goods.logoUrl);
+						$("input[name='logoRealUrl']").val(goods.logoRealUrl);
+						editor.html(goods.content);
 						
 						$(".editDiv").css("display", "block");
 						$(".listDiv").css("display", "none");
@@ -186,7 +185,7 @@
         	if(confirm('确定要删除这条记录吗？')){
 	    		$.ajax({
 	                type: "post",
-	                url: "deleteProductById.action",
+	                url: "deleteGoodsById.action",
 	                // dataType: "json",
 	                data: {
 	                    'id':id

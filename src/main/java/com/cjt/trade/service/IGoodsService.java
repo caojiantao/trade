@@ -1,15 +1,12 @@
-package com.cjt.trade.dao;
+package com.cjt.trade.service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
 
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.vo.GoodsVo;
 
-@Repository
-public interface IGoodsDao {
+public interface IGoodsService {
 
 	public int insertGoods(Goods product);
 	

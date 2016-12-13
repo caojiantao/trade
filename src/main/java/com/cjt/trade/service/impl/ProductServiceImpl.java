@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cjt.trade.dao.IProductDao;
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
 import com.cjt.trade.service.IProductService;
 import com.cjt.trade.vo.ProductVo;
@@ -46,6 +47,11 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public int updateProduct(Product product) {
 		return productDao.updateProduct(product);
+	}
+
+	@Override
+	public List<MapModel> getAllProductsOptByBrandId(int brandId) {
+		return productDao.getAllProductsOptByBrandId(brandId);
 	}
 
 }

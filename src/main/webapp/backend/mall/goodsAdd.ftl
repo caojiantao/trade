@@ -27,7 +27,7 @@
 </head>
 <body>
     <div class="editDiv">
-        <form action="addProduct.action" enctype="multipart/form-data" method="post">
+        <form action="addGoods.action" enctype="multipart/form-data" method="post">
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
             <tr>
                 <input type="text" name="id" hidden="hidden">
@@ -39,19 +39,15 @@
                 	<select name="brandId" style="width:200px;">
                 		<option value="0">---请选择---</option>
                 	</select>
+                	<select name="productId" style="width:200px;">
+                		<option value="0">---请选择---</option>
+                	</select>
 				</td>
             </tr>
             <tr>
-                <td>产品类型</td>
+                <td>商品名称</td>
                 <td>
                 	<input type="text" name="name">
-            	</td>
-            </tr>
-            <tr>
-                <td>排序</td>
-                <td>
-                	<input type="text" name="order">
-            		<span>(请输入数字，数值越大，越靠前)</span>
             	</td>
             </tr>
             <tr>

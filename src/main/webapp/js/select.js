@@ -4,7 +4,7 @@ $(function(){
 		getBrandByTradeId($("select[name='tradeId']").val());
 	});
 	$("select[name='brandId']").change(function(){
-		getProductByTradeId($("select[name='brandId']").val());
+		getProductByBrandId($("select[name='brandId']").val());
 	});
 });
 
@@ -17,6 +17,7 @@ function getTrade(){
 	$.ajax({
 	    type: "get",
 	    url: "getAllTradesOpt.action",
+	    async: false,
 	    dataType: "json",
 	    success: function (opts) {
 			if(opts != undefined && opts != null){
@@ -44,6 +45,7 @@ function getBrandByTradeId(tradeId){
 	$.ajax({
 	    type: "get",
 	    url: "getAllBrandsOptByTradeId.action",
+	    async: false,
 	    dataType: "json",
 	    data:{
 	    	'tradeId': tradeId
@@ -70,13 +72,14 @@ function getBrandByTradeId(tradeId){
 /**
  * 获取产品类型下拉框并赋值
  */
-function getProductByTradeId(brandId){
+function getProductByBrandId(brandId){
 	$.ajax({
 	    type: "get",
 	    url: "getAllProductsOptByBrandId.action",
+	    async: false,
 	    dataType: "json",
 	    data:{
-	    	'tradeId': tradeId
+	    	'brandId': brandId
 	    },
 	    success: function (opts) {
 	    	var productSel = $("productId");

@@ -32,6 +32,13 @@ public class PathUtil implements GlobalConfig{
 	}
 	
 	/**
+	 * 获取“商品”文件上传的根路径(例D:\\upload\\goods)
+	 */
+	public static String getGoodsPath() {
+		return getRootPath() + File.separatorChar + UPLOAD_GOODS;
+	}
+	
+	/**
 	 * 获取“网站logo”的url地址(例/upload/)
 	 */
 	public static String getLogoUrlPath(){
@@ -50,5 +57,12 @@ public class PathUtil implements GlobalConfig{
 	 */
 	public static String getProductUrlPath(){
 		return getLogoUrlPath() + UPLOAD_PRODUCT + "/";
+	}
+	
+	/**
+	 * 获取“商品logo”的url地址(例/upload/goods/)
+	 */
+	public static String getGoodsUrlPath(){
+		return getLogoUrlPath() + UPLOAD_GOODS + "/";
 	}
 }

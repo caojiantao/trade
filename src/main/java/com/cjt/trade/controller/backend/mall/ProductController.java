@@ -43,6 +43,12 @@ public class ProductController extends BaseController {
 		return JSONUtil.toGridJson(vos, count);
 	}
 	
+	@RequestMapping(value = "getAllProductsOptByBrandId.action")
+	@ResponseBody
+	public String getAllBrandsOptByTradeId(int brandId){
+		return JSONObject.toJSONString(productService.getAllProductsOptByBrandId(brandId));
+	}
+	
 	@RequestMapping(value = "addProduct.action")
 	public String addproduct(MultipartFile file, Product product, Model model) {
 		setLogoUrl(file, product);

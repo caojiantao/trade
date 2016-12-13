@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IGoodsDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertGoods" parameterType="com.cjt.trade.model.Goods">
+		INSERT INTO goods (
+			product_id,
+			number,
+			`name`,
+			price,
+			title,
+			keyword,
+			subscription,
+			logo_url,
+			logo_real_url,
+			content,
+			update_time
+		)
+		VALUES
+			(
+				#{productId},
+				#{number},
+				#{name},
+				#{price},
+				#{title},
+				#{keyword},
+				#{subscription},
+				#{logoUrl},
+				#{logoRealUrl},
+				#{content},
+				CURRENT_TIMESTAMP
+			)
+	</insert>
+	
+	<delete id="deleteGoods" parameterType="int">
+		DELETE
+		FROM
+			goods
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<select id="getAllGoods" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.GoodsVo">
+		SELECT
+			g.id 'id',
+			t.`name` 'tradeName',
+			b.`name` 'brandName',
+			p.`name` 'productName',
+			g.`name` 'name',
+			g.logo_url 'logoUrl',
+			g.update_time 'updateTime'
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllGoodsCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			goods
+	</select>
+	
+	<select id="getGoodsById" parameterType="int" resultType="com.cjt.trade.model.Goods">
+		SELECT
+			g.id 'id',
+			t.id 'tradeId',
+			b.id 'brandId',
+			p.id 'productId',
+			g.`name` 'name',
+			g.price 'price',
+			g.title 'title',
+			g.keyword 'keyword',
+			g.subscription 'subscription',
+			g.logo_real_url 'logoRealUrl',
+			g.logo_url 'logoUrl',
+			g.content 'content',
+			g.update_time 'updateTime'
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+		WHERE
+			g.id = #{id}
+	</select>
+	
+	<update id="updateGoods" parameterType="com.cjt.trade.model.Goods">
+		UPDATE goods
+		SET 
+			product_id = #{productId},
+			`name` = #{name},
+			price = #{price},
+			title = #{title},
+			keyword = #{keyword},
+			subscription = #{subscription},
+		 	<if test="logoUrl != null and logoRealUrl != null">
+				logo_url = #{logoUrl},
+				logo_real_url = #{logoRealUrl},
+			</if>
+			content = #{content},
+			update_time = CURRENT_TIMESTAMP
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

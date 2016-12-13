@@ -3,6 +3,8 @@ package com.cjt.trade.model;
 public class Product {
 	
     private Integer id;
+    
+    private Integer tradeId;
 
     private Integer brandId;
 
@@ -22,7 +24,15 @@ public class Product {
     
     private String content;
 
-    public String getSubscription() {
+    public Integer getTradeId() {
+		return tradeId;
+	}
+
+	public void setTradeId(Integer tradeId) {
+		this.tradeId = tradeId;
+	}
+
+	public String getSubscription() {
 		return subscription;
 	}
 

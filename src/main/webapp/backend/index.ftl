@@ -157,8 +157,8 @@
                     <li state='closed'>
                         <span>商品管理</span>
                         <ul>
-                            <li><a href="javascript:addTab('行业列表','tradeList.action')">行业列表</a></li>
-                            <li>商品添加</li>
+                    		<li><a href="javascript:addTab('商品列表','goodsList.action')">商品列表</a></li>
+                            <li><a href="javascript:addTab('商品添加','goodsAdd.action')">商品添加</a></li>
                         </ul>
                     </li>
                     <li state='closed'>

@@ -6,7 +6,6 @@
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<insert id="insertProduct" parameterType="com.cjt.trade.model.Product">
 		INSERT INTO product (
-			trade_id,
 			brand_id,
 			`name`,
 			`order`,
@@ -19,7 +18,6 @@
 		)
 		VALUES
 			(
-				#{tradeId},
 				#{brandId},
 				#{name},
 				#{order},
@@ -63,23 +61,26 @@
 	
 	<select id="getProductById" parameterType="int" resultType="com.cjt.trade.model.Product">
 		SELECT
-			id 'id',
-			brand_id 'brandId',
-			`name` 'name',
-			`order` 'order',
-			title 'title',
-			keyword 'keyword',
-			subscription 'subscription',
-			logo_url 'logoUrl',
-			logo_real_url 'logoRealUrl',
-			content 'content'
+			p.id 'id',
+			t.id 'tradeId',
+			b.id 'brandId',
+			p.`name` 'name',
+			p.`order` 'order',
+			p.title 'title',
+			p.keyword 'keyword',
+			p.subscription 'subscription',
+			p.logo_url 'logoUrl',
+			p.logo_real_url 'logoRealUrl',
+			p.content 'content'
 		FROM
-			product
+			product p
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
 		WHERE
-			id = #{id}
+			p.id = #{id}
 	</select>
 	
-	<update id="updateBrand" parameterType="com.cjt.trade.model.Brand">
+	<update id="updateProduct" parameterType="com.cjt.trade.model.Product">
 		UPDATE product
 		SET 
 			brand_id = #{brandId},
@@ -96,4 +97,14 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<select id="getAllProductsOptByBrandId" parameterType="int" resultType="com.cjt.trade.model.MapModel">
+		SELECT
+			id 'key',
+			`name` 'value'
+		FROM
+			product
+		WHERE
+			brand_id = #{brandId}
+	</select>
 </mapper>

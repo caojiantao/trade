@@ -62,7 +62,7 @@
             <tr>
                 <td>描述</td>
                 <td>
-                	<textarea name="subscription"></textarea>
+                	<textarea name="description"></textarea>
             	</td>
             </tr>
 	        <tr>
@@ -100,10 +100,6 @@
                 }
             });
         });
-    
-    	$(function(){
-    		getTrade();
-    	});
     </script>
 </body>
 </html>

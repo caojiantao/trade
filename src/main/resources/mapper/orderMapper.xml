@@ -10,11 +10,11 @@
 			ems_no,
 			title,
 			keyword,
-			subscription,
+			description,
 			content
 		)
 		VALUES
-			(#{deliveryName}, #{emsNo}, #{title}, #{keyword}, #{subscription}, #{content})
+			(#{deliveryName}, #{emsNo}, #{title}, #{keyword}, #{description}, #{content})
 	</insert>
 	
 	<select id="getAllOrders" resultType="com.cjt.trade.model.Order">
@@ -27,7 +27,7 @@
 			ems_no 'emsNo',
 			title 'title',
 			keyword 'keyword',
-			subscription 'subscription',
+			description 'description',
 			content 'content'
 		FROM
 			`order`
@@ -43,7 +43,7 @@
 			ems_no 'emsNo',
 			title 'title',
 			keyword 'keyword',
-			subscription 'subscription',
+			description 'description',
 			content 'content'
 		FROM
 			`order`
@@ -60,7 +60,7 @@
 		 ems_no = #{emsNo},
 		 title = #{title},
 		 keyword = #{keyword},
-		 subscription = #{subscription},
+		 description = #{description},
 		 content = #{content}
 		WHERE
 			id = #{id}

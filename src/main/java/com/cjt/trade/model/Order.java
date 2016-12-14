@@ -1,6 +1,7 @@
 package com.cjt.trade.model;
 
 public class Order {
+	
     private Integer id;
 
     private Integer userId;
@@ -17,7 +18,7 @@ public class Order {
 
     private String keyword;
     
-    private String subscription;
+    private String description;
     
     private String content;
 
@@ -85,12 +86,12 @@ public class Order {
         this.keyword = keyword;
     }
 
-	public String getSubscription() {
-		return subscription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSubscription(String subscription) {
-		this.subscription = subscription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getContent() {

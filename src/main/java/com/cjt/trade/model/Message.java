@@ -3,6 +3,7 @@ package com.cjt.trade.model;
 import java.util.Date;
 
 public class Message {
+	
     private Integer id;
 
     private String email;

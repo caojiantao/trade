@@ -11,7 +11,7 @@
 			`order`,
 			title,
 			keyword,
-			subscription,
+			description,
 			logo_url,
 			logo_real_url,
 			content
@@ -23,7 +23,7 @@
 				#{order},
 				#{title},
 				#{keyword},
-				#{subscription},
+				#{description},
 				#{logoUrl},
 				#{logoRealUrl},
 				#{content}
@@ -68,7 +68,7 @@
 			p.`order` 'order',
 			p.title 'title',
 			p.keyword 'keyword',
-			p.subscription 'subscription',
+			p.description 'description',
 			p.logo_url 'logoUrl',
 			p.logo_real_url 'logoRealUrl',
 			p.content 'content'
@@ -88,7 +88,7 @@
 			`order` = #{order},
 			title = #{title},
 			keyword = #{keyword},
-			subscription = #{subscription},
+			description = #{description},
 		 	<if test="logoUrl != null and logoRealUrl != null">
 				logo_url = #{logoUrl},
 				logo_real_url = #{logoRealUrl},

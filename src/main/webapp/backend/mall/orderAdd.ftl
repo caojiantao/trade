@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td>摘要</td>
-                <td><textarea type="text" name="subscription"></textarea></td>
+                <td><textarea type="text" name="description"></textarea></td>
             </tr>
             <tr>
                 <td>内容</td>

@@ -52,6 +52,10 @@ function getBrandByTradeId(tradeId){
 	    },
 	    success: function (opts) {
 	    	brandSel.find("option:gt(0)").remove();
+	    	var productSel = $("select[name='productId']");
+	    	if(productSel != undefined){
+		    	productSel.find("option:gt(0)").remove();
+	    	}
 	    	
 			if(opts != undefined && opts != null){
 				for(index in opts){
@@ -73,6 +77,8 @@ function getBrandByTradeId(tradeId){
  * 获取产品类型下拉框并赋值
  */
 function getProductByBrandId(brandId){
+	var productSel = $("select[name='productId']");
+	if(productSel == undefined) return;
 	$.ajax({
 	    type: "get",
 	    url: "getAllProductsOptByBrandId.action",
@@ -82,8 +88,7 @@ function getProductByBrandId(brandId){
 	    	'brandId': brandId
 	    },
 	    success: function (opts) {
-	    	var productSel = $("productId");
-	    	if(productSel != undefined) productSel.find("option:gt(0)").remove();
+	    	productSel.find("option:gt(0)").remove();
 	    	
 			if(opts != undefined && opts != null){
 				for(index in opts){

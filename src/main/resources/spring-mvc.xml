@@ -46,7 +46,7 @@
         <!-- 文件大小最大值 -->  
         <property name="maxUploadSize" value="10485760000" />    
         <!-- 内存中的最大值 -->  
-        <property name="maxInMemorySize" value="1" />    
+        <property name="maxInMemorySize" value="40960" />
         <!-- 启用是为了推迟文件解析，以便捕获文件大小异常 -->
         <property name="resolveLazily" value="true"/>
     </bean>   

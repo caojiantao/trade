@@ -16,7 +16,7 @@ public class Product {
 
     private String keyword;
     
-    private String subscription;
+    private String description;
 
     private String logoRealUrl;
 
@@ -32,12 +32,12 @@ public class Product {
 		this.tradeId = tradeId;
 	}
 
-	public String getSubscription() {
-		return subscription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSubscription(String subscription) {
-		this.subscription = subscription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getLogoRealUrl() {

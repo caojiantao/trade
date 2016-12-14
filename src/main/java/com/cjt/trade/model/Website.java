@@ -18,7 +18,7 @@ public class Website {
 
     private String keyword;
 
-    private String subscription;
+    private String description;
 
     private String topScrollText;
 
@@ -108,13 +108,13 @@ public class Website {
         this.topFixText = topFixText;
     }
 
-    public String getSubscription() {
-        return subscription;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setSubscription(String subscription) {
-        this.subscription = subscription;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getGoodsDetailBottom() {
 		return goodsDetailBottom;

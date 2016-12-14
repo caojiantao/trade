@@ -204,10 +204,6 @@
             <div title="首页" style="padding:20px;overflow:hidden;"> 
                 <h2>欢迎来到网站后台管理首页！</h2>
             </div>
-            <div title="Tab2" closable="true" style="padding:20px;">This is Tab2 width close button.</div>
-            <div title="Tab3" iconCls="icon-reload" closable="true" style="overflow:hidden;padding:5px;">
-                <iframe src="http://www.baidu.com" style="width: 100%;height: 99%;"></iframe>
-            </div>
         </div>
     </div>
 

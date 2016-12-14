@@ -57,7 +57,7 @@
         </tr>
         <tr>
             <td>关键字描述</td>
-            <td><textarea type="text" name="subscription">${website.subscription}</textarea> </td>
+            <td><textarea type="text" name="description">${website.description}</textarea> </td>
         </tr>
         <tr>
             <td>顶部滚动文字</td>

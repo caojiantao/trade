@@ -73,7 +73,7 @@
             <tr>
                 <td>描述</td>
                 <td>
-                	<textarea name="subscription"></textarea>
+                	<textarea name="description"></textarea>
             	</td>
             </tr>
 	        <tr>
@@ -166,7 +166,7 @@
 						$("input[name='order']").val(product.order);
 						$("input[name='title']").val(product.title);
 						$("input[name='keyword']").val(product.keyword);
-						$("textarea[name='subscription']").val(product.subscription);
+						$("textarea[name='description']").val(product.description);
 						// 防止logoUrl为null导致图片路径不变
 						$("#logoImg").attr("src", product.logoUrl == undefined ? "" : product.logoUrl);
 						$("input[name='logoRealUrl']").val(product.logoRealUrl);

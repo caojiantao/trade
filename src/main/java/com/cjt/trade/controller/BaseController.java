@@ -13,8 +13,9 @@ public class BaseController{
 	 */
 	@ModelAttribute
 	public void initPath(HttpServletRequest request, Model model) {
-		base = request.getScheme() + "://" + request.getServerName() + ":"
-				+ request.getServerPort();
+		/*base = request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort();*/
+		base = request.getContextPath();
 		model.addAttribute("base", base);
 	}
 

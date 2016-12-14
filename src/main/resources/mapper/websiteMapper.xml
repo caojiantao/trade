@@ -15,7 +15,7 @@
 		 email = #{email},
 		 email_pwd = #{emailPwd},
 		 keyword = #{keyword},
-		 subscription = #{subscription},
+		 description = #{description},
 		 top_scroll_text = #{topScrollText},
 		 top_fix_text = #{topFixText},
 		 goods_detail_bottom = #{goodsDetailBottom},
@@ -26,6 +26,7 @@
 	
 	<select id="getWebsite" resultType="com.cjt.trade.model.Website">
 		SELECT
+			id,
 			`name`,
 			logo_url 'logoUrl',
 			manager,
@@ -33,7 +34,7 @@
 			email,
 			email_pwd 'emailPwd',
 			keyword,
-			subscription,
+			description,
 			top_scroll_text 'topScrollText',
 			top_fix_text 'topFixText',
 			goods_detail_bottom 'goodsDetailBottom',

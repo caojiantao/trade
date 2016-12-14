@@ -25,5 +25,6 @@ $(function() {
 	});
 	// 强制刷新图片内容
 	var logoUrl = $("#logoImg").attr("src");
+	if(logoUrl == undefined || logoUrl == "") return;
 	$("#logoImg").attr("src", logoUrl + "?t=" + Math.random());
 });

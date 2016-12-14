@@ -58,7 +58,7 @@
             </tr>
             <tr>
                 <td>摘要</td>
-                <td><textarea type="text" name="subscription"></textarea></td>
+                <td><textarea type="text" name="description"></textarea></td>
             </tr>
             <tr>
                 <td>内容</td>
@@ -134,7 +134,7 @@
 						$("input[name='emsNo']").val(order.emsNo);
 						$("input[name='title']").val(order.title);
 						$("input[name='keyword']").val(order.keyword);
-						$("textarea[name='subscription']").html(order.subscription);
+						$("textarea[name='description']").html(order.description);
 						editor.html(order.content);
 						
 						$(".addOrder").css("display", "block");
@@ -184,7 +184,7 @@
         	$("input[name='emsNo']").val('');
         	$("input[name='title']").val('');
         	$("input[name='keyword']").val('');
-        	$("textarea[name='subscription']").html('');
+        	$("textarea[name='description']").html('');
         	editor.html('');
         }
     </script>

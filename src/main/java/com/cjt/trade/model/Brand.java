@@ -16,7 +16,7 @@ public class Brand{
 
     private String keyword;
     
-    private String subscription;
+    private String description;
 
     private String logoUrl;
 
@@ -96,12 +96,12 @@ public class Brand{
 		this.logoRealUrl = logoRealUrl;
 	}
 
-	public String getSubscription() {
-		return subscription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSubscription(String subscription) {
-		this.subscription = subscription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getContent() {

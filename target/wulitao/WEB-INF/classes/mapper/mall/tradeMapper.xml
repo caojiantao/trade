@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.ITradeDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertTrade" parameterType="com.cjt.trade.model.Trade">
+		INSERT INTO trade (`name`, `order`)
+		VALUES
+			(#{name}, #{order})
+	</insert>
+	
+	<delete id="deleteTrade" parameterType="int">
+		DELETE
+		FROM
+			trade
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<select id="getAllTrades" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.TradeVo">
+		SELECT
+			*
+		FROM
+			trade
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllTradesOpt" resultType="com.cjt.trade.model.MapModel">
+		SELECT
+			id 'key',
+			name 'value'
+		FROM
+			trade
+	</select>
+	
+	<select id="getAllTradesCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			trade
+	</select>
+	
+	<select id="getTradeById" parameterType="int" resultType="com.cjt.trade.model.Trade">
+		SELECT
+			*
+		FROM
+			trade
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateTrade" parameterType="com.cjt.trade.model.Trade">
+		UPDATE trade
+		SET 
+			`name` = #{name},
+			`order` = #{order}
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

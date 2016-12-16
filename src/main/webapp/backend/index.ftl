@@ -99,21 +99,21 @@
                     <li state='closed'>
                         <span>信息单页</span>
                         <ul>
-                            <li>会社概要</li>
-                            <li>注文方法</li>
-                            <li>重要事项</li>
-                            <li>割引情报</li>
-                            <li>注意事项</li>
-                            <li>返品返金</li>
-                            <li>营业时间</li>
-                            <li>配送方式</li>
+                    		<li><a href="javascript:addTab('会社概要','pageInfo.action?type=0')">会社概要</a></li>
+                    		<li><a href="javascript:addTab('注文方法','pageInfo.action?type=1')">注文方法</a></li>
+                    		<li><a href="javascript:addTab('重要事项','pageInfo.action?type=2')">重要事项</a></li>
+                    		<li><a href="javascript:addTab('割引情报','pageInfo.action?type=3')">割引情报</a></li>
+                    		<li><a href="javascript:addTab('注意事项','pageInfo.action?type=4')">注意事项</a></li>
+                    		<li><a href="javascript:addTab('返品返金','pageInfo.action?type=5')">返品返金</a></li>
+                    		<li><a href="javascript:addTab('营业时间','pageInfo.action?type=6')">营业时间</a></li>
+                    		<li><a href="javascript:addTab('配送方式','pageInfo.action?type=7')">配送方式</a></li>
                         </ul>
                     </li>
                     <li state='closed'>
                         <span>文章管理</span>
                         <ul>
-                            <li>文章添加</li>
-                            <li>文章列表</li>
+                    		<li><a href="javascript:addTab('文章列表','pageInfo.action?type=8')">文章列表</a></li>
+                    		<li><a href="javascript:addTab('文章添加','pageInfo.action?type=8')">文章添加</a></li>
                         </ul>
                     </li>
                     <li state='closed'>

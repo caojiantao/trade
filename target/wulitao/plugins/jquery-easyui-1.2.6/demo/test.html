@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="demo.css">
+    <script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery.easyui.min.js"></script>
+
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 5px
+        }
+        td{
+            background-color: #E7E7E7;
+            padding: 5px 10px;
+        }
+
+        input, textarea{
+            display: inline-block;
+            width: 750px;
+            max-width: 750px;
+        }
+        
+        .add_order{
+            display: none;
+        }
+        
+        .toggle-button{
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button class="toggle-button" onclick="togDiv()">添加订单追踪</button>
+        <a href="#" class="easyui-linkbutton" onclick="select()">Select</a>
+    </div>
+
+    <div class="add_order">
+        <form action="addOrder.action" enctype="multipart/form-data" method="post">
+        <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
+            <tr>
+                <td>名字</td>
+                <td><input type="text" name="deliveryName" value="${order.deliveryName}"></td>
+            </tr>
+            <tr>
+                <td>EMS号</td>
+                <td><input type="text" name="emsNo" value="${order.emsNo}"></td>
+            </tr>
+            <tr>
+                <td>标题</td>
+                <td><input type="text" name="title" value="${order.title}"></td>
+            </tr>
+            <tr>
+                <td>关键字</td>
+                <td><input type="text" name="keyword" value="${order.keyword}"></td>
+            </tr>
+            <tr>
+                <td>摘要</td>
+                <td><textarea type="text" name="subscription">${order.subscription}</textarea></td>
+            </tr>
+            <tr>
+                <td>内容</td>
+                <td><textarea name="content" style="visibility:hidden;">${order.content}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><input type="submit" value="保存" style="width:100px;"></td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    
+    <div class="order_list">
+        订单列表
+    </div>
+    
+    <script type="text/javascript">
+        KindEditor.ready(function(K) {
+            K.create('textarea[name="content"]', {
+                width : '750px',
+                autoHeightMode : true,
+                cssData: 'body {font-size:14px;}',
+                afterCreate : function() {
+                    this.loadPlugin('autoheight');
+                }
+            });
+        });
+        
+        function togDiv(){
+            var isDisplay = $(".add_order").css("display");
+            if(isDisplay == "none"){
+                // 添加EMS的div隐藏时
+                $(".toggle-button").html("显示追踪列表");
+                $(".add_order").css("display", "block");
+                $(".order_list").css("display", "none");
+            } else{
+                $(".toggle-button").html("添加订单追踪");
+                $(".add_order").css("display", "none");
+                $(".order_list").css("display", "block");
+            }
+        }
+    </script>
+</body>
+</html>

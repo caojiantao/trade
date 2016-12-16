@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IWebsiteDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<update id="updateWebsite" parameterType="com.cjt.trade.model.Website">
+		UPDATE website
+		SET `name` = #{name},
+		 <if test="logoUrl != null">
+		 	logo_url = #{logoUrl},
+		 </if>
+		 manager = #{manager},
+		 business_hour = #{businessHour},
+		 email = #{email},
+		 email_pwd = #{emailPwd},
+		 keyword = #{keyword},
+		 description = #{description},
+		 top_scroll_text = #{topScrollText},
+		 top_fix_text = #{topFixText},
+		 goods_detail_bottom = #{goodsDetailBottom},
+		 goods_detail_right = #{goodsDetailRight}
+		WHERE
+			id = 1
+	</update>
+	
+	<select id="getWebsite" resultType="com.cjt.trade.model.Website">
+		SELECT
+			id,
+			`name`,
+			logo_url 'logoUrl',
+			manager,
+			business_hour 'businessHour',
+			email,
+			email_pwd 'emailPwd',
+			keyword,
+			description,
+			top_scroll_text 'topScrollText',
+			top_fix_text 'topFixText',
+			goods_detail_bottom 'goodsDetailBottom',
+			goods_detail_right 'goodsDetailRight'
+		FROM
+			website
+		WHERE
+			id = 1
+	</select>
+</mapper>

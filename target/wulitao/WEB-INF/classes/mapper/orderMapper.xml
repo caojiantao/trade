@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IOrderDao">
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertOrder" parameterType="com.cjt.trade.model.Order">
+		INSERT INTO `order` (
+			delivery_name,
+			ems_no,
+			title,
+			keyword,
+			description,
+			content
+		)
+		VALUES
+			(#{deliveryName}, #{emsNo}, #{title}, #{keyword}, #{description}, #{content})
+	</insert>
+	
+	<select id="getAllOrders" resultType="com.cjt.trade.model.Order">
+		SELECT
+			id 'id',
+			user_id 'userId',
+			goods_id 'goodsId',
+			delivery_name 'deliveryName',
+			delivery_address 'deliveryAddress',
+			ems_no 'emsNo',
+			title 'title',
+			keyword 'keyword',
+			description 'description',
+			content 'content'
+		FROM
+			`order`
+	</select>
+	
+	<select id="getOrderById" resultType="com.cjt.trade.model.Order">
+		SELECT
+			id 'id',
+			user_id 'userId',
+			goods_id 'goodsId',
+			delivery_name 'deliveryName',
+			delivery_address 'deliveryAddress',
+			ems_no 'emsNo',
+			title 'title',
+			keyword 'keyword',
+			description 'description',
+			content 'content'
+		FROM
+			`order`
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateOrder" parameterType="com.cjt.trade.model.Order">
+		UPDATE `order`
+		SET user_id = #{userId},
+		 goods_id = #{goodsId},
+		 delivery_name = #{deliveryName},
+		 delivery_address = #{deliveryAddress},
+		 ems_no = #{emsNo},
+		 title = #{title},
+		 keyword = #{keyword},
+		 description = #{description},
+		 content = #{content}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteOrder">
+		DELETE
+		FROM
+			`order`
+		WHERE
+			`id` = #{id}
+	</delete>
+</mapper>

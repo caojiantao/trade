@@ -32,34 +32,36 @@
         <form action="updatePageInfo.action" method="post">
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
             <tr>
-                <input type="text" name="id" hidden="hidden" val="${id}">
-                <input type="text" name="type" hidden="hidden" val="${type}">
+                <input type="text" name="id" hidden="hidden" value="${pageInfo.id}">
+                <input type="text" name="type" hidden="hidden" value="${pageInfo.type}">
                 <td>标题</td>
                 <td>
-                	<input type="text" name="title" val="${title}">
+                	<input type="text" name="title" id="test" value="${pageInfo.title}">
             	</td>
             </tr>
             <tr>
                 <td>关键字</td>
                 <td>
-                	<input type="text" name="keyword" val="${keyword}">
+                	<input type="text" name="keyword" value="${pageInfo.keyword}">
             	</td>
             </tr>
             <tr>
                 <td>描述</td>
                 <td>
-                	<textarea name="description">${description}</textarea>
+                	<textarea name="description">${pageInfo.description}</textarea>
             	</td>
             </tr>
             <tr>
                 <td>内容</td>
                 <td>
-                	<textarea name="content">${content}</textarea>
+                	<textarea name="content">${pageInfo.content}</textarea>
             	</td>
             </tr>
             <tr>
                 <td colspan="2">
-                	<input type="button" value="取消" onclick="cancel()" style="width:100px;">
+                	<#if id??>
+                		<input type="button" value="取消" onclick="cancel()" style="width:100px;">
+                	</#if>
                 	<input type="submit" value="保存" style="width:100px;">
                 </td>
             </tr>
@@ -90,7 +92,7 @@
 				method : 'get',
 				loadMsg : "数据装载中....",
 				data : {
-					type: ${type}
+					type: $("input[name='type']").val()
 				},
 				pagination : true,
 				striped : true,

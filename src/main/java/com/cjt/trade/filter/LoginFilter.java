@@ -72,13 +72,13 @@ public class LoginFilter implements Filter {
 			return;
 		} else {
 			// 设置图片不缓存
-			if(httpRequest.getRequestURI().endsWith("png")){
+			/*if(httpRequest.getRequestURI().endsWith("png")){
 				httpResponse.setHeader( "Pragma", "no-cache" );
 				httpResponse.addHeader( "Cache-Control", "must-revalidate" );
 				httpResponse.addHeader( "Cache-Control", "no-cache" );
 				httpResponse.addHeader( "Cache-Control", "no-store" );
 				httpResponse.setDateHeader("Expires", 0);
-			}
+			}*/
 			
 			chain.doFilter(request, response);
 		}

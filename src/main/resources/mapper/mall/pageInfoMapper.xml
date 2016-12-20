@@ -10,7 +10,7 @@
 			keyword,
 			description,
 			content,
-			updateTime,
+			update_time
 		)
 		VALUES
 			(
@@ -58,9 +58,7 @@
 		 description = #{description},
 		 content = #{content}
 		WHERE type = #{type}
-		<if test="id != null or id == 0">
-		 	AND id = #{id},
-		</if>
+	 	 AND id = #{id}
 	</update>
 	
 	<select id="getPageInfo" resultType="com.cjt.trade.model.PageInfo">

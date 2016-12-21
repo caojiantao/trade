@@ -112,8 +112,8 @@
                     <li state='closed'>
                         <span>文章管理</span>
                         <ul>
-                    		<li><a href="javascript:addTab('文章列表','pageInfo.action?type=8&method=list')">文章列表</a></li>
-                    		<li><a href="javascript:addTab('文章添加','pageInfo.action?type=8&method=add">文章添加</a></li>
+                    		<li><a href="javascript:addTab('文章列表','articleList.action')">文章列表</a></li>
+                    		<li><a href="javascript:addTab('文章添加','articleAdd.action')">文章添加</a></li>
                         </ul>
                     </li>
                     <li state='closed'>

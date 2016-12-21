@@ -1,10 +1,20 @@
 package com.cjt.trade.vo;
 
 public class PageInfoVo {
+	
+	private int id;
 
 	private String title;
 	
 	private String updateTime;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

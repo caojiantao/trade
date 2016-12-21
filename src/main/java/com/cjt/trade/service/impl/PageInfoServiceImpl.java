@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cjt.trade.dao.IPageInfoDao;
+import com.cjt.trade.dto.PageInfoDto;
 import com.cjt.trade.model.PageInfo;
 import com.cjt.trade.service.IPageInfoService;
+import com.cjt.trade.vo.PageInfoVo;
 
 @Service
 public class PageInfoServiceImpl implements IPageInfoService {
@@ -27,13 +29,13 @@ public class PageInfoServiceImpl implements IPageInfoService {
 	}
 
 	@Override
-	public List<PageInfo> getAllPageInfos() {
-		return pageInfoDao.getAllPageInfos();
+	public List<PageInfoVo> getAllPageInfos(PageInfoDto dto) {
+		return pageInfoDao.getAllPageInfos(dto);
 	}
 
 	@Override
-	public int getAllPageInfosCount() {
-		return pageInfoDao.getAllPageInfosCount();
+	public int getAllPageInfosCount(PageInfoDto dto) {
+		return pageInfoDao.getAllPageInfosCount(dto);
 	}
 
 	@Override
@@ -43,12 +45,11 @@ public class PageInfoServiceImpl implements IPageInfoService {
 
 	@Override
 	public PageInfo getPageInfo(int type) {
-		return getPageInfo(type, 0);
+		return getPageInfo(0, type);
 	}
 
 	@Override
-	public PageInfo getPageInfo(int type, int id) {
-		return pageInfoDao.getPageInfo(type, id);
+	public PageInfo getPageInfo(int id, int type) {
+		return pageInfoDao.getPageInfo(id, type);
 	}
-
 }

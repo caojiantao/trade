@@ -20,32 +20,32 @@
 </head>
 <body>
     <div class="editDiv">
-        <form action="updatePageInfo.action" method="post">
+        <form action="addArticle.action" method="post">
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
             <tr>
-                <input type="text" name="id" hidden="hidden" value="${pageInfo.id}">
-                <input type="text" name="type" hidden="hidden" value="${pageInfo.type}">
+                <input type="text" name="id" hidden="hidden">
+                <input type="text" name="type" hidden="hidden">
                 <td>标题</td>
                 <td>
-                	<input type="text" name="title" id="test" value="${pageInfo.title}">
+                	<input type="text" name="title" id="test">
             	</td>
             </tr>
             <tr>
                 <td>关键字</td>
                 <td>
-                	<input type="text" name="keyword" value="${pageInfo.keyword}">
+                	<input type="text" name="keyword">
             	</td>
             </tr>
             <tr>
                 <td>描述</td>
                 <td>
-                	<textarea name="description">${pageInfo.description}</textarea>
+                	<textarea name="description"></textarea>
             	</td>
             </tr>
             <tr>
                 <td>内容</td>
                 <td>
-                	<textarea name="content">${pageInfo.content}</textarea>
+                	<textarea name="content"></textarea>
             	</td>
             </tr>
             <tr>

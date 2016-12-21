@@ -31,23 +31,25 @@
 			id = #{id}
 	</delete>
 	
-	<select id="getAllPageInfos" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.PageInfoVo">
+	<select id="getAllPageInfos" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.vo.PageInfoVo">
 		SELECT
+			id,
 			title,
 			update_time 'updateTime'
 		FROM
 			pageinfo
 		WHERE
-			type = 9
+			type = #{type}
+		LIMIT #{start}, #{limit}
 	</select>
 	
-	<select id="getAllPageInfosCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">
+	<select id="getAllPageInfosCount" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
 			pageinfo
 		WHERE
-			type = 9
+			type = #{type}
 	</select>
 
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
@@ -56,7 +58,8 @@
 		SET title = #{title},
 		 keyword = #{keyword},
 		 description = #{description},
-		 content = #{content}
+		 content = #{content},
+		 update_time = CURRENT_TIMESTAMP
 		WHERE type = #{type}
 	 	 AND id = #{id}
 	</update>
@@ -73,7 +76,7 @@
 			pageinfo
 		WHERE type = #{type}
 		<if test="id != null and id != 0">
-		 	AND id = #{id},
+		 	AND id = #{id}
 		</if>
 	</select>
 </mapper>

@@ -93,13 +93,15 @@ public class GoodsController extends BaseController{
 	
 	@RequestMapping(value = "getGoodsById.action")
 	@ResponseBody
-	public String getgoodsById(int id) {
-		return JSONObject.toJSONString(goodsService.getGoodsById(id));
+	public Goods getgoodsById(int id) {
+		return goodsService.getGoodsById(id);
 	}
 
 	@RequestMapping(value = "deleteGoodsById.action")
 	@ResponseBody
 	public boolean deleteGoodsById(int id) {
+		Goods goods = getgoodsById(id);
+		FileUtil.deleteFile(goods.getLogoRealUrl());
 		int lines = goodsService.deleteGoods(id);
 		return lines > 0;
 	}

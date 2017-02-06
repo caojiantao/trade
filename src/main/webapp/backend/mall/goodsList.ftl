@@ -35,7 +35,7 @@
         <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
             <tr>
                 <input type="text" name="id" hidden="hidden">
-                <td>产品类型</td>
+                <td>商品类型</td>
                 <td>
                 	<select name="tradeId" style="width:200px;">
                 		<option value="0">---请选择---</option>
@@ -49,6 +49,12 @@
 				</td>
             </tr>
             <tr>
+                <td>商品编号</td>
+                <td>
+                	<input type="text" name="number">
+            	</td>
+            </tr>
+            <tr>
                 <td>商品名称</td>
                 <td>
                 	<input type="text" name="name">
@@ -58,6 +64,19 @@
                 <td>标题</td>
                 <td>
                 	<input type="text" name="title">
+            	</td>
+            </tr>
+            <tr>
+                <td>价格</td>
+                <td>
+                	<input type="text" name="price">
+            	</td>
+            </tr>
+            <tr>
+                <td>推荐</td>
+                <td>
+                	<label><input type="checkbox" name="scroll" value="1" />滚动展示</label>
+                	<label><input type="checkbox" name="hot" value="1" />人气商品</label>
             	</td>
             </tr>
             <tr>
@@ -164,6 +183,12 @@
 						$("select[name='productId']").val(goods.productId);
 						$("input[name='name']").val(goods.name);
 						$("input[name='title']").val(goods.title);
+						
+						$("input[name='number']").val(goods.number);
+						$("input[name='price']").val(goods.price);
+						$("input[name='scroll']").attr("checked", goods.scroll);
+						$("input[name='hot']").attr("checked", goods.hot==1?"checked":false);
+						
 						$("input[name='keyword']").val(goods.keyword);
 						$("textarea[name='description']").val(goods.description);
 						// 防止logoUrl为null导致图片路径不变

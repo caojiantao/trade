@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Brand;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.service.IBrandService;
 import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
@@ -45,8 +46,8 @@ public class BrandController extends BaseController {
 	
 	@RequestMapping(value = "getAllBrandsOptByTradeId.action")
 	@ResponseBody
-	public String getAllBrandsOptByTradeId(int tradeId){
-		return JSONObject.toJSONString(brandService.getAllBrandsOptByTradeId(tradeId));
+	public List<MapModel> getAllBrandsOptByTradeId(int tradeId){
+		return brandService.getAllBrandsOptByTradeId(tradeId);
 	}
 	
 	@RequestMapping(value = "addBrand.action")
@@ -99,13 +100,16 @@ public class BrandController extends BaseController {
 	
 	@RequestMapping(value = "getBrandById.action")
 	@ResponseBody
-	public String getbrandById(int id) {
-		return JSONObject.toJSONString(brandService.getBrandById(id));
+	public Brand getbrandById(int id) {
+		return brandService.getBrandById(id);
 	}
 
 	@RequestMapping(value = "deleteBrandById.action")
 	@ResponseBody
 	public boolean deleteBrandById(int id) {
+		Brand brand = getbrandById(id);
+		// 删除原本的图片 
+		FileUtil.deleteFile(brand.getLogoRealUrl());
 		int lines = brandService.deleteBrand(id);
 		return lines > 0;
 	}

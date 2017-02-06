@@ -1,11 +1,6 @@
 package com.cjt.trade.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cjt.trade.model.Trade;
 
 
 public class JSONUtil {
@@ -23,29 +18,16 @@ public class JSONUtil {
 		    "total": 1
 		}
 	 */
-	@SuppressWarnings("rawtypes")
-	public static JSONObject toGridJson(List vos, int totalCount) {
-		JSONObject reult = new JSONObject();
+	public static JSONObject toGridJson(Object obj, int totalCount) {
+		JSONObject result = new JSONObject();
 		// 如果数据集对象为null做个特殊处理
-		if (vos == null) {
-			reult.put("total", totalCount);
-			reult.put("rows", new JSONArray());
-			return reult;
+		if (obj == null) {
+			result.put("total", totalCount);
+			result.put("rows", null);
+			return result;
 		}
-		JSONArray jsonArray = JSONArray.parseArray(JSONObject.toJSONString(vos));
-		reult.put("total", totalCount);
-		reult.put("rows", jsonArray);
-		return reult;
-	}
-	
-	public static void main(String[] args) {
-		List<Trade> trades = new ArrayList<Trade>();
-		Trade one = new Trade();
-		one.setId(1);
-		one.setName("1");
-		one.setOrder(1);
-		trades.add(one);
-		JSONObject object = toGridJson(trades, 2);
-		System.out.println(object.toString());
+		result.put("total", totalCount);
+		result.put("rows", obj);
+		return result;
 	}
 }

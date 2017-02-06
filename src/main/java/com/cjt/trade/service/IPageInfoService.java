@@ -10,8 +10,10 @@ public interface IPageInfoService {
 
 	public int insertPageInfo(PageInfo pageInfo);
 	
-	public PageInfo getPageInfo(int type);
-	public PageInfo getPageInfo(int id, int type);
+	/**
+	 * 获取信息单页，或者是文章内容(根据type和id判断)
+	 */
+	public PageInfo getPageInfo(PageInfoDto dto);
 
 	public int deletePageInfo(int id);
 	

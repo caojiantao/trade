@@ -18,4 +18,14 @@ public interface IGoodsService {
 	public Goods getGoodsById(int id);
 	
 	public int updateGoods(Goods product);
+	
+	/**
+	 * 获取首页滚动商品
+	 */
+	public List<Goods> getScrollGoods();
+	
+	/**
+	 * 获取首页热卖商品
+	 */
+	public List<Goods> getHotGoods();
 }

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cjt.trade.controller.BaseController;
+import com.cjt.trade.dto.PageInfoDto;
 import com.cjt.trade.model.PageInfo;
 import com.cjt.trade.service.IPageInfoService;
 
@@ -18,11 +19,11 @@ public class PageInfoController extends BaseController{
 	private IPageInfoService pageInfoService;
 	
 	@RequestMapping("/pageInfo.action")
-	public String pageInfo(int type, Model model){
-		PageInfo pageInfo = pageInfoService.getPageInfo(type);
+	public String pageInfo(PageInfoDto dto, Model model){
+		PageInfo pageInfo = pageInfoService.getPageInfo(dto);
 		if (pageInfo == null) {
 			pageInfo = new PageInfo();
-			pageInfo.setType(type);
+			pageInfo.setType(dto.getType());
 		}
 		model.addAttribute("pageInfo", pageInfo);
 		return "backend/page/pageInfo";

@@ -9,8 +9,28 @@ public class ProductVo {
 
 	private int id;
 	
+	private int tradeId;
+	
 	private String tradeName;
 	
+	private int brandId;
+	
+	public int getTradeId() {
+		return tradeId;
+	}
+
+	public void setTradeId(int tradeId) {
+		this.tradeId = tradeId;
+	}
+
+	public int getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(int brandId) {
+		this.brandId = brandId;
+	}
+
 	private String brandName;
 	
 	private String name;

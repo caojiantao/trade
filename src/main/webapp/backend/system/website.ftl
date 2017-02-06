@@ -14,7 +14,7 @@
             padding: 5px 10px;
         }
 
-        input, textarea{
+        .resizable{
         	display: inline-block;
             width: 750px;
             max-width: 750px;
@@ -25,55 +25,56 @@
 	<form action="updateWebsite.action" enctype="multipart/form-data" method="post">
     <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
         <tr>
+        	<input type="text" name="id" value="${website.id}" hidden="hidden" >
             <td>网站名称</td>
-            <td><input type="text" name="name" value="${website.name}"></td>
+            <td><input class="resizable" type="text" name="name" value="${website.name}"></td>
         </tr>
         <tr>
             <td>logo</td>
             <td>
             	<img id="logoImg" style="width:277px;height:68px;" src="${base}${website.logoUrl}">
-            	<input id="selector" name="file" type="file" />
+            	<input class="resizable" id="selector" name="file" type="file" />
             </td>
         </tr>
         <tr>
             <td>店长</td>
-            <td><input type="text" name="manager" value="${website.manager}"></td>
+            <td><input class="resizable" type="text" name="manager" value="${website.manager}"></td>
         </tr>
         <tr>
             <td>营业时间</td>
-            <td><input type="text" name="businessHour" value="${website.businessHour}"></td>
+            <td><input class="resizable" type="text" name="businessHour" value="${website.businessHour}"></td>
         </tr>
         <tr>
             <td>邮箱</td>
-            <td><input type="email" name="email" value="${website.email}"></td>
+            <td><input class="resizable" type="email" name="email" value="${website.email}"></td>
         </tr>
         <tr>
             <td>邮箱密码</td>
-            <td><input type="text" name="emailPwd" value="${website.emailPwd}"></td>
+            <td><input class="resizable" type="text" name="emailPwd" value="${website.emailPwd}"></td>
         </tr>
         <tr>
             <td>网站关键字</td>
-            <td><input type="text" name="keyword" value="${website.keyword}"></td>
+            <td><input class="resizable" type="text" name="keyword" value="${website.keyword}"></td>
         </tr>
         <tr>
             <td>关键字描述</td>
-            <td><textarea type="text" name="description">${website.description}</textarea> </td>
+            <td><textarea class="resizable" type="text" name="description">${website.description}</textarea> </td>
         </tr>
         <tr>
             <td>顶部滚动文字</td>
-            <td><input type="text" name="topScrollText" value="${website.topScrollText}"></td>
+            <td><input class="resizable" type="text" name="topScrollText" value="${website.topScrollText}"></td>
         </tr>
         <tr>
             <td>顶部固定文字</td>
-            <td><input type="text" name="topFixText" value="${website.topFixText}"></td>
+            <td><input class="resizable" type="text" name="topFixText" value="${website.topFixText}"></td>
         </tr>
         <tr>
             <td>商品详情页logo下方</td>
-            <td><textarea name="goodsDetailBottom" style="visibility:hidden;">${website.goodsDetailBottom}</textarea></td>
+            <td><textarea class="resizable" name="goodsDetailBottom" style="visibility:hidden;">${website.goodsDetailBottom}</textarea></td>
         </tr>
         <tr>
             <td>商品详情页logo右侧</td>
-            <td><textarea name="goodsDetailRight" style="visibility:hidden;">${website.goodsDetailRight}</textarea></td>
+            <td><textarea class="resizable" name="goodsDetailRight" style="visibility:hidden;">${website.goodsDetailRight}</textarea></td>
         </tr>
         <tr>
             <td colspan="2" style="text-align: center;"><input type="submit" value="确认修改" style="width:100px;"></td>

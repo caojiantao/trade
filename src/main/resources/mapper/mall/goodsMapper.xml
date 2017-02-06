@@ -3,14 +3,41 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IGoodsDao">
+	<sql id="getGoods">
+		SELECT
+			g.id 'id',
+			t.id 'tradeId',
+			b.id 'brandId',
+			p.id 'productId',
+			g.`name` 'name',
+			g.number 'number',
+			g.price 'price',
+			g.scroll scroll,
+			g.hot hot,
+			g.title 'title',
+			g.keyword 'keyword',
+			g.description 'description',
+			g.logo_real_url 'logoRealUrl',
+			g.logo_url 'logoUrl',
+			g.content 'content',
+			g.update_time 'updateTime'
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+	</sql>
+
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<insert id="insertGoods" parameterType="com.cjt.trade.model.Goods">
 		INSERT INTO goods (
 			product_id,
 			number,
 			`name`,
-			price,
 			title,
+			price,
+			scroll,
+			hot,
 			keyword,
 			description,
 			logo_url,
@@ -23,8 +50,10 @@
 				#{productId},
 				#{number},
 				#{name},
-				#{price},
 				#{title},
+				#{price},
+				#{scroll},
+				#{hot},
 				#{keyword},
 				#{description},
 				#{logoUrl},
@@ -67,25 +96,7 @@
 	</select>
 	
 	<select id="getGoodsById" parameterType="int" resultType="com.cjt.trade.model.Goods">
-		SELECT
-			g.id 'id',
-			t.id 'tradeId',
-			b.id 'brandId',
-			p.id 'productId',
-			g.`name` 'name',
-			g.price 'price',
-			g.title 'title',
-			g.keyword 'keyword',
-			g.description 'description',
-			g.logo_real_url 'logoRealUrl',
-			g.logo_url 'logoUrl',
-			g.content 'content',
-			g.update_time 'updateTime'
-		FROM
-			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		<include refid="getGoods"></include>
 		WHERE
 			g.id = #{id}
 	</select>
@@ -95,8 +106,11 @@
 		SET 
 			product_id = #{productId},
 			`name` = #{name},
-			price = #{price},
+			number = #{number},
 			title = #{title},
+			price = #{price},
+			scroll = #{scroll},
+			hot = #{hot},
 			keyword = #{keyword},
 			description = #{description},
 		 	<if test="logoUrl != null and logoRealUrl != null">
@@ -108,4 +122,16 @@
 		WHERE
 			id = #{id}
 	</update>
+	
+	<select id="getScrollGoods" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+			g.scroll = 1
+	</select>
+	
+	<select id="getHotGoods" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+			g.hot = 1
+	</select>
 </mapper>

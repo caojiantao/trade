@@ -21,6 +21,11 @@ import com.cjt.trade.service.IAdminServcie;
 import com.cjt.trade.service.IWebsiteService;
 import com.cjt.trade.util.PathUtil;
 
+/**
+ * @author wulitaotao
+ * @date 2017年1月3日
+ * @subscription 系统控制层，主要是管理分发“管理员信息、网站基本信息”
+ */
 @Controller
 @RequestMapping("/backend/")
 public class SystemController extends BaseController {
@@ -40,10 +45,17 @@ public class SystemController extends BaseController {
 		return "backend/system/website";
 	}
 	
+	/**
+	 * 
+	 */
 	@RequestMapping(value="/updateWebsite.action")
 	public String updateWebsite(MultipartFile file, Website website, Model model){
 		setLogoUrl(file, website);
-		websiteService.updateWebsite(website);
+		if (website.getId() == null || website.getId() == 0) {
+			websiteService.insertWebSite(website);
+		} else {
+			websiteService.updateWebsite(website);
+		}
 		model.addAttribute("returnUrl", "website.action");
 		return "success";
 	}

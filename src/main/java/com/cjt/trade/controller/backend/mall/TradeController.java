@@ -12,14 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Trade;
 import com.cjt.trade.service.ITradeService;
 import com.cjt.trade.util.JSONUtil;
 import com.cjt.trade.vo.TradeVo;
 
+/**
+ * @author wulitaotao
+ * @date 2017年1月3日
+ * @subscription 商品行业
+ */
 @Controller
 @RequestMapping(value = "/backend/")
-public class CategoryController extends BaseController {
+public class TradeController extends BaseController {
 
 	@Resource
 	private ITradeService tradeService;
@@ -39,10 +45,13 @@ public class CategoryController extends BaseController {
 		return JSONUtil.toGridJson(vos, count);
 	}
 	
+	/**
+	 * 获取所有“商品行业”下拉框选项，自动封装为json
+	 */
 	@RequestMapping(value = "getAllTradesOpt.action")
 	@ResponseBody
-	public String getAllTradesOpt(){
-		return JSONObject.toJSONString(tradeService.getAllTradesOpt());
+	public List<MapModel> getAllTradesOpt(){
+		return tradeService.getAllTradesOpt();
 	}
 	
 	@RequestMapping(value = "addTrade.action")
@@ -71,8 +80,8 @@ public class CategoryController extends BaseController {
 
 	@RequestMapping(value = "getTradeById.action")
 	@ResponseBody
-	public String getTradeById(int id) {
-		return JSONObject.toJSONString(tradeService.getTradeById(id));
+	public Trade getTradeById(int id) {
+		return tradeService.getTradeById(id);
 	}
 
 	@RequestMapping(value = "deleteTradeById.action")

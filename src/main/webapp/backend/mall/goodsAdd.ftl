@@ -45,6 +45,12 @@
 				</td>
             </tr>
             <tr>
+                <td>商品编号</td>
+                <td>
+                	<input type="text" name="number">
+            	</td>
+            </tr>
+            <tr>
                 <td>商品名称</td>
                 <td>
                 	<input type="text" name="name">
@@ -54,6 +60,19 @@
                 <td>标题</td>
                 <td>
                 	<input type="text" name="title">
+            	</td>
+            </tr>
+            <tr>
+                <td>价格</td>
+                <td>
+                	<input type="text" name="price">
+            	</td>
+            </tr>
+            <tr>
+                <td>推荐</td>
+                <td>
+                	<label><input type="checkbox" name="scroll" value="1" />滚动展示</label>
+                	<label><input type="checkbox" name="hot" value="1" />人气商品</label>
             	</td>
             </tr>
             <tr>

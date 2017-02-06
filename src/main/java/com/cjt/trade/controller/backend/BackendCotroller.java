@@ -43,7 +43,7 @@ public class BackendCotroller extends BaseController {
         	// 设置服务器保持登录状态时间为15天
         	session.setMaxInactiveInterval(60 * 60 * 24 * 15);
     		session.setAttribute(GlobalConfig.ACCOUNT_SESSION, adminDb.getName());
-    		// 同事设置本地保存登录状态同为15天
+    		// 同时设置本地保存登录状态同为15天
     		Cookie cookie = new Cookie(GlobalConfig.SESSION_ID, session.getId());
     		cookie.setMaxAge(60 * 60 * 24 * 15);
     		response.addCookie(cookie);

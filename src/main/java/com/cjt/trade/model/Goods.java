@@ -15,6 +15,10 @@ public class Goods {
     private String name;
 
     private Double price;
+    
+    private boolean scroll;
+    
+    private boolean hot;
 
     private String title;
 
@@ -60,7 +64,23 @@ public class Goods {
         this.id = id;
     }
 
-    public Integer getTradeId() {
+	public boolean isScroll() {
+		return scroll;
+	}
+
+	public void setScroll(boolean scroll) {
+		this.scroll = scroll;
+	}
+
+	public boolean isHot() {
+		return hot;
+	}
+
+	public void setHot(boolean hot) {
+		this.hot = hot;
+	}
+
+	public Integer getTradeId() {
         return tradeId;
     }
 

@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpSession session = httpRequest.getSession(true);
 		// 路径中包含这些字符串的,可以不用登录直接访问
-		String[] strs = { "login" }; 
+		String[] strs = { "login", "front" }; 
 		StringBuffer url = httpRequest.getRequestURL();
 		// 将访问路径转换为小写比较
 		String lowerUrl = new String(url).toLowerCase();

@@ -15,6 +15,11 @@ public interface IWebsiteService {
 	public Website getWebsite();
 	
 	/**
+	 * 插入网页信息
+	 */
+	public int insertWebSite(Website website);
+	
+	/**
 	 * 修改网页信息
 	 */
 	public void updateWebsite(Website website);

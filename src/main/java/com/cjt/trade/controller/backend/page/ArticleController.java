@@ -76,7 +76,11 @@ public class ArticleController extends BaseController {
 	@RequestMapping(value = "getArticle.action")
 	@ResponseBody
 	public PageInfo getArticle(int id) {
-		return pageInfoService.getPageInfo(id, 8);
+		PageInfoDto dto = new PageInfoDto();
+		// 手动设置type为8
+		dto.setType(8);
+		dto.setId(id);
+		return pageInfoService.getPageInfo(dto);
 	}
 	
 	@RequestMapping(value = "deleteArticle.action")

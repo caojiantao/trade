@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
 import com.cjt.trade.service.IProductService;
 import com.cjt.trade.util.FileUtil;
@@ -45,8 +46,8 @@ public class ProductController extends BaseController {
 	
 	@RequestMapping(value = "getAllProductsOptByBrandId.action")
 	@ResponseBody
-	public String getAllBrandsOptByTradeId(int brandId){
-		return JSONObject.toJSONString(productService.getAllProductsOptByBrandId(brandId));
+	public List<MapModel> getAllBrandsOptByTradeId(int brandId){
+		return productService.getAllProductsOptByBrandId(brandId);
 	}
 	
 	@RequestMapping(value = "addProduct.action")
@@ -99,13 +100,15 @@ public class ProductController extends BaseController {
 	
 	@RequestMapping(value = "getProductById.action")
 	@ResponseBody
-	public String getproductById(int id) {
-		return JSONObject.toJSONString(productService.getProductById(id));
+	public Product getproductById(int id) {
+		return productService.getProductById(id);
 	}
 
 	@RequestMapping(value = "deleteProductById.action")
 	@ResponseBody
 	public boolean deleteProductById(int id) {
+		Product product = getproductById(id);
+		FileUtil.deleteFile(product.getLogoRealUrl());
 		int lines = productService.deleteProduct(id);
 		return lines > 0;
 	}

@@ -20,6 +20,11 @@ public class WebsiteServiceImpl implements IWebsiteService {
 	}
 
 	@Override
+	public int insertWebSite(Website website) {
+		return websiteDao.insertWebSite(website);
+	}
+
+	@Override
 	public Website getWebsite() {
 		return websiteDao.getWebsite();
 	}

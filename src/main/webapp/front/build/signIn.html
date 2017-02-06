@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>注册页</title>
+		<meta http-equiv="Content-Type" content="charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="kopi6.min.css">
+	</head>
+	<body class="signIn">
+		<div class="wrap-1000">
+				<div class="_head fn-clear">
+					<div class="htop fn-clear">
+						<div class="scroll fn-left">
+							<marquee direction="left" behavior="scroll" scrollamount="3">藤原宝飾会員優待のイベント情報：新規会員登録、注文金額2万円以上，記念品を贈る（一回制限）。累計注文金額5万円以上，贈呈価値5000円商品。累計注文金額10万円以上，贈呈価値12000円商品。累計注文金額20万円以上，贈呈価値3万円商品。累計注文金額50万円以上，贈呈価値10万円商品。累計注文金額100万円以上，贈呈価値25万円商品。</marquee>
+						</div>
+						<div class="txt fn-right icon-index_02">弊社はい日本＆中国最大のスーパーコピーブランド 専門店。</div>
+					</div>
+					<div class="mid fn-clear"><a href="" class="logo"><img src="../img/2016381926767.jpg" alt=""></a>
+							<div class="_search">
+								<input type="text" class="key"><a href="" class="submit">檢索</a>
+							</div>
+						<div class="cart fn-clear"><a href=""><img src="../img/index_06.png" alt=""></a><a href=""><img src="../img/index_08.png" alt=""></a></div>
+					</div>
+					<div class="author">
+						<p align="center"><span>店長：藤原 香子&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><img src="../img/letter.png" alt=""><span>:</span><a href="">kopi6jp@yeah.net</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 	<strong><span style="color:#e53333"> 營業時間：9:00-24:00&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 注文受付：24小时受付</span></strong></p>
+					</div>
+						<div class="_nav"><a href="">ホーム</a><span></span><a href="">会社概要</a><span></span><a href="">注文方法</a><span></span><a href="">最新情報</a><span></span><a href="">重要事项</a><span></span><a href="">商品一覧</a><span></span><a href="">割引情报</a><span></span><a href="">FAQ</a></div>
+				</div>
+				<div class="_signIn">
+					<fieldset>
+						<legend>ユーザ登録</legend>
+						<div>
+							<ul>
+								<li><span>電子メール：</span>
+									<input type="text" class="ipt">
+								</li>
+								<li><span>パスワード：</span>
+									<input type="text" class="ipt">
+								</li>
+								<li><span> </span>
+									<input type="button" value="登録">
+								</li>
+							</ul>
+						</div>
+					</fieldset>
+				</div>
+				<div class="_footer fn-clear">
+						<div class="_nav"><a href="">ホーム</a><span></span><a href="">会社概要</a><span></span><a href="">注文方法</a><span></span><a href="">最新情報</a><span></span><a href="">重要事项</a><span></span><a href="">商品一覧</a><span></span><a href="">割引情报</a><span></span><a href="">FAQ</a></div>
+					<div class="box">
+						<p>
+							 
+							注文受付連絡先：<a href="">kopi6jp@yeah.net </a>|店長：藤原 香子|営業時間：09：00～24：00(24时间受付中 ) <br>当HPに掲載されている画像・テキストなどの無断複製、無断転載を禁じます。
+						</p>
+					</div>
+					<div class="code">
+						<p>网站流量统计系统</p>
+					</div>
+				</div>
+		</div>
+	</body>
+	<script src="../plugins/jquery-1.12.4/jquery.1.12.4.min.js"></script>
+		<script>
+			function scroll_v(_a,_b) {
+				var a = _a.get(0),
+					b = _b.get(0);
+				a.scrollTop++;
+				var r_h = b.offsetHeight - parseInt(_b.css('paddingTop')) * 2;
+				if (a.scrollTop >= r_h) {
+					a.scrollTop=0;   
+				}
+			}
+			
+			$(function() {
+				var $d = $('.js-scroll-v');
+				$d.each(function(index,element) {
+					var _this = $(this),
+						$d_f = _this.find('.js-scroll1'),
+						$d_s = _this.find('.js-scroll2'),
+						$d_f_i = $d_f.find('.item'),
+						d_h = _this.height();
+			
+					_this.css({
+						"height":d_h,
+						"overflow":"hidden"
+					});	
+					$d_f_i.clone().appendTo($d_s);
+					var t = setInterval(function() {
+						scroll_v(_this,$d_f);
+					},50);
+					_this.on({
+						mouseover:function() {
+							clearInterval(t);
+						},
+						mouseout:function() {
+							t = setInterval(function() {
+								scroll_v(_this,$d_f);
+							},50);
+						}
+					});
+				})
+			});
+		</script>
+		<script>
+			function scroll_h(_a,_b) {
+				var b = _b.get(0),
+					l = parseInt(_a.css('marginLeft'));
+				var r_w = b.offsetWidth - parseInt(_b.css('paddingLeft')) * 2;
+				console.log(Math.abs(l),r_w);
+				_a.css('marginLeft',l-1);
+				if (Math.abs(l) >= r_w) {
+					_a.css('marginLeft',0);
+				}
+			}
+			
+			$(function() {
+				var $d = $('.js-scroll-h');
+				$d.each(function(index,element) {
+					var _this = $(this),
+						$d_b = _this.find('.scroll-auto'),
+						$d_f = _this.find('.scroll1'),
+						$d_s = _this.find('.scroll2'),
+						$d_f_i = $d_f.find('.item'),
+						d_w = _this.width();
+			
+					$d_f_i.clone().appendTo($d_s);
+					var t = setInterval(function() {
+						scroll_h($d_b,$d_f);
+					},50);
+					_this.on({
+						mouseover:function() {
+							clearInterval(t);
+						},
+						mouseout:function() {
+							t = setInterval(function() {
+								scroll_h($d_b,$d_f);
+							},50);
+						}
+					});
+				});
+			});
+		</script>
+</html>

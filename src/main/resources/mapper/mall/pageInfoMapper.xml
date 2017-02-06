@@ -64,7 +64,8 @@
 	 	 AND id = #{id}
 	</update>
 	
-	<select id="getPageInfo" resultType="com.cjt.trade.model.PageInfo">
+	<!-- 只传type说明是“单页信息”（数据库唯一，不用id约束），两者皆传说明“文章内容” -->
+	<select id="getPageInfo" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.model.PageInfo">
 		SELECT
 			id,
 			type,
@@ -74,9 +75,11 @@
 			content
 		FROM
 			pageinfo
-		WHERE type = #{type}
+		WHERE
+			type = #{type}
 		<if test="id != null and id != 0">
 		 	AND id = #{id}
 		</if>
+		LIMIT 1
 	</select>
 </mapper>

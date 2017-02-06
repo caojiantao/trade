@@ -41,7 +41,9 @@
 	<select id="getAllProducts" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.ProductVo">
 		SELECT
 			p.id 'id',
+			t.id 'tradeId',
 			t.`name` 'tradeName',
+			b.id 'brandId',
 			b.`name` 'brandName',
 			p.`name` 'name',
 			p.`order` 'order'
@@ -49,7 +51,9 @@
 			product p
 		LEFT JOIN brand b ON p.brand_id = b.id
 		LEFT JOIN trade t ON b.trade_id = t.id
-		LIMIT #{start}, #{limit}
+		<if test="limit != 0">
+			LIMIT #{start}, #{limit}
+		</if>
 	</select>
 	
 	<select id="getAllProductsCount" parameterType="com.cjt.trade.dto.BaseDto" resultType="int">

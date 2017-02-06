@@ -11,5 +11,7 @@ public interface IWebsiteDao {
 	
 	public Website getWebsite();
 	
+	public int insertWebSite(Website website);
+	
 	public void updateWebsite(Website website);
 }

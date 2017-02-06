@@ -44,12 +44,7 @@ public class PageInfoServiceImpl implements IPageInfoService {
 	}
 
 	@Override
-	public PageInfo getPageInfo(int type) {
-		return getPageInfo(0, type);
-	}
-
-	@Override
-	public PageInfo getPageInfo(int id, int type) {
-		return pageInfoDao.getPageInfo(id, type);
+	public PageInfo getPageInfo(PageInfoDto dto) {
+		return pageInfoDao.getPageInfo(dto);
 	}
 }

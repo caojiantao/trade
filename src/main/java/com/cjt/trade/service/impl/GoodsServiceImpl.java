@@ -48,4 +48,13 @@ public class GoodsServiceImpl implements IGoodsService {
 		return goodsDao.updateGoods(goods);
 	}
 
+	@Override
+	public List<Goods> getScrollGoods() {
+		return goodsDao.getScrollGoods();
+	}
+
+	@Override
+	public List<Goods> getHotGoods() {
+		return goodsDao.getHotGoods();
+	}
 }

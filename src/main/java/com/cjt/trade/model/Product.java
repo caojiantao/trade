@@ -5,8 +5,12 @@ public class Product {
     private Integer id;
     
     private Integer tradeId;
+    
+    private String tradeName;
 
     private Integer brandId;
+    
+    private String brandName;
 
     private String name;
 
@@ -24,7 +28,23 @@ public class Product {
     
     private String content;
 
-    public Integer getTradeId() {
+    public String getTradeName() {
+		return tradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		this.tradeName = tradeName;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public Integer getTradeId() {
 		return tradeId;
 	}
 

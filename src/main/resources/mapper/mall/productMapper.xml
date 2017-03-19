@@ -51,6 +51,10 @@
 			product p
 		LEFT JOIN brand b ON p.brand_id = b.id
 		LEFT JOIN trade t ON b.trade_id = t.id
+		ORDER BY
+			t.`order`,
+			b.`order`,
+			p.`order`
 		<if test="limit != 0">
 			LIMIT #{start}, #{limit}
 		</if>
@@ -67,7 +71,9 @@
 		SELECT
 			p.id 'id',
 			t.id 'tradeId',
+			t.name 'tradeName',
 			b.id 'brandId',
+			b.name 'brandName',
 			p.`name` 'name',
 			p.`order` 'order',
 			p.title 'title',

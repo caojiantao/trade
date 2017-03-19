@@ -45,6 +45,7 @@ public class BackendCotroller extends BaseController {
     		session.setAttribute(GlobalConfig.ACCOUNT_SESSION, adminDb.getName());
     		// 同时设置本地保存登录状态同为15天
     		Cookie cookie = new Cookie(GlobalConfig.SESSION_ID, session.getId());
+    		cookie.setPath("/");
     		cookie.setMaxAge(60 * 60 * 24 * 15);
     		response.addCookie(cookie);
     		status = true;

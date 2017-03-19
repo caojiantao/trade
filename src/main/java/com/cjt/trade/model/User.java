@@ -5,18 +5,22 @@ public class User {
     private Integer id;
 
     private String name;
+    
+    private String password;
 
     private String nickName;
 
     private String postCode;
 
-    private String county;
+    private int county;
 
     private String address;
 
     private String phoneNumber;
 
     private String email;
+    
+    private String remark;
 
     public Integer getId() {
         return id;
@@ -50,19 +54,19 @@ public class User {
         this.postCode = postCode;
     }
 
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public int getCounty() {
+		return county;
+	}
+
+	public void setCounty(int county) {
+		this.county = county;
+	}
+
+	public void setAddress(String address) {
         this.address = address;
     }
 
@@ -81,4 +85,20 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cjt.trade.dao.IGoodsDao;
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.vo.GoodsVo;
@@ -56,5 +57,15 @@ public class GoodsServiceImpl implements IGoodsService {
 	@Override
 	public List<Goods> getHotGoods() {
 		return goodsDao.getHotGoods();
+	}
+
+	@Override
+	public List<Goods> getNewGoods(GoodsDto dto) {
+		return goodsDao.getNewGoods(dto);
+	}
+
+	@Override
+	public int getNewGoodsCount(GoodsDto dto) {
+		return goodsDao.getNewGoodsCount(dto);
 	}
 }

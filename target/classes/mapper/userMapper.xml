@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IUserDao">
+	<sql id="getUser">
+		SELECT
+			id,
+			name,
+			password,
+			nick_name 'nickName',
+			post_code 'postCode',
+			county,
+			address,
+			phone_number 'phoneNumber',
+			email,
+			remark
+		FROM
+			user
+	</sql>
+
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<select id="getUserByName" resultType="com.cjt.trade.model.User">
+		<include refid="getUser"/>
+		WHERE
+			name = #{name}
+	</select>
+	
+	<select id="getUserByNameAndPwd" resultType="com.cjt.trade.model.User">
+		<include refid="getUser"/>
+		WHERE
+			email = #{email}
+		AND password = #{password}
+	</select>
+	
+	<insert id="insertUser" parameterType="com.cjt.trade.model.User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `user` (
+			`name`,
+			nick_name,
+			post_code,
+			county,
+			address,
+			phone_number,
+			email,
+			remark
+		)
+		VALUES
+			(
+				#{name},
+				#{nickName},
+				#{postCode},
+				#{county},
+				#{address},
+				#{phoneNumber},
+				#{email},
+				#{remark}
+			)
+	</insert>
+	
+	<update id="updateUser" parameterType="com.cjt.trade.model.User">
+		UPDATE `user`
+		SET `name` = #{name},
+		 nick_name = #{nickName},
+		 password = #{password},
+		 post_code = #{postCode},
+		 county = #{county},
+		 address = #{address},
+		 phone_number = #{phoneNumber},
+		 remark = #{remark}
+		WHERE
+		 email = #{email}
+	</update>
+	
+	<select id="getUserByEmail" resultType="com.cjt.trade.model.User">
+		<include refid="getUser"/>
+		WHERE
+			email = #{email}
+	</select>
+</mapper>

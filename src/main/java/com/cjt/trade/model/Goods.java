@@ -5,10 +5,16 @@ public class Goods {
     private Integer id;
 
     private Integer tradeId;
+    
+    private String tradeName;
 
     private Integer brandId;
+    
+    private String brandName;
 
     private Integer productId;
+    
+    private String productName;
 
     private String number;
 
@@ -151,4 +157,28 @@ public class Goods {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
+	public String getTradeName() {
+		return tradeName;
+	}
+
+	public void setTradeName(String tradeName) {
+		this.tradeName = tradeName;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 }

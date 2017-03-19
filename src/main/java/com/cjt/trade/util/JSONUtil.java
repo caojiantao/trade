@@ -20,12 +20,6 @@ public class JSONUtil {
 	 */
 	public static JSONObject toGridJson(Object obj, int totalCount) {
 		JSONObject result = new JSONObject();
-		// 如果数据集对象为null做个特殊处理
-		if (obj == null) {
-			result.put("total", totalCount);
-			result.put("rows", null);
-			return result;
-		}
 		result.put("total", totalCount);
 		result.put("rows", obj);
 		return result;

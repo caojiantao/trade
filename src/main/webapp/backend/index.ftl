@@ -86,7 +86,7 @@
         <span class="backend-title">欢迎登入后台系统：${Session["account"]}</span>
         <div class="right-href">
             <a href="#">注销登录</a>
-            <a href="#">网站前台</a>
+            <a href="/front/build/index.action">网站前台</a>
         </div>
     </div>
     <div region="south" style="padding:5px;background:#EAEEF5;">

@@ -55,6 +55,6 @@
   </servlet-mapping>
   
   <welcome-file-list>
-    <welcome-file>/front/index.action</welcome-file>
+    <welcome-file>/front/build/index.action</welcome-file>
   </welcome-file-list>
 </web-app>

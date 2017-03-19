@@ -28,10 +28,20 @@
 		<property name="freemarkerVariables">
 			<map>
 				<entry key="xml_escape" value-ref="fmXmlEscape" />
+				<!-- 自定义页面组件地址 -->
+				<entry key="component" value="/front/component" />
+				<!-- 前台css地址 -->
+				<entry key="css" value="/front/build" />
+				<!-- 前台img地址 -->
+				<entry key="img" value="/front/img" />
+				<!-- 前台js地址 -->
+				<entry key="plugins" value="/front/plugins" />
+				
 			</map>
 		</property>
 	</bean>
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="freemakerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />

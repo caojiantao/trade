@@ -3,6 +3,7 @@ package com.cjt.trade.service;
 import java.util.List;
 
 import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.vo.GoodsVo;
 
@@ -28,4 +29,10 @@ public interface IGoodsService {
 	 * 获取首页热卖商品
 	 */
 	public List<Goods> getHotGoods();
+
+	/**
+	 * 获取最新添加的商品
+	 */
+	public List<Goods> getNewGoods(GoodsDto dto);
+	public int getNewGoodsCount(GoodsDto dto);
 }

@@ -7,8 +7,11 @@
 		SELECT
 			g.id 'id',
 			t.id 'tradeId',
+			t.name 'tradeName',
 			b.id 'brandId',
+			b.name 'brandName',
 			p.id 'productId',
+			p.name 'productName',
 			g.`name` 'name',
 			g.number 'number',
 			g.price 'price',
@@ -72,19 +75,7 @@
 	</delete>
 	
 	<select id="getAllGoods" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.GoodsVo">
-		SELECT
-			g.id 'id',
-			t.`name` 'tradeName',
-			b.`name` 'brandName',
-			p.`name` 'productName',
-			g.`name` 'name',
-			g.logo_url 'logoUrl',
-			g.update_time 'updateTime'
-		FROM
-			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		<include refid="getGoods" />
 		LIMIT #{start}, #{limit}
 	</select>
 	
@@ -133,5 +124,50 @@
 		<include refid="getGoods"></include>
 		WHERE
 			g.hot = 1
+	</select>
+	
+	<select id="getNewGoods" parameterType="com.cjt.trade.dto.GoodsDto" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+		<choose>
+	        <when test="type ==1">
+	            t.id = ${id}
+	        </when>
+	        <when test="type ==2">
+	            b.id = ${id}
+	        </when>
+	        <when test="type ==3">
+	            p.id = ${id}
+	        </when>
+	        <otherwise>
+	            1 = 1
+	        </otherwise>
+	    </choose>
+	    ORDER BY g.update_time DESC
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getNewGoodsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+		WHERE
+		<choose>
+	        <when test="type ==1">
+	            t.id = ${id}
+	        </when>
+	        <when test="type ==2">
+	            b.id = ${id}
+	        </when>
+	        <when test="type ==3">
+	            p.id = ${id}
+	        </when>
+	        <otherwise>
+	            1 = 1
+	        </otherwise>
+	    </choose>
 	</select>
 </mapper>

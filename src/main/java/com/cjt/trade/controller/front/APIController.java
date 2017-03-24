@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.cjt.trade.constant.GlobalConfig;
 import com.cjt.trade.dto.CartDto;
 import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
+import com.cjt.trade.model.Order;
 import com.cjt.trade.model.User;
 import com.cjt.trade.service.IGoodsService;
+import com.cjt.trade.service.IOrderService;
 import com.cjt.trade.service.IUserService;
 import com.cjt.trade.util.CookieUtil;
 
@@ -31,6 +34,9 @@ public class APIController {
 	
 	@Resource
 	private IUserService userService;
+	
+	@Resource
+	private IOrderService orderService;
 	
 	@RequestMapping(value="/getNewGoods.action")
 	@ResponseBody
@@ -76,26 +82,6 @@ public class APIController {
 		cookie.setPath("/");
 		// 添加或者覆盖cookie保存至客户端
 		response.addCookie(cookie);
-	}
-	
-	@RequestMapping(value="/getCart.action")
-	@ResponseBody
-	public JSONArray getCart(HttpServletRequest request){
-		Cookie cookie = CookieUtil.getCookieByName(CookieUtil.CART, request);
-		if (cookie == null) {
-			return null;
-		}
-		JSONArray array = JSONArray.parseArray(cookie.getValue());
-		JSONArray goodsArray = new JSONArray();
-		for (Object object : array) {
-			CartDto dto = (CartDto)object;
-			Goods goods = goodsService.getGoodsById(dto.getGoodsId());
-			JSONObject obj = new JSONObject();
-			obj.put("goods", goods);
-			obj.put("count", dto.getCount());
-			goodsArray.add(obj);
-		}
-		return goodsArray;
 	}
 	
 	@RequestMapping(value="/updateCart.action")
@@ -144,10 +130,11 @@ public class APIController {
 		if (user != null) {
 			String name = "email";
 			int second = 1000 * 60 * 60 * 24;
-			/*Cookie cookie = new Cookie(GlobalConfig.SESSION_ID, session.getId());
+			// session跟踪
+			Cookie cookie = new Cookie(GlobalConfig.SESSION_ID, session.getId());
     		cookie.setPath("/");
     		cookie.setMaxAge(second);
-    		response.addCookie(cookie);*/
+    		response.addCookie(cookie);
 			
 			session.setAttribute(name, user.getEmail());
 			session.setMaxInactiveInterval(second);
@@ -160,5 +147,39 @@ public class APIController {
 	public int updateUser(User user){
 		int status = userService.updateUser(user);
 		return status;
+	}
+	
+	@RequestMapping(value="/logout.action")
+	@ResponseBody
+	public void logout(HttpSession session, String email){
+		session.invalidate();
+	}
+	
+	@RequestMapping(value="/pay.action")
+	@ResponseBody
+	public boolean pay(HttpServletRequest request, HttpServletResponse response, User user){
+		Cookie cookie = CookieUtil.getCookieByName(CookieUtil.CART, request);
+		if (cookie != null) {
+			Order order = new Order();
+			// 存储订单信息至后台
+			JSONArray array = JSONArray.parseArray(cookie.getValue());
+			order.setName(user.getName());
+			order.setNickName(user.getNickName());
+			order.setPostCode(user.getPostCode());
+			order.setCounty(user.getCounty());
+			order.setAddress(user.getAddress());
+			order.setPhoneNumber(user.getPhoneNumber());
+			order.setEmail(user.getEmail());
+			order.setRemark(user.getRemark());
+			order.setGoodsJson(array.toJSONString());
+			orderService.addOrder(order);
+			
+			// 清空购物车
+			cookie.setPath("/");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+			return true;
+		}
+		return false;
 	}
 }

@@ -80,7 +80,7 @@ public class FrontController extends BaseController {
 	private IDictionaryService dictionaryService;
 	
 	@RequestMapping(value="/index.action")
-	public String index(Model model){
+	public String index(HttpSession session, Model model){
 		List<CategoryVo> vos = initFixModule(model);
 
 		scrollGoods(model);
@@ -97,6 +97,12 @@ public class FrontController extends BaseController {
 		PageInfo deliveryInfo = pageInfoService.getPageInfo(dto);
 		model.addAttribute("deliveryInfo", deliveryInfo);
 		
+		// 获取当前用户信息
+		String email = (String) session.getAttribute("email");
+		if (email != null && !"".equals(email)) {
+			User user = userService.getUserByEmail(email);
+			model.addAttribute("user", user);
+		}
 		return "front/build/index";
 	}
 	

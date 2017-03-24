@@ -8,9 +8,9 @@
 			<li><span>パスワード：</span>
 				<input id="password" type="password" class="ipt password">
 			</li>
-			<li><span>画像認証：</span>
+			<#-- <li><span>画像認証：</span>
 				<input type="text" class="validate"><img src="${img}/validate.jpg" alt="" class="vali-img">
-			</li>
+			</li> -->
 			<li>
 				<a href="javascript:login()"><img src="${img}/index_35.png" alt=""></a>
 				<a href="/register.action"><img src="${img}/index_38.png" alt=""></a>
@@ -20,9 +20,9 @@
 			</li>
 		</ul>
 		<ul class="login-2">
-			<li><em class="user">xiongdiao</em></li>
+			<li><em class="user">${user.email}</em></li>
 			<li>
-				<a href="javascript:info()"><img src="${img}/index_36.png" alt=""></a>
+				<a href="/user.action"><img src="${img}/index_36.png" alt=""></a>
 				<a href="javascript:loginout()"><img src="${img}/index_37.png" alt=""></a>
 			</li>
 		</ul>
@@ -30,6 +30,13 @@
 </div>
 
 <script>
+	$(function(){
+		<#if user != null>
+			$("ul.login-1").css("display", "none");
+			$("ul.login-2").css("display", "block");
+		</#if>
+	});
+
 	function login(){
 		$.ajax({
 			url:"/api/login.action",
@@ -43,6 +50,18 @@
 				} else {
 					alert("密码错误！");
 				}
+			}
+		});
+	}
+	
+	function loginout(){
+		$.ajax({
+			url:"/api/logout.action",
+			data:{
+				email:$("em.user").val()
+			},
+			success:function(user){
+				window.location.reload();
 			}
 		});
 	}

@@ -36,6 +36,7 @@
 	<insert id="insertUser" parameterType="com.cjt.trade.model.User" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO `user` (
 			`name`,
+			password,
 			nick_name,
 			post_code,
 			county,
@@ -47,6 +48,7 @@
 		VALUES
 			(
 				#{name},
+				#{password},
 				#{nickName},
 				#{postCode},
 				#{county},
@@ -61,7 +63,6 @@
 		UPDATE `user`
 		SET `name` = #{name},
 		 nick_name = #{nickName},
-		 password = #{password},
 		 post_code = #{postCode},
 		 county = #{county},
 		 address = #{address},

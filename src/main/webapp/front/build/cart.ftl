@@ -136,7 +136,7 @@
 					</table>
 				</div>
 				<div class="end">
-					<input type="image" src="${img}/index_39.png">
+					<input type="image" src="${img}/index_39.png" onclick="pay()">
 				</div>
 			<#include "${component}/footer.ftl" />
 		</div>
@@ -184,6 +184,8 @@
 			});
 			
 			initUserInfo();
+			
+			$(".vip").css("display", "none");
 		});
 		
 		//字符串取数字
@@ -222,7 +224,7 @@
 		}
 		
 		function decide(){
-
+			$(".vip").css("display", "block");
 		}
 		
 		function initUserInfo(){
@@ -236,6 +238,25 @@
 				$("input[name='mail']").val("${user.email}");
 				$("textarea[name='remark']").val("${user.remark}");
 			</#if>
+		}
+		
+		function pay(){
+			$.ajax({
+				url:"/api/pay.action",
+				data:{
+					name: $("input[name='name']").val(),
+					nickName: $("input[name='xing']").val(),
+					postCode: $("input[name='postcart']").val(),
+					county: $("select[name='county']").val(),
+					address: $("input[name='address']").val(),
+					phoneNumber: $("input[name='tel']").val(),
+					email: $("input[name='mail']").val(),
+					remark: $("textarea[name='remark']").val()
+				},
+				success: function(){
+					alert("成功!!");
+				}
+			});
 		}
 	</script>
 </html>

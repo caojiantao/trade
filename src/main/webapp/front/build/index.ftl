@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<link rel="stylesheet" type="text/css" href="${css}/kopi6.min.css">
 	</head>
+	<script src="${plugins}/jquery-1.12.4/jquery.1.12.4.min.js"></script>
 	<body class="index">
 		<div class="wrap-1000">
 				<#include "${component}/header.ftl">
@@ -13,31 +14,6 @@
 					<div class="box"><a href="" class="active"><img src="${img}/201638175611.jpg" alt=""></a><a href=""><img src="${img}/201638175220.jpg" alt=""></a><a href=""><img src="${img}/201638175892.jpg" alt=""></a></div>
 					<div class="list fn-right"><span class="active"><img src="${img}/201638175611.jpg" alt=""></span><span><img src="${img}/201638175220.jpg" alt=""></span><span><img src="${img}/201638175892.jpg" alt=""></span></div>
 				</div>
-				<script>
-					function switchPic(_a,_b) {
-						_a.each(function(ele,i) {
-						var _this = $(this);
-							if(_this.hasClass('active')) {
-								var _index = _a.index(_this);
-								var b_this = _b.eq(_index);
-								b_this.addClass('active').siblings().removeClass('active');
-							}
-						})
-					}
-					
-					function intv(_a,_b) {
-						var c = _a.filter(function() {
-							return $(this).hasClass('active');
-						});
-						if (_a.index(c) < _a.length - 1) {
-							c.removeClass('active').next().addClass('active');
-						} else {
-							c.removeClass('active');
-							_a.eq(0).addClass('active');
-						}
-						switchPic(_a,_b);
-					}
-				</script>
 				<div class="_search-list border fn-clear">ブランド:
 					<select class="brands">
 						<option value="">選択します</option>
@@ -163,7 +139,6 @@
 			<#include "${component}/footer.ftl" />
 		</div>
 	</body>
-	<script src="${plugins}/jquery-1.12.4/jquery.1.12.4.min.js"></script>
 	<script src="${plugins}/common.js"></script>
 		<script>
 			function switchPic(_a,_b) {

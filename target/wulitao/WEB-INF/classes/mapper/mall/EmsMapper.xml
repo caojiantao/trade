@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IEmsDao">
+	<sql id="getEms">
+		SELECT
+			id,
+			name,
+			ems_no 'emsNo',
+			title,
+			keyword,
+			summary,
+			content
+		FROM
+			`ems`
+	</sql>
+	
+	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
+	<insert id="insertEms" parameterType="com.cjt.trade.model.Ems">
+		INSERT INTO `ems` (
+			name,
+			ems_no,
+			title,
+			keyword,
+			summary,
+			content
+		)
+		VALUES
+			(
+				#{name},
+				#{emsNo},
+				#{title},
+				#{keyword},
+				#{summary},
+				#{content}
+			)
+	</insert>
+	
+	<select id="getAllEms" resultType="com.cjt.trade.model.Ems" parameterType="com.cjt.trade.dto.BaseDto">
+		<include refid="getEms" />
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllEmsCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ems
+	</select>
+	
+	<select id="getEmsById" resultType="com.cjt.trade.model.Ems">
+		<include refid="getEms" />
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateEms" parameterType="com.cjt.trade.model.Ems">
+		UPDATE `ems`
+		SET 
+			name = #{name},
+			ems_no = #{emsNo},
+			title = #{title},
+			keyword = #{keyword},
+			summary = #{summary},
+			content = #{content}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteEmsById">
+		DELETE
+		FROM
+			`ems`
+		WHERE
+			`id` = #{id}
+	</delete>
+</mapper>

@@ -27,6 +27,11 @@ public class CategoryServiceImpl implements ICategoryService {
 		// 获取所有product
 		List<ProductVo> productVos = productDao.getAllProducts(new BaseDto());
 		for (ProductVo productVo : productVos) {
+			// 初始化三级菜单，不可再分（product）
+			BaseMenuVo subItem = new BaseMenuVo();
+			subItem.setId(productVo.getId());
+			subItem.setTitle(productVo.getName());
+			
 			// 第一步检测一级菜单是否已经添加
 			CategoryVo categoryVo = null;
 			for (CategoryVo vo : vos) {
@@ -36,10 +41,6 @@ public class CategoryServiceImpl implements ICategoryService {
 					break;
 				}
 			}
-			// 初始化三级菜单（product）
-			BaseMenuVo subItem = new BaseMenuVo();
-			subItem.setId(productVo.getId());
-			subItem.setTitle(productVo.getName());
 			if (categoryVo != null) {
 				// 第二步检测二级菜单是否已经添加
 				List<Item> items = categoryVo.getItems();
@@ -62,18 +63,19 @@ public class CategoryServiceImpl implements ICategoryService {
 					categoryVo.getItems().add(item);
 				}
 			} else {
-				// 然后new一个二级菜单（brand）
-				Item item = new Item();
-				item.setId(productVo.getBrandId());
-				item.setTitle(productVo.getBrandName());
-				item.getSubItems().add(subItem);
-				
 				// 若没有添加，则new一个一级菜单（trade）
 				CategoryVo vo = new CategoryVo();
 				vo.setId(productVo.getTradeId());
 				vo.setTitle(productVo.getTradeName());
-				vo.getItems().add(item);
 				
+				// 然后new一个二级菜单（brand）
+				Item item = new Item();
+				item.setId(productVo.getBrandId());
+				item.setTitle(productVo.getBrandName());
+				
+				// 逐级添加
+				item.getSubItems().add(subItem);
+				vo.getItems().add(item);
 				vos.add(vo);
 			}
 		}

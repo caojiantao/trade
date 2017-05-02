@@ -1,8 +1,12 @@
 package com.cjt.trade.model;
 
+import java.util.Date;
+
 public class Order {
 	
     private Integer id;
+    
+    private String no;
 
     private String name;
 
@@ -22,7 +26,11 @@ public class Order {
     
     private String emsNo;
     
+    private Double totalPrice;
+    
     private String goodsJson;
+    
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -110,5 +118,29 @@ public class Order {
 
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
+	}
+
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

@@ -75,6 +75,6 @@ public class GoodsVo {
 
 	public void setUpdateTime(String updateTime) {
 		// 解决直接读取数据库时间后缀.0
-		this.updateTime = updateTime.replace(".0", "");
+		this.updateTime = updateTime.substring(0, updateTime.length() - 2);
 	}
 }

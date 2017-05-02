@@ -16,7 +16,7 @@ function getTrade(){
 	if(tradeSel == undefined) return;
 	$.ajax({
 	    type: "get",
-	    url: "getAllTradesOpt.action",
+	    url: "/api/getAllTradesOpt.action",
 	    async: false,
 	    dataType: "json",
 	    success: function (opts) {
@@ -44,7 +44,7 @@ function getBrandByTradeId(tradeId){
 	if(brandSel == undefined) return;
 	$.ajax({
 	    type: "get",
-	    url: "getAllBrandsOptByTradeId.action",
+	    url: "/api/getAllBrandsOptByTradeId.action",
 	    async: false,
 	    dataType: "json",
 	    data:{
@@ -81,7 +81,7 @@ function getProductByBrandId(brandId){
 	if(productSel == undefined) return;
 	$.ajax({
 	    type: "get",
-	    url: "getAllProductsOptByBrandId.action",
+	    url: "/api/getAllProductsOptByBrandId.action",
 	    async: false,
 	    dataType: "json",
 	    data:{

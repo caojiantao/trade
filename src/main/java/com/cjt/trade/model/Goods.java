@@ -1,5 +1,7 @@
 package com.cjt.trade.model;
 
+import java.util.Date;
+
 public class Goods {
 	
     private Integer id;
@@ -37,6 +39,10 @@ public class Goods {
     private String logoRealUrl;
     
     private String content;
+    
+    private Date updateTime;
+    
+    private int browseTimes;
 
     public String getLogoRealUrl() {
 		return logoRealUrl;
@@ -180,5 +186,21 @@ public class Goods {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public int getBrowseTimes() {
+		return browseTimes;
+	}
+
+	public void setBrowseTimes(int browseTimes) {
+		this.browseTimes = browseTimes;
 	}
 }

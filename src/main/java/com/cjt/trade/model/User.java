@@ -1,5 +1,7 @@
 package com.cjt.trade.model;
 
+import java.util.Date;
+
 public class User {
 	
     private Integer id;
@@ -21,6 +23,8 @@ public class User {
     private String email;
     
     private String remark;
+    
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -100,5 +104,13 @@ public class User {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

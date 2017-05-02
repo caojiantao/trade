@@ -33,6 +33,10 @@ public interface IGoodsService {
 	/**
 	 * 获取最新添加的商品
 	 */
-	public List<Goods> getNewGoods(GoodsDto dto);
-	public int getNewGoodsCount(GoodsDto dto);
+	public List<Goods> listLatestGoods();
+	public List<Goods> listLatestGoods(GoodsDto dto);
+	public int countLatestGoods(GoodsDto dto);
+
+	int getLastGoodsIdById(int id);
+	int getNextGoodsIdById(int id);
 }

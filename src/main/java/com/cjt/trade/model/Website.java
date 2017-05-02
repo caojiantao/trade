@@ -27,6 +27,8 @@ public class Website {
     private String goodsDetailBottom;
 
     private String goodsDetailRight;
+    
+    private String introduction;
 
     public Integer getId() {
         return id;
@@ -130,5 +132,13 @@ public class Website {
 
 	public void setGoodsDetailRight(String goodsDetailRight) {
 		this.goodsDetailRight = goodsDetailRight;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 }

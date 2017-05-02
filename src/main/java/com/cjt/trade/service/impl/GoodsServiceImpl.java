@@ -60,12 +60,27 @@ public class GoodsServiceImpl implements IGoodsService {
 	}
 
 	@Override
-	public List<Goods> getNewGoods(GoodsDto dto) {
-		return goodsDao.getNewGoods(dto);
+	public List<Goods> listLatestGoods() {
+		return listLatestGoods(null);
 	}
 
 	@Override
-	public int getNewGoodsCount(GoodsDto dto) {
-		return goodsDao.getNewGoodsCount(dto);
+	public List<Goods> listLatestGoods(GoodsDto dto) {
+		return goodsDao.listLatestGoods(dto);
+	}
+
+	@Override
+	public int countLatestGoods(GoodsDto dto) {
+		return goodsDao.countLatestGoods(dto);
+	}
+
+	@Override
+	public int getLastGoodsIdById(int id) {
+		return goodsDao.getLastGoodsIdById(id);
+	}
+
+	@Override
+	public int getNextGoodsIdById(int id) {
+		return goodsDao.getNextGoodsIdById(id);
 	}
 }

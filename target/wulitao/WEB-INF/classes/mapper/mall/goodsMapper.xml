@@ -3,34 +3,69 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IGoodsDao">
+	<sql id="getGoods">
+		SELECT
+			g.id 'id',
+			t.id 'tradeId',
+			t.name 'tradeName',
+			b.id 'brandId',
+			b.name 'brandName',
+			p.id 'productId',
+			p.name 'productName',
+			g.`name` 'name',
+			g.number 'number',
+			g.price 'price',
+			g.scroll scroll,
+			g.hot hot,
+			g.title 'title',
+			g.keyword 'keyword',
+			g.description 'description',
+			g.logo_real_url 'logoRealUrl',
+			g.logo_url 'logoUrl',
+			g.content 'content',
+			g.update_time 'updateTime',
+			g.browse_times 'browseTimes'
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+	</sql>
+
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<insert id="insertGoods" parameterType="com.cjt.trade.model.Goods">
 		INSERT INTO goods (
 			product_id,
 			number,
 			`name`,
-			price,
 			title,
+			price,
+			scroll,
+			hot,
 			keyword,
 			description,
 			logo_url,
 			logo_real_url,
 			content,
-			update_time
+			update_time,
+			browse_times
 		)
 		VALUES
 			(
 				#{productId},
 				#{number},
 				#{name},
-				#{price},
 				#{title},
+				#{price},
+				#{scroll},
+				#{hot},
 				#{keyword},
 				#{description},
 				#{logoUrl},
 				#{logoRealUrl},
 				#{content},
-				CURRENT_TIMESTAMP
+				CURRENT_TIMESTAMP,
+				#{browseTimes}
 			)
 	</insert>
 	
@@ -43,19 +78,7 @@
 	</delete>
 	
 	<select id="getAllGoods" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.GoodsVo">
-		SELECT
-			g.id 'id',
-			t.`name` 'tradeName',
-			b.`name` 'brandName',
-			p.`name` 'productName',
-			g.`name` 'name',
-			g.logo_url 'logoUrl',
-			g.update_time 'updateTime'
-		FROM
-			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		<include refid="getGoods" />
 		LIMIT #{start}, #{limit}
 	</select>
 	
@@ -67,25 +90,7 @@
 	</select>
 	
 	<select id="getGoodsById" parameterType="int" resultType="com.cjt.trade.model.Goods">
-		SELECT
-			g.id 'id',
-			t.id 'tradeId',
-			b.id 'brandId',
-			p.id 'productId',
-			g.`name` 'name',
-			g.price 'price',
-			g.title 'title',
-			g.keyword 'keyword',
-			g.description 'description',
-			g.logo_real_url 'logoRealUrl',
-			g.logo_url 'logoUrl',
-			g.content 'content',
-			g.update_time 'updateTime'
-		FROM
-			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		<include refid="getGoods"></include>
 		WHERE
 			g.id = #{id}
 	</select>
@@ -95,8 +100,11 @@
 		SET 
 			product_id = #{productId},
 			`name` = #{name},
-			price = #{price},
+			number = #{number},
 			title = #{title},
+			price = #{price},
+			scroll = #{scroll},
+			hot = #{hot},
 			keyword = #{keyword},
 			description = #{description},
 		 	<if test="logoUrl != null and logoRealUrl != null">
@@ -104,8 +112,108 @@
 				logo_real_url = #{logoRealUrl},
 			</if>
 			content = #{content},
-			update_time = CURRENT_TIMESTAMP
+			update_time = CURRENT_TIMESTAMP,
+			browse_times = #{browseTimes}
 		WHERE
 			id = #{id}
 	</update>
+	
+	<select id="getScrollGoods" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+			g.scroll = 1
+	</select>
+	
+	<select id="getHotGoods" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+			g.hot = 1
+	</select>
+	
+	<select id="listLatestGoods" parameterType="com.cjt.trade.dto.GoodsDto" resultType="com.cjt.trade.model.Goods">
+		<include refid="getGoods"></include>
+		WHERE
+		1 = 1
+        <if test="tradeId != null and tradeId != 0">
+            AND t.id = ${tradeId}
+		</if>
+        <if test="brandId != null and brandId != 0">
+            AND b.id = ${brandId}
+		</if>
+        <if test="productId != null and productId != 0">
+            AND p.id = ${productId}
+		</if>
+		<if test="lowestPrice != null and lowestPrice != 0">
+			<![CDATA[
+	            AND g.price >= ${lowestPrice}
+			]]>
+		</if>
+		<if test="highestPrice != null and highestPrice != 0">
+			<![CDATA[
+	            AND g.price <= ${highestPrice}
+			]]>
+		</if>
+        <if test="keyword != null and keyword != ''">
+			AND g.keyword like '%${keyword}%'
+		</if>
+	    ORDER BY g.update_time DESC
+	    <if test="limit != null and limit != 0">
+			LIMIT #{start}, #{limit}
+	    </if>
+	</select>
+	
+	<select id="countLatestGoods" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			goods g
+		LEFT JOIN product p ON g.product_id = p.id
+		LEFT JOIN brand b ON p.brand_id = b.id
+		LEFT JOIN trade t ON b.trade_id = t.id
+		WHERE
+		1 = 1
+        <if test="tradeId != null and tradeId != 0">
+            AND t.id = ${tradeId}
+		</if>
+        <if test="brandId != null and brandId != 0">
+            AND b.id = ${brandId}
+		</if>
+        <if test="productId != null and productId != 0">
+            AND p.id = ${productId}
+		</if>
+		<if test="lowestPrice != null and lowestPrice != 0">
+			<![CDATA[
+	            AND g.price >= ${lowestPrice}
+			]]>
+		</if>
+		<if test="highestPrice != null and highestPrice != 0">
+			<![CDATA[
+	            AND g.price <= ${highestPrice}
+			]]>
+		</if>
+        <if test="keyword != null and keyword != ''">
+			AND g.keyword like '%${keyword}%'
+		</if>
+	</select>
+	
+	<select id="getLastGoodsIdById" parameterType="int" resultType="int">
+		SELECT
+			IFNULL(MAX(id), 0)
+		FROM
+			goods
+		WHERE
+		<![CDATA[
+			id < #{id}
+		]]>
+	</select>
+	
+	<select id="getNextGoodsIdById" parameterType="int" resultType="int">
+		SELECT
+			IFNULL(MIN(id), 0)
+		FROM
+			goods
+		WHERE
+		<![CDATA[
+			id > #{id}
+		]]>
+	</select>
 </mapper>

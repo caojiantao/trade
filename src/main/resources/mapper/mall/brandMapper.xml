@@ -8,6 +8,7 @@
 		INSERT INTO brand (
 			trade_id,
 			`name`,
+			`show`,
 			`order`,
 			title,
 			keyword,
@@ -20,6 +21,7 @@
 			(
 				#{tradeId},
 				#{name},
+				#{show},
 				#{order},
 				#{title},
 				#{keyword},
@@ -41,8 +43,10 @@
 	<select id="getAllBrands" parameterType="com.cjt.trade.dto.BaseDto" resultType="com.cjt.trade.vo.BrandVo">
 		SELECT
 			b.id 'id',
+			b.trade_id 'tradeId',
 			t.name 'tradeName',
 			b.`name` 'name',
+			b.`show` 'show',
 			b.`order` 'order',
 			b.title 'title',
 			b.keyword 'keyword',
@@ -69,6 +73,7 @@
 			b.trade_id 'tradeId',
 			t.name 'tradeName',
 			b.`name` 'name',
+			b.`show` 'show',
 			b.`order` 'order',
 			b.title 'title',
 			b.keyword 'keyword',
@@ -88,6 +93,7 @@
 		SET 
 			trade_id = #{tradeId},
 			`name` = #{name},
+			`show` = #{show},
 			`order` = #{order},
 			title = #{title},
 			keyword = #{keyword},
@@ -109,5 +115,27 @@
 			brand
 		WHERE
 			trade_id = #{tradeId}
+	</select>
+	
+	<select id="listShowBrands" resultType="com.cjt.trade.model.Brand">
+		SELECT
+			b.id 'id',
+			b.trade_id 'tradeId',
+			t.name 'tradeName',
+			b.`name` 'name',
+			b.`show` 'show',
+			b.`order` 'order',
+			b.title 'title',
+			b.keyword 'keyword',
+			b.description 'description',
+			b.logo_url 'logoUrl',
+			b.logo_real_url 'logoRealUrl',
+			b.content 'content'
+		FROM
+			brand b
+		LEFT JOIN trade t ON b.trade_id = t.id
+		WHERE
+			`show` = 1
+		ORDER BY b.`order`
 	</select>
 </mapper>

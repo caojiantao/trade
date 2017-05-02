@@ -22,4 +22,5 @@ public interface GlobalConfig {
 	public static final String UPLOAD_BRAND = "brand";
 	public static final String UPLOAD_PRODUCT = "product";
 	public static final String UPLOAD_GOODS = "goods";
+	public static final String UPLOAD_ADS = "advertisement";
 }

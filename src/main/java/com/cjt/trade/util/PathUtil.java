@@ -38,6 +38,10 @@ public class PathUtil implements GlobalConfig{
 		return getRootPath() + File.separatorChar + UPLOAD_GOODS;
 	}
 	
+	public static String getAdsPath() {
+		return getRootPath() + File.separatorChar + UPLOAD_ADS;
+	}
+	
 	/**
 	 * 获取“网站logo”的url地址(例/upload/)
 	 */
@@ -64,5 +68,9 @@ public class PathUtil implements GlobalConfig{
 	 */
 	public static String getGoodsUrlPath(){
 		return getLogoUrlPath() + UPLOAD_GOODS + "/";
+	}
+
+	public static String getAdsUrlPath(){
+		return getLogoUrlPath() + UPLOAD_ADS + "/";
 	}
 }

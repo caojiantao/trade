@@ -14,10 +14,23 @@
 			address,
 			phone_number 'phoneNumber',
 			email,
-			remark
+			remark,
+			create_time 'createTime'
 		FROM
 			user
 	</sql>
+	
+	<select id="getAllUsers" resultType="com.cjt.trade.model.User" parameterType="com.cjt.trade.dto.BaseDto">
+		<include refid="getUser" />
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllUsersCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			user
+	</select>
 
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<select id="getUserByName" resultType="com.cjt.trade.model.User">
@@ -43,7 +56,8 @@
 			address,
 			phone_number,
 			email,
-			remark
+			remark,
+			create_time
 		)
 		VALUES
 			(
@@ -55,7 +69,8 @@
 				#{address},
 				#{phoneNumber},
 				#{email},
-				#{remark}
+				#{remark},
+				CURRENT_TIMESTAMP
 			)
 	</insert>
 	
@@ -67,7 +82,8 @@
 		 county = #{county},
 		 address = #{address},
 		 phone_number = #{phoneNumber},
-		 remark = #{remark}
+		 remark = #{remark},
+		 create_time = CURRENT_TIMESTAMP
 		WHERE
 		 email = #{email}
 	</update>
@@ -77,4 +93,12 @@
 		WHERE
 			email = #{email}
 	</select>
+	
+	<delete id="deleteUserByEmail">
+		DELETE
+		FROM
+			user
+		WHERE
+			email = #{email}
+	</delete>
 </mapper>

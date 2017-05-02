@@ -1,8 +1,11 @@
 package com.cjt.trade.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.User;
 
 /**
@@ -23,4 +26,9 @@ public interface IUserDao {
 	User getUserByNameAndPwd(@Param(value="email")String email, @Param(value="password")String password);
 	
 	User getUserByEmail(String email);
+	
+	List<User> getAllUsers(BaseDto dto);
+	int getAllUsersCount();
+	
+	int deleteUserByEmail(String email);
 }

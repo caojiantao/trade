@@ -54,4 +54,8 @@ public class BrandServiceImpl implements IBrandService {
 		return brandDao.getAllBrandsOptByTradeId(tradeId);
 	}
 
+	@Override
+	public List<Brand> listShowBrands() {
+		return brandDao.listShowBrands();
+	}
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
-import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Trade;
 import com.cjt.trade.service.ITradeService;
 import com.cjt.trade.util.JSONUtil;
@@ -43,15 +42,6 @@ public class TradeController extends BaseController {
 		List<TradeVo> vos = tradeService.getAllTrades(dto);
 		int count = tradeService.getAllTradesCount(dto);
 		return JSONUtil.toGridJson(vos, count);
-	}
-	
-	/**
-	 * 获取所有“商品行业”下拉框选项，自动封装为json
-	 */
-	@RequestMapping(value = "getAllTradesOpt.action")
-	@ResponseBody
-	public List<MapModel> getAllTradesOpt(){
-		return tradeService.getAllTradesOpt();
 	}
 	
 	@RequestMapping(value = "addTrade.action")

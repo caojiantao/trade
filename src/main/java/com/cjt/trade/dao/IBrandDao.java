@@ -24,4 +24,6 @@ public interface IBrandDao {
 	public Brand getBrandById(int id);
 	
 	public int updateBrand(Brand brand);
+	
+	List<Brand> listShowBrands();
 }

@@ -12,30 +12,36 @@ import com.cjt.trade.vo.GoodsVo;
 @Repository
 public interface IGoodsDao {
 
-	public int insertGoods(Goods product);
+	int insertGoods(Goods product);
 	
-	public int deleteGoods(int id);
+	int deleteGoods(int id);
 	
-	public List<GoodsVo> getAllGoods(BaseDto dto);
-	public int getAllGoodsCount(BaseDto dto);
+	List<GoodsVo> getAllGoods(BaseDto dto);
+	int getAllGoodsCount(BaseDto dto);
 	
-	public Goods getGoodsById(int id);
+	Goods getGoodsById(int id);
 	
-	public int updateGoods(Goods product);
+	int updateGoods(Goods product);
 	
 	/**
 	 * 获取首页滚动商品
 	 */
-	public List<Goods> getScrollGoods();
+	List<Goods> getScrollGoods();
 	
 	/**
 	 * 获取首页热卖商品
 	 */
-	public List<Goods> getHotGoods();
+	List<Goods> getHotGoods();
 	
 	/**
 	 * 获取最新添加的所有商品，或者是某一类行业（trade）
 	 */
-	public List<Goods> getNewGoods(GoodsDto dto);
-	public int getNewGoodsCount(GoodsDto dto);
+	List<Goods> listLatestGoods(GoodsDto dto);
+	int countLatestGoods(GoodsDto dto);
+	
+	/**
+	 * 获取当前商品前后商品id
+	 */
+	int getLastGoodsIdById(int id);
+	int getNextGoodsIdById(int id);
 }

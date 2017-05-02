@@ -2,29 +2,66 @@ package com.cjt.trade.dto;
 
 public class GoodsDto extends BaseDto {
 
-	/**
-	 * 类型（0：商品一览；1：行业；2：品牌；3：产品）
-	 */
-	private int type;
+	
+	private int tradeId;
+	
+	private int brandId;
+	
+	private int productId;
+	
+	private double lowestPrice;
+	private double highestPrice;
 	
 	/**
-	 * 类型id
+	 * 关键字
 	 */
-	private int id;
+	private String keyword;
 
-	public int getType() {
-		return type;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
-	public int getId() {
-		return id;
+	public int getTradeId() {
+		return tradeId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setTradeId(int tradeId) {
+		this.tradeId = tradeId;
+	}
+
+	public int getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(int brandId) {
+		this.brandId = brandId;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public double getLowestPrice() {
+		return lowestPrice;
+	}
+
+	public void setLowestPrice(double lowestPrice) {
+		this.lowestPrice = lowestPrice;
+	}
+
+	public double getHighestPrice() {
+		return highestPrice;
+	}
+
+	public void setHighestPrice(double highestPrice) {
+		this.highestPrice = highestPrice;
 	}
 }

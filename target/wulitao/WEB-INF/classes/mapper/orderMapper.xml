@@ -3,65 +3,104 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IOrderDao">
+	<sql id="getOrder">
+		SELECT
+			id,
+			no,
+			name,
+			nick_name 'nickName',
+			post_code 'postCode',
+			county,
+			address,
+			phone_number 'phoneNumber',
+			email,
+			remark,
+			ems_no 'emsNo',
+			total_price totalPrice,
+			goods_json 'goodsJson',
+			create_time 'createTime'
+		FROM
+			`order`
+	</sql>
+	
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<insert id="insertOrder" parameterType="com.cjt.trade.model.Order">
 		INSERT INTO `order` (
-			delivery_name,
+			no,
+			name,
+			nick_name,
+			post_code,
+			county,
+			address,
+			phone_number,
+			email,
+			remark,
 			ems_no,
-			title,
-			keyword,
-			description,
-			content
+			total_price,
+			goods_json,
+			create_time
 		)
 		VALUES
-			(#{deliveryName}, #{emsNo}, #{title}, #{keyword}, #{description}, #{content})
+			(
+				#{no},
+				#{name},
+				#{nickName},
+				#{postCode},
+				#{county},
+				#{address},
+				#{phoneNumber},
+				#{email},
+				#{remark},
+				#{emsNo},
+				#{totalPrice},
+				#{goodsJson},
+				CURRENT_TIMESTAMP
+			)
 	</insert>
 	
-	<select id="getAllOrders" resultType="com.cjt.trade.model.Order">
+	<select id="getAllOrders" resultType="com.cjt.trade.vo.OrderVo" parameterType="com.cjt.trade.dto.BaseDto">
 		SELECT
-			id 'id',
-			user_id 'userId',
-			goods_id 'goodsId',
-			delivery_name 'deliveryName',
-			delivery_address 'deliveryAddress',
+			id,
+			no,
+			name,
+			email,
 			ems_no 'emsNo',
-			title 'title',
-			keyword 'keyword',
-			description 'description',
-			content 'content'
+			total_price totalPrice,
+			create_time 'createTime'
+		FROM
+			`order`
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllOrdersCount" resultType="int">
+		SELECT
+			COUNT(*)
 		FROM
 			`order`
 	</select>
 	
 	<select id="getOrderById" resultType="com.cjt.trade.model.Order">
-		SELECT
-			id 'id',
-			user_id 'userId',
-			goods_id 'goodsId',
-			delivery_name 'deliveryName',
-			delivery_address 'deliveryAddress',
-			ems_no 'emsNo',
-			title 'title',
-			keyword 'keyword',
-			description 'description',
-			content 'content'
-		FROM
-			`order`
+		<include refid="getOrder" />
 		WHERE
 			id = #{id}
 	</select>
 	
 	<update id="updateOrder" parameterType="com.cjt.trade.model.Order">
 		UPDATE `order`
-		SET user_id = #{userId},
-		 goods_id = #{goodsId},
-		 delivery_name = #{deliveryName},
-		 delivery_address = #{deliveryAddress},
-		 ems_no = #{emsNo},
-		 title = #{title},
-		 keyword = #{keyword},
-		 description = #{description},
-		 content = #{content}
+		SET 
+			no = #{no},
+			name = #{name},
+			nick_name = #{nickName},
+			post_code = #{postCode},
+			county = #{county},
+			address = #{address},
+			phone_number = #{phoneNumber},
+			email = #{email},
+			remark = #{remark},
+			ems_no = #{emsNo},
+			total_price = #{totalPrice},
+			goods_json = #{goodsJson},
+			create_time = CURRENT_TIMESTAMP
 		WHERE
 			id = #{id}
 	</update>

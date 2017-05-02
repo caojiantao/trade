@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Brand;
-import com.cjt.trade.model.MapModel;
 import com.cjt.trade.service.IBrandService;
 import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
@@ -42,12 +41,6 @@ public class BrandController extends BaseController {
 		List<BrandVo> vos = brandService.getAllBrands(dto);
 		int count = brandService.getAllBrandsCount(dto);
 		return JSONUtil.toGridJson(vos, count);
-	}
-	
-	@RequestMapping(value = "getAllBrandsOptByTradeId.action")
-	@ResponseBody
-	public List<MapModel> getAllBrandsOptByTradeId(int tradeId){
-		return brandService.getAllBrandsOptByTradeId(tradeId);
 	}
 	
 	@RequestMapping(value = "addBrand.action")

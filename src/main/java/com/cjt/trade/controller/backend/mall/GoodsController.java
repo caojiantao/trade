@@ -44,7 +44,7 @@ public class GoodsController extends BaseController{
 	}
 	
 	@RequestMapping(value = "addGoods.action")
-	public String addgoods(MultipartFile file, Goods goods, Model model) {
+	public String addGoods(MultipartFile file, Goods goods, Model model) {
 		setLogoUrl(file, goods);
 		int lines = goodsService.insertGoods(goods);
 		if (lines > 0) {

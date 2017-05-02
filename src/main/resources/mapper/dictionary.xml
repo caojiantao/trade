@@ -6,10 +6,10 @@
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<select id="getOptsBySetId" resultType="map">
 		SELECT
-			value_id 'key',
-			value_name 'value'
+			id 'key',
+			description 'value'
 		FROM
-			dictionary
+			code_value
 		WHERE
 			set_id = #{setId}
 	</select>

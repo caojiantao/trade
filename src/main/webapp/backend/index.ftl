@@ -86,7 +86,7 @@
         <span class="backend-title">欢迎登入后台系统：${Session["account"]}</span>
         <div class="right-href">
             <a href="#">注销登录</a>
-            <a href="/front/build/index.action">网站前台</a>
+            <a href="/" target="_blank">网站前台</a>
         </div>
     </div>
     <div region="south" style="padding:5px;background:#EAEEF5;">
@@ -117,9 +117,15 @@
                         </ul>
                     </li>
                     <li state='closed'>
+                        <span>用户反馈</span>
+                        <ul>
+                            <li><a href="javascript:addTab('用户反馈','feedback.action')">用户反馈</a></li>
+                        </ul>
+                    </li>
+                    <li state='closed'>
                         <span>广告管理</span>
                         <ul>
-                            <li>广告列表</li>
+                            <li><a href="javascript:addTab('广告列表','advertisementList.action')">广告列表</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -164,20 +170,20 @@
                     <li state='closed'>
                         <span>订单管理</span>
                         <ul>
-                            <li>订单列表</li>
+                            <li><a href="javascript:addTab('订单列表','orderList.action')">订单列表</a></li>
                         </ul>
                     </li>
                     <li state='closed'>
                         <span>用户管理</span>
                         <ul>
-                            <li>用户列表</li>
+                            <li><a href="javascript:addTab('用户列表','userList.action')">用户列表</a></li>
                         </ul>
                     </li>
                     <li state='closed'>
                         <span>EMS管理</span>
                         <ul>
-                            <li><a href="javascript:addTab('追踪列表','orderList.action')">追踪列表</a></li>
-                            <li><a href="javascript:addTab('追踪添加','orderAdd.action')">追踪添加</a></li>
+                            <li><a href="javascript:addTab('追踪列表','emsList.action')">追踪列表</a></li>
+                            <li><a href="javascript:addTab('追踪添加','emsAdd.action')">追踪添加</a></li>
                         </ul>
                     </li>
             </div>

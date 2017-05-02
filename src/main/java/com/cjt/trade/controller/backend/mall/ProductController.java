@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.BaseDto;
-import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
 import com.cjt.trade.service.IProductService;
 import com.cjt.trade.util.FileUtil;
@@ -42,12 +41,6 @@ public class ProductController extends BaseController {
 		List<ProductVo> vos = productService.getAllProducts(dto);
 		int count = productService.getAllProductsCount(dto);
 		return JSONUtil.toGridJson(vos, count);
-	}
-	
-	@RequestMapping(value = "getAllProductsOptByBrandId.action")
-	@ResponseBody
-	public List<MapModel> getAllBrandsOptByTradeId(int brandId){
-		return productService.getAllProductsOptByBrandId(brandId);
 	}
 	
 	@RequestMapping(value = "addProduct.action")

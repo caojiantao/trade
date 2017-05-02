@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cjt.trade.dao.IOrderDao;
+import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.Order;
 import com.cjt.trade.service.IOrderService;
+import com.cjt.trade.vo.OrderVo;
 
 @Service
 public class OrderServiceImpl implements IOrderService{
@@ -19,11 +21,6 @@ public class OrderServiceImpl implements IOrderService{
 	@Override
 	public int addOrder(Order order) {
 		return orderDao.insertOrder(order);
-	}
-
-	@Override
-	public List<Order> getAllOrders() {
-		return orderDao.getAllOrders();
 	}
 
 	@Override
@@ -39,5 +36,15 @@ public class OrderServiceImpl implements IOrderService{
 	@Override
 	public int deleteOrder(int id) {
 		return orderDao.deleteOrder(id);
+	}
+
+	@Override
+	public List<OrderVo> getAllOrders(BaseDto dto) {
+		return orderDao.getAllOrders(dto);
+	}
+
+	@Override
+	public int getAllOrdersCount() {
+		return orderDao.getAllOrdersCount();
 	}
 }

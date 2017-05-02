@@ -9,19 +9,24 @@ import com.cjt.trade.vo.BrandVo;
 
 public interface IBrandService {
 	
-	public int insertBrand(Brand brand);
+	int insertBrand(Brand brand);
 	
-	public int deleteBrand(int id);
+	int deleteBrand(int id);
 	
-	public List<BrandVo> getAllBrands(BaseDto dto);
-	public int getAllBrandsCount(BaseDto dto);
+	List<BrandVo> getAllBrands(BaseDto dto);
+	int getAllBrandsCount(BaseDto dto);
 	
 	/**
 	 * 根据“商品行业”(tradeId)获取下属的所有“品牌类型”
 	 */
-	public List<MapModel> getAllBrandsOptByTradeId(int tradeId);
+	List<MapModel> getAllBrandsOptByTradeId(int tradeId);
 	
-	public Brand getBrandById(int id);
+	Brand getBrandById(int id);
 	
-	public int updateBrand(Brand brand);
+	int updateBrand(Brand brand);
+	
+	/**
+	 * 获取首页品牌推荐
+	 */
+	List<Brand> listShowBrands();
 }

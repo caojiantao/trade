@@ -48,6 +48,12 @@
             	</td>
             </tr>
             <tr>
+                <td>推荐</td>
+                <td>
+                	<label><input type="checkbox" name="isShow" value="1" />首页展示</label>
+            	</td>
+            </tr>
+            <tr>
                 <td>排序</td>
                 <td>
                 	<input type="text" name="order">
@@ -178,6 +184,8 @@
 						$("input[name='id']").val(brand.id);
 						$("select[name='tradeId']").val(brand.tradeId);
 						$("input[name='name']").val(brand.name);
+						console.log(brand.isShow);
+						$("input[name='isShow']").attr("checked", brand.show);
 						$("input[name='order']").val(brand.order);
 						$("input[name='title']").val(brand.title);
 						$("input[name='keyword']").val(brand.keyword);

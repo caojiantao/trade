@@ -5,7 +5,8 @@
 <mapper namespace="com.cjt.trade.dao.IOrderDao">
 	<sql id="getOrder">
 		SELECT
-			id 'id',
+			id,
+			no,
 			name,
 			nick_name 'nickName',
 			post_code 'postCode',
@@ -15,7 +16,9 @@
 			email,
 			remark,
 			ems_no 'emsNo',
-			goods_json 'goodsJson'
+			total_price totalPrice,
+			goods_json 'goodsJson',
+			create_time 'createTime'
 		FROM
 			`order`
 	</sql>
@@ -23,6 +26,7 @@
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
 	<insert id="insertOrder" parameterType="com.cjt.trade.model.Order">
 		INSERT INTO `order` (
+			no,
 			name,
 			nick_name,
 			post_code,
@@ -32,10 +36,13 @@
 			email,
 			remark,
 			ems_no,
-			goods_json
+			total_price,
+			goods_json,
+			create_time
 		)
 		VALUES
 			(
+				#{no},
 				#{name},
 				#{nickName},
 				#{postCode},
@@ -45,12 +52,31 @@
 				#{email},
 				#{remark},
 				#{emsNo},
-				#{goodsJson}
+				#{totalPrice},
+				#{goodsJson},
+				CURRENT_TIMESTAMP
 			)
 	</insert>
 	
-	<select id="getAllOrders" resultType="com.cjt.trade.model.Order">
-		<include refid="getOrder" />
+	<select id="getAllOrders" resultType="com.cjt.trade.vo.OrderVo" parameterType="com.cjt.trade.dto.BaseDto">
+		SELECT
+			id,
+			no,
+			name,
+			email,
+			ems_no 'emsNo',
+			total_price totalPrice,
+			create_time 'createTime'
+		FROM
+			`order`
+		LIMIT #{start}, #{limit}
+	</select>
+	
+	<select id="getAllOrdersCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			`order`
 	</select>
 	
 	<select id="getOrderById" resultType="com.cjt.trade.model.Order">
@@ -62,6 +88,7 @@
 	<update id="updateOrder" parameterType="com.cjt.trade.model.Order">
 		UPDATE `order`
 		SET 
+			no = #{no},
 			name = #{name},
 			nick_name = #{nickName},
 			post_code = #{postCode},
@@ -71,7 +98,9 @@
 			email = #{email},
 			remark = #{remark},
 			ems_no = #{emsNo},
-			goods_json = #{goodsJson}
+			total_price = #{totalPrice},
+			goods_json = #{goodsJson},
+			create_time = CURRENT_TIMESTAMP
 		WHERE
 			id = #{id}
 	</update>

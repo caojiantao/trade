@@ -17,7 +17,8 @@
 			top_scroll_text,
 			top_fix_text,
 			goods_detail_bottom,
-			goods_detail_right
+			goods_detail_right,
+			introduction
 		)
 		VALUES
 			(
@@ -32,7 +33,8 @@
 				#{topScrollText},
 				#{topFixText},
 				#{goodsDetailBottom},
-				#{goodsDetailRight}
+				#{goodsDetailRight},
+				#{introduction}
 			)
 	</insert>
 	
@@ -51,7 +53,8 @@
 		 top_scroll_text = #{topScrollText},
 		 top_fix_text = #{topFixText},
 		 goods_detail_bottom = #{goodsDetailBottom},
-		 goods_detail_right = #{goodsDetailRight}
+		 goods_detail_right = #{goodsDetailRight},
+		 introduction = #{introduction}
 		WHERE
 			id = #{id}
 	</update>
@@ -70,7 +73,8 @@
 			top_scroll_text 'topScrollText',
 			top_fix_text 'topFixText',
 			goods_detail_bottom 'goodsDetailBottom',
-			goods_detail_right 'goodsDetailRight'
+			goods_detail_right 'goodsDetailRight',
+			introduction
 		FROM
 			website
 		LIMIT 1

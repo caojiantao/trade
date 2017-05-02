@@ -3,6 +3,14 @@
  * 预览控件id指定为"#logoImg"
  */
 $(function() {
+	previewImg();
+	// 强制刷新图片内容
+	var logoUrl = $("#logoImg").attr("src");
+	if(logoUrl == undefined || logoUrl == "") return;
+	$("#logoImg").attr("src", logoUrl + "?t=" + Math.random());
+});
+
+function previewImg(){
 	$("#selector").change(function() {
 		var $file = $(this);
 		var fileObj = $file[0];
@@ -23,8 +31,4 @@ $(function() {
 			imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
 		}
 	});
-	// 强制刷新图片内容
-	var logoUrl = $("#logoImg").attr("src");
-	if(logoUrl == undefined || logoUrl == "") return;
-	$("#logoImg").attr("src", logoUrl + "?t=" + Math.random());
-});
+}

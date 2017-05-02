@@ -1,5 +1,6 @@
 package com.cjt.trade.controller.front;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,34 +19,60 @@ import com.cjt.trade.constant.GlobalConfig;
 import com.cjt.trade.dto.CartDto;
 import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Order;
 import com.cjt.trade.model.User;
+import com.cjt.trade.service.IBrandService;
 import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.service.IOrderService;
+import com.cjt.trade.service.IProductService;
+import com.cjt.trade.service.ITradeService;
 import com.cjt.trade.service.IUserService;
 import com.cjt.trade.util.CookieUtil;
+import com.cjt.trade.util.DateUtil;
+import com.cjt.trade.util.JSONUtil;
 
 @Controller
 @RequestMapping(value="/api")
 public class APIController {
 
 	@Resource
+	private ITradeService tradeService;
+	@Resource
+	private IBrandService brandService;
+	@Resource
+	private IProductService productService;
+	@Resource
 	private IGoodsService goodsService;
-	
 	@Resource
 	private IUserService userService;
-	
 	@Resource
 	private IOrderService orderService;
 	
-	@RequestMapping(value="/getNewGoods.action")
+	@RequestMapping(value = "getAllTradesOpt.action")
 	@ResponseBody
-	public JSONObject getNewGoods(GoodsDto dto){
-		JSONObject obj = new JSONObject();
-		List<Goods> goods = goodsService.getNewGoods(dto);
-		int goodsCount = goodsService.getNewGoodsCount(dto);
-		obj.put("rows", goods);
-		obj.put("total", goodsCount);
+	public List<MapModel> getAllTradesOpt(){
+		return tradeService.getAllTradesOpt();
+	}
+	
+	@RequestMapping(value = "getAllBrandsOptByTradeId.action")
+	@ResponseBody
+	public List<MapModel> getAllBrandsOptByTradeId(int tradeId){
+		return brandService.getAllBrandsOptByTradeId(tradeId);
+	}
+	
+	@RequestMapping(value = "getAllProductsOptByBrandId.action")
+	@ResponseBody
+	public List<MapModel> getAllProductsOptByBrandId(int brandId){
+		return productService.getAllProductsOptByBrandId(brandId);
+	}
+	
+	@RequestMapping(value="/listLatestGoods.action")
+	@ResponseBody
+	public JSONObject listLatestGoods(GoodsDto dto){
+		List<Goods> goods = goodsService.listLatestGoods(dto);
+		int goodsCount = goodsService.countLatestGoods(dto);
+		JSONObject obj = JSONUtil.toGridJson(goods, goodsCount);
 		return obj;
 	}
 	
@@ -157,20 +184,12 @@ public class APIController {
 	
 	@RequestMapping(value="/pay.action")
 	@ResponseBody
-	public boolean pay(HttpServletRequest request, HttpServletResponse response, User user){
+	public boolean pay(HttpServletRequest request, HttpServletResponse response, Order order){
 		Cookie cookie = CookieUtil.getCookieByName(CookieUtil.CART, request);
 		if (cookie != null) {
-			Order order = new Order();
 			// 存储订单信息至后台
 			JSONArray array = JSONArray.parseArray(cookie.getValue());
-			order.setName(user.getName());
-			order.setNickName(user.getNickName());
-			order.setPostCode(user.getPostCode());
-			order.setCounty(user.getCounty());
-			order.setAddress(user.getAddress());
-			order.setPhoneNumber(user.getPhoneNumber());
-			order.setEmail(user.getEmail());
-			order.setRemark(user.getRemark());
+			order.setNo(DateUtil.parseDate(new Date(), "yyyyMMddHHmmss"));
 			order.setGoodsJson(array.toJSONString());
 			orderService.addOrder(order);
 			

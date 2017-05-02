@@ -9,6 +9,8 @@ public class Brand{
     private String tradeName;
 
     private String name;
+    
+    private boolean show;
 
     private Integer order;
 
@@ -24,7 +26,15 @@ public class Brand{
     
     private String content;
 
-    public Integer getId() {
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
+	}
+
+	public Integer getId() {
         return id;
     }
 

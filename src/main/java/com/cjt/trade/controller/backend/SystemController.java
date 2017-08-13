@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
+import com.cjt.trade.dto.ResultDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,106 +23,109 @@ import com.cjt.trade.util.PathUtil;
 
 /**
  * @author wulitaotao
- * @date 2017年1月3日
- * @subscription 系统控制层，主要是管理分发“管理员信息、网站基本信息”
  */
 @Controller
-@RequestMapping("/backend/")
+@RequestMapping("/backend")
 public class SystemController extends BaseController {
 
-	@Resource
-    private IWebsiteService websiteService;
-	
-	@Resource
-	private IAdminServcie adminServcie;
-	
-	@RequestMapping(value="/website.action")
-	/**
-	 * 网站信息页
-	 */
-	public String website(HttpServletRequest request, Model model){
-		model.addAttribute("website", websiteService.getWebsite());
-		return "backend/system/website";
-	}
-	
-	/**
-	 * 
-	 */
-	@RequestMapping(value="/updateWebsite.action")
-	public String updateWebsite(MultipartFile file, Website website, Model model){
-		setLogoUrl(file, website);
-		if (website.getId() == null || website.getId() == 0) {
-			websiteService.insertWebSite(website);
-		} else {
-			websiteService.updateWebsite(website);
-		}
-		model.addAttribute("returnUrl", "website.action");
-		return "success";
-	}
-	
-	public void setLogoUrl(MultipartFile file, Website website){
-		if (file.getSize() == 0) {
-			return;
-		}
-        String path = PathUtil.getRootPath();
-        String fileName = GlobalConfig.LOGO_NAME;
-        File targetFile = new File(path, fileName);
-        if(targetFile.exists()){  
-        	targetFile.delete();
-        }
-        targetFile.mkdirs();
-        //保存
-        try {  
-            file.transferTo(targetFile);  
-        } catch (Exception e) {  
-            e.printStackTrace();
-        }
-        website.setLogoUrl(PathUtil.getLogoUrlPath() + fileName);
-	}
-	
-	@RequestMapping(value="/admin.action")
-	public String admin(){
-		return "backend/system/admin";
-	}
-	
-	@RequestMapping(value="/getAllAdmins.action")
-	@ResponseBody
-	public String getAllAdmins(){
-		List<Admin> admins = adminServcie.getAllAdmins();
-		return JSONArray.toJSONString(admins);
-	}
-	
-	@RequestMapping(value="/addAdmin.action")
-	@ResponseBody
-	public boolean addAdmin(Admin admin){
-		int result = adminServcie.getAdminCountByAccount(admin.getAccount());
-		if (result > 0) {
-			return false;
-		} else {
-			adminServcie.addAdmin(admin);
-			return true;
-		}
-	}
-	
-	@RequestMapping(value="/deleteAdmin.action")
-	@ResponseBody
-	public boolean deleteAdmin(int id){
-		adminServcie.deleteAdmin(id);
-		return true;
-	}
-	
-	@RequestMapping(value="/getAdminById.action")
-	@ResponseBody
-	public Admin getAdminById(int id){
-		Admin admin = adminServcie.getAdminById(id);
-		return admin;
-	}
-	
-	@RequestMapping(value="/updateAdmin.action")
-	public String updateAdmin(Admin admin){
-		if (admin != null) {
-			adminServcie.updateAdmin(admin);
-		}
-		return admin();
-	}
+  @Resource
+  private IWebsiteService websiteService;
+
+  @Resource
+  private IAdminServcie adminServcie;
+
+  /**
+   * 网站信息页
+   */
+  @RequestMapping(value = "/website.action")
+  public String website(Model model) {
+    model.addAttribute("website", websiteService.getWebsite());
+    return "backend/system/website";
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/updateWebsite.action")
+  public ResultDto updateWebsite(MultipartFile file, Website website) {
+    if (!setLogoUrl(file, website)) {
+      return failed("上传图片出现异常，请检查文件操作权限。");
+    }
+    if (website.getId() == null) {
+      websiteService.insertWebSite(website);
+    } else {
+      websiteService.updateWebsite(website);
+    }
+    return success();
+  }
+
+  public boolean setLogoUrl(MultipartFile file, Website website) {
+    if (file == null) {
+      return true;
+    }
+    String path = PathUtil.getRootPath();
+    String fileName = GlobalConfig.LOGO_NAME;
+    File targetFile = new File(path, fileName);
+    if (targetFile.exists()) {
+      if (!targetFile.delete()) {
+        // 删除文件失败
+        return false;
+      }
+    }
+    if (!targetFile.mkdirs()) {
+      // 创建文件失败
+      return false;
+    }
+    //保存
+    try {
+      file.transferTo(targetFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    website.setLogoUrl(PathUtil.getLogoUrlPath() + fileName);
+    return true;
+  }
+
+  @RequestMapping(value = "/admin.action")
+  public String admin() {
+    return "backend/system/admin";
+  }
+
+  @RequestMapping(value = "/getAllAdmins.action")
+  @ResponseBody
+  public String getAllAdmins() {
+    List<Admin> admins = adminServcie.getAllAdmins();
+    return JSONArray.toJSONString(admins);
+  }
+
+  @RequestMapping(value = "/addAdmin.action")
+  @ResponseBody
+  public boolean addAdmin(Admin admin) {
+    int result = adminServcie.getAdminCountByAccount(admin.getAccount());
+    if (result > 0) {
+      return false;
+    } else {
+      adminServcie.addAdmin(admin);
+      return true;
+    }
+  }
+
+  @RequestMapping(value = "/deleteAdmin.action")
+  @ResponseBody
+  public boolean deleteAdmin(int id) {
+    adminServcie.deleteAdmin(id);
+    return true;
+  }
+
+  @RequestMapping(value = "/getAdminById.action")
+  @ResponseBody
+  public Admin getAdminById(int id) {
+    return adminServcie.getAdminById(id);
+  }
+
+  @RequestMapping(value = "/updateAdmin.action")
+  public String updateAdmin(Admin admin) {
+    if (admin != null) {
+      adminServcie.updateAdmin(admin);
+    }
+    return admin();
+  }
 }

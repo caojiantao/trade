@@ -1,0 +1,5 @@
+.idea/
+.setttings/
+*.iml
+target/
+!/.gitignore

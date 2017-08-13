@@ -13,42 +13,40 @@ import com.cjt.trade.service.IAdminServcie;
 @Service
 public class AdminServiceImpl implements IAdminServcie {
 
-	@Resource
-	private IAdminDao adminDao;
+  @Resource
+  private IAdminDao adminDao;
 
-	@Override
-	public Admin login(Admin admin) {
-		Admin adminDb = adminDao.queryByAdmin(admin);
-		return adminDb;
-	}
+  public boolean isValid(String account, String password) {
+    return adminDao.queryByAdmin(account, password) != null;
+  }
 
-	@Override
-	public List<Admin> getAllAdmins() {
-		return adminDao.selectAllAdmin();
-	}
+  @Override
+  public List<Admin> getAllAdmins() {
+    return adminDao.selectAllAdmin();
+  }
 
-	@Override
-	public void addAdmin(Admin admin) {
-		adminDao.insertAdmin(admin);
-	}
+  @Override
+  public void addAdmin(Admin admin) {
+    adminDao.insertAdmin(admin);
+  }
 
-	@Override
-	public void deleteAdmin(int id) {
-		adminDao.deleteAdmin(id);
-	}
+  @Override
+  public void deleteAdmin(int id) {
+    adminDao.deleteAdmin(id);
+  }
 
-	@Override
-	public void updateAdmin(Admin admin) {
-		adminDao.updateAdmin(admin);
-	}
+  @Override
+  public void updateAdmin(Admin admin) {
+    adminDao.updateAdmin(admin);
+  }
 
-	@Override
-	public int getAdminCountByAccount(String account) {
-		return adminDao.getAdminCountByAccount(account);
-	}
+  @Override
+  public int getAdminCountByAccount(String account) {
+    return adminDao.getAdminCountByAccount(account);
+  }
 
-	@Override
-	public Admin getAdminById(int id) {
-		return adminDao.getAdminById(id);
-	}
+  @Override
+  public Admin getAdminById(int id) {
+    return adminDao.getAdminById(id);
+  }
 }

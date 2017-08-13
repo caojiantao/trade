@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IAdminDao">
@@ -13,13 +13,13 @@
 			account = #{account}
 		AND pwd = #{pwd}
 	</select>
-	
+
 	<insert id="insertAdmin" parameterType="com.cjt.trade.model.Admin">
 		INSERT INTO admin (account, `name`, pwd)
 		VALUES
 			(#{account}, #{name}, #{pwd})
 	</insert>
-	
+
 	<delete id="deleteAdmin" parameterType="int">
 		DELETE
 		FROM
@@ -27,14 +27,14 @@
 		WHERE
 			id = #{id}
 	</delete>
-	
+
 	<select id="selectAllAdmin" resultType="com.cjt.trade.model.Admin">
 		SELECT
 			*
 		FROM
 			admin
 	</select>
-	
+
 	<update id="updateAdmin" parameterType="com.cjt.trade.model.Admin">
 		UPDATE admin
 		SET 
@@ -43,7 +43,7 @@
 		WHERE
 			account = #{account}
 	</update>
-	
+
 	<select id="getAdminCountByAccount" parameterType="String" resultType="int">
 		SELECT
 			COUNT(*)
@@ -52,7 +52,7 @@
 		WHERE
 			account = #{account}
 	</select>
-	
+
 	<select id="getAdminById" parameterType="int" resultType="com.cjt.trade.model.Admin">
 		SELECT
 			*

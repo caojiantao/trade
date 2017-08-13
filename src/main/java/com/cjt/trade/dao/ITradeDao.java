@@ -3,8 +3,6 @@ package com.cjt.trade.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Trade;
@@ -12,21 +10,20 @@ import com.cjt.trade.vo.TradeVo;
 
 /**
  * @author wulitaotao
- * @date 修改日期：2016年11月20日
- * @subcription “商品行业”数据操作dao
  */
-@Repository
 public interface ITradeDao {
-	
-	public int insertTrade(Trade trade);
-	
-	public int deleteTrade(int id);
-	
-	public List<TradeVo> getAllTrades(BaseDto dto);
-	public List<MapModel> getAllTradesOpt();
-	public int getAllTradesCount(BaseDto dto);
-	
-	public Trade getTradeById(int id);
-	
-	public int updateTrade(Trade trade);
+
+  int insertTrade(Trade trade);
+
+  int deleteTrade(int id);
+
+  List<TradeVo> getAllTrades(BaseDto dto);
+
+  List<MapModel> getAllTradesOpt();
+
+  int getAllTradesCount(BaseDto dto);
+
+  Trade getTradeById(int id);
+
+  int updateTrade(Trade trade);
 }

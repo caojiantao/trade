@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+  <!-- 配置Freemarker屬性文件路徑 -->
+  <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="location" value="classpath:properties/freemarker.properties"/>
+  </bean>
+  <!-- 配置freeMarker模板加載地址 -->
+  <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+    <!-- 视图解析器會在/路径下掃描视图文件 -->
+    <property name="templateLoaderPath" value="/"/>
+    <property name="freemarkerSettings">
+      <props>
+        <!--用于解决前端报空指针问题-->
+        <prop key="classic_compatible">true</prop>
+        <prop key="template_exception_handler">rethrow</prop>
+      </props>
+    </property>
+    <property name="freemarkerVariables">
+      <map>
+        <entry key="xml_escape" value-ref="fmXmlEscape"/>
+        <!-- 自定义页面组件地址 -->
+        <entry key="component" value="/front/component"/>
+        <!-- 前台css地址 -->
+        <entry key="css" value="/front/build"/>
+        <!-- 前台img地址 -->
+        <entry key="img" value="/front/img"/>
+        <!-- 前台js地址 -->
+        <entry key="plugins" value="/front/plugins"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+
+  <!-- 配置freeMarker视图解析器 -->
+  <bean id="freemakerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+    <property name="prefix" value="/"/>
+    <property name="suffix" value=".ftl"/>
+    <!-- 防止乱码 -->
+    <property name="contentType" value="text/html;charset=UTF-8"/>
+    <property name="requestContextAttribute" value="request"/>
+  </bean>
+</beans>

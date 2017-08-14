@@ -37,14 +37,14 @@ public class SystemController extends BaseController {
   /**
    * 网站信息页
    */
-  @RequestMapping(value = "/website.action")
+  @RequestMapping(value = "/website")
   public String website(Model model) {
     model.addAttribute("website", websiteService.getWebsite());
     return "backend/system/website";
   }
 
   @ResponseBody
-  @RequestMapping(value = "/updateWebsite.action")
+  @RequestMapping(value = "/updateWebsite")
   public ResultDto updateWebsite(MultipartFile file, Website website) {
     if (!setLogoUrl(file, website)) {
       return failed("上传图片出现异常，请检查文件操作权限。");
@@ -84,19 +84,19 @@ public class SystemController extends BaseController {
     return true;
   }
 
-  @RequestMapping(value = "/admin.action")
+  @RequestMapping(value = "/admin")
   public String admin() {
     return "backend/system/admin";
   }
 
-  @RequestMapping(value = "/getAllAdmins.action")
+  @RequestMapping(value = "/getAllAdmins")
   @ResponseBody
   public String getAllAdmins() {
     List<Admin> admins = adminServcie.getAllAdmins();
     return JSONArray.toJSONString(admins);
   }
 
-  @RequestMapping(value = "/addAdmin.action")
+  @RequestMapping(value = "/addAdmin")
   @ResponseBody
   public boolean addAdmin(Admin admin) {
     int result = adminServcie.getAdminCountByAccount(admin.getAccount());
@@ -108,20 +108,20 @@ public class SystemController extends BaseController {
     }
   }
 
-  @RequestMapping(value = "/deleteAdmin.action")
+  @RequestMapping(value = "/deleteAdmin")
   @ResponseBody
   public boolean deleteAdmin(int id) {
     adminServcie.deleteAdmin(id);
     return true;
   }
 
-  @RequestMapping(value = "/getAdminById.action")
+  @RequestMapping(value = "/getAdminById")
   @ResponseBody
   public Admin getAdminById(int id) {
     return adminServcie.getAdminById(id);
   }
 
-  @RequestMapping(value = "/updateAdmin.action")
+  @RequestMapping(value = "/updateAdmin")
   public String updateAdmin(Admin admin) {
     if (admin != null) {
       adminServcie.updateAdmin(admin);

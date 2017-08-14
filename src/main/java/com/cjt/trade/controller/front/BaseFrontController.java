@@ -28,77 +28,77 @@ import com.cjt.trade.vo.front.CategoryVo;
 
 @Controller
 public class BaseFrontController extends BaseController {
-	
-	public final static int DEFAULT_COUNT = 10;
 
-	@Resource
-	private IWebsiteService websiteService;
-	@Resource
-	private IAdvertisementService advertisementService;
-	@Resource
-	private IUserService userService;
-	@Resource
-	private IEmsService emsService;
-	@Resource
-	private ICategoryService categoryService;
-	@Resource
-	private IGoodsService goodsService;
-	@Resource
-	private IPageInfoService pageInfoService;
-	@Resource
-	private ITradeService tradeService;
-	@Resource 
-	private IBrandService brandService;
-	@Resource
-	private IProductService productService;
+  public final static int DEFAULT_COUNT = 10;
 
-	/**
-	 * 网站基本信息
-	 */
-	public void initWebSite(Model model){
-		Website website = websiteService.getWebsite();
-		model.addAttribute("website", website);
-	}
-	
-	/**
-	 * 左侧商品分类菜单
-	 */
-	public List<CategoryVo> initCategory(Model model){
-		List<CategoryVo> vos = categoryService.getCategoryVos();
-		model.addAttribute("categorys", vos);
-		return vos;
-	}
-	
-	/**
-	 * 获取最新指定条目数EMS信息
-	 */
-	public void initEms(Model model){
-		BaseDto dto = new BaseDto();
-		dto.setStart(0);
-		dto.setLimit(DEFAULT_COUNT);
-		List<Ems> emsList = emsService.getAllEms(dto);
-		model.addAttribute("emsList", emsList);
-	}
-	
-	/**
-	 * 初始化登录用户
-	 */
-	public void initUser(Model model, HttpSession session){
-		String email = (String) session.getAttribute("email");
-		if (email != null && !"".equals(email)) {
-			User user = userService.getUserByEmail(email);
-			model.addAttribute("user", user);
-		}
-	}
-	
-	/**
-	 * header、left、footer三个固定的模块页面传值，返回左侧导航分类信息
-	 */
-	public List<CategoryVo> initFixModule(HttpServletRequest request, Model model){
-		initWebSite(model);
-		initUser(model, request.getSession());
-		List<CategoryVo> vos = initCategory(model);
-		initEms(model);
-		return vos;
-	}
+  @Resource
+  private IWebsiteService websiteService;
+  @Resource
+  private IAdvertisementService advertisementService;
+  @Resource
+  private IUserService userService;
+  @Resource
+  private IEmsService emsService;
+  @Resource
+  private ICategoryService categoryService;
+  @Resource
+  private IGoodsService goodsService;
+  @Resource
+  private IPageInfoService pageInfoService;
+  @Resource
+  private ITradeService tradeService;
+  @Resource
+  private IBrandService brandService;
+  @Resource
+  private IProductService productService;
+
+  /**
+   * 网站基本信息
+   */
+  public void initWebSite(Model model) {
+    Website website = websiteService.getWebsite();
+    model.addAttribute("website", website);
+  }
+
+  /**
+   * 左侧商品分类菜单
+   */
+  public List<CategoryVo> initCategory(Model model) {
+    List<CategoryVo> vos = categoryService.getCategoryVos();
+    model.addAttribute("categorys", vos);
+    return vos;
+  }
+
+  /**
+   * 获取最新指定条目数EMS信息
+   */
+  public void initEms(Model model) {
+    BaseDto dto = new BaseDto();
+    dto.setStart(0);
+    dto.setLimit(DEFAULT_COUNT);
+    List<Ems> emsList = emsService.getAllEms(dto);
+    model.addAttribute("emsList", emsList);
+  }
+
+  /**
+   * 初始化登录用户
+   */
+  public void initUser(Model model, HttpSession session) {
+    String email = (String) session.getAttribute("email");
+    if (email != null && !"".equals(email)) {
+      User user = userService.getUserByEmail(email);
+      model.addAttribute("user", user);
+    }
+  }
+
+  /**
+   * header、left、footer三个固定的模块页面传值，返回左侧导航分类信息
+   */
+  public List<CategoryVo> initFixModule(HttpServletRequest request, Model model) {
+    initWebSite(model);
+    initUser(model, request.getSession());
+    List<CategoryVo> vos = initCategory(model);
+    initEms(model);
+    return vos;
+  }
 }

@@ -30,7 +30,7 @@ public class IndexController extends BaseFrontController {
   @Resource
   private IBrandService brandService;
 
-  @RequestMapping(value = "/index.action")
+  @RequestMapping(value = "/index")
   public String index(HttpServletRequest request, Model model) {
     // 固定化模块
     List<CategoryVo> vos = initFixModule(request, model);

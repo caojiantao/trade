@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>${website.name}</title>
-  <meta http-equiv="Content-Type" content="charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <link rel="stylesheet" type="text/css" href="${css}/kopi6.min.css">
-  <script src="${plugins}/jquery-1.12.4/jquery.1.12.4.min.js"></script>
-</head>
-<body class="index">
-<div class="wrap-1000">
-<#include "${component}/header.ftl">
+<#import "/front/layout/default.ftl" as default>
+
+<@default.layout>
   <div class="_banner fn-clear">
     <div class="slideBox">
       <ul class="items">
-      <#list ads as ad>
-        <li <#if ad_index=0>class='active'</#if>><a href="${ad.url}"><img src="${ad.logoUrl}" alt=""></a></li>
-      </#list>
+        <#list ads as ad>
+          <li <#if ad_index=0>class='active'</#if>><a href="${ad.url}"><img src="${ad.logoUrl}" alt=""></a></li>
+        </#list>
       </ul>
     </div>
   </div>
@@ -45,10 +36,10 @@
         <div class="content">
           <div class="box border _pro-new-txt fn-clear">
             <ul>
-            <#list latestGoods as goods>
-              <li><i></i><a href="/goods.action?id=${goods.id}">${goods.updateTime?string("yyyy-MM-dd")}
-                &nbsp;${goods.title}</a></li>
-            </#list>
+              <#list latestGoods as goods>
+                <li><i></i><a href="/goods.action?id=${goods.id}">${goods.updateTime?string("yyyy-MM-dd")}
+                  &nbsp;${goods.title}</a></li>
+              </#list>
             </ul>
           </div>
         </div>
@@ -63,11 +54,11 @@
           <div class="_ems">
             <div data-height="198" class="demo js-scroll-v">
               <ul class="demo1 js-scroll1">
-              <#list emsList as ems>
-                <li class="js-item">
-                  <a href="/ems.action?id=${ems.id}">•${ems.name}&nbsp;番号：${ems.emsNo}</a>
-                </li>
-              </#list>
+                <#list emsList as ems>
+                  <li class="js-item">
+                    <a href="/ems.action?id=${ems.id}">•${ems.name}&nbsp;番号：${ems.emsNo}</a>
+                  </li>
+                </#list>
               </ul>
               <ul class="demo2 js-scroll2"></ul>
             </div>
@@ -81,16 +72,16 @@
         <div class="content">
           <div class="_pro-sell fn-clear js-scroll-h">
             <div class="scroll-auto fn-clear">
-            <#list scrollGoods as goods>
-              <div class="item">
-                <span>${goods_index+1}</span>
-                <div class="ibox">
-                  <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
+              <#list scrollGoods as goods>
+                <div class="item">
+                  <span>${goods_index+1}</span>
+                  <div class="ibox">
+                    <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
+                  </div>
+                  <p class="t"><a href="">${goods.title}</a></p>
+                  <p class="p">N品：${goods.price}円 </p>
                 </div>
-                <p class="t"><a href="">${goods.title}</a></p>
-                <p class="p">N品：${goods.price}円 </p>
-              </div>
-            </#list>
+              </#list>
             </div>
           </div>
         </div>
@@ -100,15 +91,15 @@
       <div class="title"><i class="icon-item"></i><span>人気商品</span></div>
       <div class="content">
         <div class="_pro-hot fn-clear">
-        <#list hotGoods as goods>
-          <div class="item">
-            <div class="ibox">
-              <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
+          <#list hotGoods as goods>
+            <div class="item">
+              <div class="ibox">
+                <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
+              </div>
+              <p class="t"><a href="">${goods.title}</a></p>
+              <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
             </div>
-            <p class="t"><a href="">${goods.title}</a></p>
-            <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
-          </div>
-        </#list>
+          </#list>
         </div>
       </div>
     </div>
@@ -117,25 +108,25 @@
       <div class="content">
         <div class="_pro-new-pic">
           <div class="pro-tab top fn-clear">
-          <#list tabNames as name>
-            <span class="t-${name_index+1}">${name}</span>
-          </#list>
+            <#list tabNames as name>
+              <span class="t-${name_index+1}">${name}</span>
+            </#list>
           </div>
           <div class="tab-pro-box fn-clear">
-          <#list tabGoods as goodsList>
-            <div class="box fn-clear">
-              <#list goodsList as goods>
-                <div class="item">
-                  <div class="ibox">
-                    <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>
+            <#list tabGoods as goodsList>
+              <div class="box fn-clear">
+                <#list goodsList as goods>
+                  <div class="item">
+                    <div class="ibox">
+                      <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>
+                      </div>
                     </div>
+                    <p class="t"><a href="">${goods.title}</a></p>
+                    <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
                   </div>
-                  <p class="t"><a href="">${goods.title}</a></p>
-                  <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
-                </div>
-              </#list>
-            </div>
-          </#list>
+                </#list>
+              </div>
+            </#list>
           </div>
         </div>
       </div>
@@ -159,25 +150,22 @@
       </div>
       <div class="content">
         <div class="_brand fn-clear">
-        <#list brands as brand>
-          <a href="/brand.action?id=${brand.id}"><img src="${brand.logoUrl}" alt=""></a>
-        </#list>
+          <#list brands as brand>
+            <a href="/brand.action?id=${brand.id}"><img src="${brand.logoUrl}" alt=""></a>
+          </#list>
         </div>
       </div>
     </div>
   </div>
   <div class="left fn-clear">
   <#-- <#include "${component}/login.ftl" /> -->
-				<#-- <#include "${component}/ems.ftl" /> -->
-				<#include "${component}/category.ftl" />
-				<#include "${component}/introduction.ftl" />
-				<#-- <#include "${component}/lastest.ftl" /> -->
+                  <#-- <#include "${component}/ems.ftl" /> -->
+                  <#include "${component}/category.ftl" />
+                  <#include "${component}/introduction.ftl" />
+                  <#-- <#include "${component}/lastest.ftl" /> -->
   </div>
-<#include "${component}/footer.ftl" />
-</div>
-<#include "${component}/sidebar.ftl" />
-</body>
-<script src="${plugins}/common.js"></script>
+</@default.layout>
+
 <script src="${plugins}/carousel.js"></script>
 <script src="/js/select.js"></script>
 <script>
@@ -313,4 +301,3 @@
     scrollH($node, $scroll);
   });
 </script>
-</html>

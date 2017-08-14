@@ -23,7 +23,7 @@ public class BackendCotroller extends BaseController {
   @Resource
   private IAdminServcie adminServcie;
 
-  @RequestMapping(value = "/login.action")
+  @RequestMapping(value = "/login")
   public String login() {
     return "backend/login";
   }
@@ -31,7 +31,7 @@ public class BackendCotroller extends BaseController {
   /**
    * 发送登录信息，返回登录状态（页面获取的是字符串）
    */
-  @RequestMapping(value = "/loginIn.action")
+  @RequestMapping(value = "/loginIn")
   @ResponseBody
   public ResultDto loginIn(String account, String password) {
     HttpSession session = request.getSession();
@@ -52,7 +52,7 @@ public class BackendCotroller extends BaseController {
   /**
    * 进入后台首页
    */
-  @RequestMapping(value = "/backend.action")
+  @RequestMapping(value = "/backend")
   public String backend() {
     return "backend/index";
   }

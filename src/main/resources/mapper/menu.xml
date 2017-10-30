@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace通常是dao的完整路径 -->
+<mapper namespace="com.cjt.trade.dao.IMenuDao">
+
+	<select id="listMenus" resultType="com.cjt.trade.model.Menu">
+		SELECT
+			id,
+			name,
+			parent_id AS 'parentId',
+			href
+		FROM menu
+	</select>
+</mapper>

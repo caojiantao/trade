@@ -182,13 +182,12 @@
     var productId = $("select[name='productId']").val();
     var lowestPrice = $("input[name='lowestPrice']").val();
     var highestPrice = $("input[name='highestPrice']").val();
-    var url = "/list.action"
+    window.location.href = "/list.action"
             + "?tradeId=" + tradeId
             + "&brandId=" + brandId
             + "&productId=" + productId
             + "&lowestPrice=" + lowestPrice
             + "&highestPrice=" + highestPrice;
-    window.location.href = url;
   }
 
   function switchPic(_a, _b) {
@@ -269,7 +268,7 @@
         $ele.find('.item').first().appendTo($ele);
         $ele.css('marginLeft', 0);
       }
-    }
+    };
     var interval;
     var stopScroll = function () {
       window.clearInterval(interval);
@@ -295,7 +294,7 @@
           }, 50);
         });
       }
-    }
+    };
     var $node = $('.js-scroll-h'),
             $scroll = $node.find('.scroll-auto');
     scrollH($node, $scroll);

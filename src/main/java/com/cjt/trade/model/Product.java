@@ -1,7 +1,7 @@
 package com.cjt.trade.model;
 
 public class Product {
-	
+
     private Integer id;
     
     private Integer tradeId;

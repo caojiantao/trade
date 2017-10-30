@@ -16,10 +16,10 @@
         </#if>
         </div>
         <script>
-          var toLogin = function () {
+          function toLogin () {
             var _pop = document.querySelector('._pop');
             _pop.style.display = "block";
-          };
+          }
         </script>
       </div>
     </div>

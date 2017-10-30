@@ -78,7 +78,7 @@ public class IndexController extends BaseFrontController {
    */
   public void initLatestGoods(Model model) {
     GoodsDto dto = new GoodsDto();
-    dto.setLimit(DEFAULT_COUNT);
+    dto.setLimit(showCount);
     List<Goods> newGoods = goodsService.listLatestGoods(dto);
     model.addAttribute("latestGoods", newGoods);
   }
@@ -90,7 +90,7 @@ public class IndexController extends BaseFrontController {
     List<String> tradeNames = new ArrayList<String>();
     List<List<Goods>> goodsList = new ArrayList<List<Goods>>();
     GoodsDto dto = new GoodsDto();
-    dto.setLimit(DEFAULT_COUNT);
+    dto.setLimit(showCount);
     for (CategoryVo vo : vos) {
       tradeNames.add(vo.getTitle());
       dto.setTradeId(vo.getId());

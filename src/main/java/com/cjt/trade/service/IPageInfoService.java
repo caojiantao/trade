@@ -8,17 +8,17 @@ import com.cjt.trade.vo.PageInfoVo;
 
 public interface IPageInfoService {
 
-	public int insertPageInfo(PageInfo pageInfo);
-	
+	int insertPageInfo(PageInfo pageInfo);
+
 	/**
 	 * 获取信息单页，或者是文章内容(根据type和id判断)
 	 */
-	public PageInfo getPageInfo(PageInfoDto dto);
+	PageInfo getPageInfo(PageInfoDto dto);
 
-	public int deletePageInfo(int id);
-	
-	public List<PageInfoVo> getAllPageInfos(PageInfoDto dto);
-	public int getAllPageInfosCount(PageInfoDto dto);
-	
-	public int updatePageInfo(PageInfo pageInfo);
+	int deletePageInfo(int id);
+
+	List<PageInfoVo> getAllPageInfos(PageInfoDto dto);
+	int getAllPageInfosCount(PageInfoDto dto);
+
+	int updatePageInfo(PageInfo pageInfo);
 }

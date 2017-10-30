@@ -8,7 +8,7 @@
       </ul>
     </li>
   <#else>
-    <li><a href="javascript:addTab('${m.name}', '${m.href}')">${m.name}</a></li>
+    <li><a href="javascript:clickItem('${m.name}', '${m.href}')">${m.name}</a></li>
   </#if>
   </#list>
 </#macro>

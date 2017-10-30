@@ -14,47 +14,47 @@ import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.service.IPageInfoService;
 
 @Controller("goodsFrontCtl")
-@RequestMapping(value="/")
+@RequestMapping("")
 public class GoodsController extends BaseFrontController {
 
-	@Resource
-	private IGoodsService goodsService;
-	@Resource
-	private IPageInfoService pageInfoService;
-	
-	/**
-	 * 商品详情页
-	 */
-	@RequestMapping(value="/goods.action")
-	public String goodsDetail(int id, Model model, HttpServletRequest request){
-		initFixModule(request, model);
-		
-		Goods goods = goodsService.getGoodsById(id);
-		model.addAttribute("goods", goods);
-		
-		int lastId = goodsService.getLastGoodsIdById(id);
-		int nextId = goodsService.getNextGoodsIdById(id);
-		model.addAttribute("lastId", lastId);
-		model.addAttribute("nextId", nextId);
-		
-		PageInfoDto dto = new PageInfoDto();
-		// 注意事项
-		dto.setType(4);
-		PageInfo attention = pageInfoService.getPageInfo(dto);
-		model.addAttribute("attention", attention);
-		// 返品返金
-		dto.setType(5);
-		PageInfo award = pageInfoService.getPageInfo(dto);
-		model.addAttribute("award", award);
-		// 营业时间
-		dto.setType(6);
-		PageInfo businessInfo = pageInfoService.getPageInfo(dto);
-		model.addAttribute("businessInfo", businessInfo);
-		// 配送时间
-		dto.setType(7);
-		PageInfo deliveryInfo = pageInfoService.getPageInfo(dto);
-		model.addAttribute("deliveryInfo", deliveryInfo);
-		
-		return "front/build/detail";
-	}
+  @Resource
+  private IGoodsService goodsService;
+  @Resource
+  private IPageInfoService pageInfoService;
+
+  /**
+   * 商品详情页
+   */
+  @RequestMapping(value = "/goods")
+  public String goodsDetail(int id, Model model, HttpServletRequest request) {
+    initFixModule(request, model);
+
+    Goods goods = goodsService.getGoodsById(id);
+    model.addAttribute("goods", goods);
+
+    int lastId = goodsService.getLastGoodsIdById(id);
+    int nextId = goodsService.getNextGoodsIdById(id);
+    model.addAttribute("lastId", lastId);
+    model.addAttribute("nextId", nextId);
+
+    PageInfoDto dto = new PageInfoDto();
+    // 注意事项
+    dto.setType(4);
+    PageInfo attention = pageInfoService.getPageInfo(dto);
+    model.addAttribute("attention", attention);
+    // 返品返金
+    dto.setType(5);
+    PageInfo award = pageInfoService.getPageInfo(dto);
+    model.addAttribute("award", award);
+    // 营业时间
+    dto.setType(6);
+    PageInfo businessInfo = pageInfoService.getPageInfo(dto);
+    model.addAttribute("businessInfo", businessInfo);
+    // 配送时间
+    dto.setType(7);
+    PageInfo deliveryInfo = pageInfoService.getPageInfo(dto);
+    model.addAttribute("deliveryInfo", deliveryInfo);
+
+    return "front/build/detail";
+  }
 }

@@ -1,3 +1,4 @@
+/** 动态创建editor */
 function createEditor(selectors) {
   if (selectors) {
     KindEditor.ready(function (K) {

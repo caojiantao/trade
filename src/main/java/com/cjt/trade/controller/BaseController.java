@@ -43,6 +43,14 @@ public class BaseController {
   public ResultDto success(){
     return new ResultDto(true, "", null);
   }
+  public ResultDto success(Object data){
+    return new ResultDto(true, "", data);
+  }
+
+  public ResultDto success(String msg, Object data){
+    return new ResultDto(true, msg, data);
+  }
+
 
   public ResultDto failed(String message){
     return new ResultDto(false, message, null);

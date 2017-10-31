@@ -12,23 +12,8 @@
   <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/jquery.min.js"></script>
   <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
   <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
-  <style type="text/css">
-    .form-row{
-      margin-bottom: 15px;
-    }
-
-    .form-row div{
-      display: inline-block;
-    }
-
-    .form-row .left{
-      width: 80px;
-    }
-
-    .form-row .right{
-      width: calc(100% - 100px);
-    }
-  </style>
+  <script type="text/javascript" src="${base}/plugins/jquery.form.min.js"></script>
+  <script type="text/javascript" src="${base}/js/common.js"></script>
 </head>
 <body>
   <#-- 嵌套的内容 -->

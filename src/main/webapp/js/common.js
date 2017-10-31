@@ -4,9 +4,8 @@ function createEditor(selectors) {
     KindEditor.ready(function (K) {
       $.each(selectors, function(index, selector){
         K.create(selector, {
-          width: '750px',
+          width : '100%',
           autoHeightMode: true,
-          cssData: 'body {font-size:14px;}',
           afterCreate: function () {
             this.loadPlugin('autoheight');
           }

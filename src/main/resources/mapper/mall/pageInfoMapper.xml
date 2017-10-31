@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IPageInfoDao">
-	<insert id="insertPageInfo" parameterType="com.cjt.trade.model.PageInfo">
-		INSERT INTO pageinfo (
-			type,
-			title,
-			keyword,
-			description,
-			content,
-			update_time
-		)
-		VALUES
-			(
-				#{type},
-				#{title},
-				#{keyword},
-				#{description},
-				#{content},
-				CURRENT_TIMESTAMP
-			)
-	</insert>
-	
-	<delete id="deletePageInfo" parameterType="int">
-		DELETE
-		FROM
-			pageinfo
-		WHERE
-			id = #{id}
-	</delete>
-	
-	<select id="getAllPageInfos" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.vo.PageInfoVo">
-		SELECT
-			id,
-			title,
-			update_time 'updateTime'
-		FROM
-			pageinfo
-		WHERE
-			type = #{type}
-		LIMIT #{start}, #{limit}
-	</select>
-	
-	<select id="getAllPageInfosCount" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			pageinfo
-		WHERE
-			type = #{type}
-	</select>
+  <insert id="insertPageInfo" parameterType="com.cjt.trade.model.PageInfo" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO pageinfo (
+      type,
+      title,
+      keyword,
+      description,
+      content,
+      update_time
+    )
+    VALUES
+      (
+        #{type},
+        #{title},
+        #{keyword},
+        #{description},
+        #{content},
+        CURRENT_TIMESTAMP
+      )
+  </insert>
 
-	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
-	<update id="updatePageInfo" parameterType="com.cjt.trade.model.PageInfo">
-		UPDATE pageinfo
-		SET title = #{title},
-		 keyword = #{keyword},
-		 description = #{description},
-		 content = #{content},
-		 update_time = CURRENT_TIMESTAMP
-		WHERE type = #{type}
-	 	 AND id = #{id}
-	</update>
-	
-	<!-- 只传type说明是“单页信息”（数据库唯一，不用id约束），两者皆传说明“文章内容” -->
-	<select id="getPageInfo" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.model.PageInfo">
-		SELECT
-			id,
-			type,
-			title,
-			keyword,
-			description,
-			content
-		FROM
-			pageinfo
-		WHERE
-			type = #{type}
-		<if test="id != null and id != 0">
-		 	AND id = #{id}
-		</if>
-		LIMIT 1
-	</select>
+  <delete id="deletePageInfo" parameterType="int">
+    DELETE
+    FROM
+      pageinfo
+    WHERE
+      id = #{id}
+  </delete>
+
+  <select id="getAllPageInfos" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.vo.PageInfoVo">
+    SELECT
+      id,
+      title,
+      update_time 'updateTime'
+    FROM
+      pageinfo
+    WHERE
+      type = #{type}
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="getAllPageInfosCount" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="int">
+    SELECT COUNT(*)
+    FROM
+      pageinfo
+    WHERE
+      type = #{type}
+  </select>
+
+  <!-- 这里面的id一定是与dao中的方法名所对应的 -->
+  <update id="updatePageInfo" parameterType="com.cjt.trade.model.PageInfo">
+    UPDATE pageinfo
+    SET title     = #{title},
+      keyword     = #{keyword},
+      description = #{description},
+      content     = #{content},
+      update_time = CURRENT_TIMESTAMP
+    WHERE type = #{type}
+          AND id = #{id}
+  </update>
+
+  <!-- 只传type说明是“单页信息”（数据库唯一，不用id约束），两者皆传说明“文章内容” -->
+  <select id="getPageInfo" parameterType="com.cjt.trade.dto.PageInfoDto" resultType="com.cjt.trade.model.PageInfo">
+    SELECT
+    id,
+    type,
+    title,
+    keyword,
+    description,
+    content
+    FROM
+    pageinfo
+    WHERE
+    type = #{type}
+    <if test="id != null and id != 0">
+      AND id = #{id}
+    </if>
+    LIMIT 1
+  </select>
 </mapper>

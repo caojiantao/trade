@@ -1,169 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Document</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="${base}/plugins/jquery-easyui-1.2.6/themes/default/easyui.css">
-    <link rel="stylesheet" href="${base}/plugins/jquery-easyui-1.2.6/themes/icon.css">
-    <link rel="stylesheet" href="${base}/plugins/editor/themes/default/default.css" />
-    <script charset="utf-8" src="${base}/plugins/editor/kindeditor-min.js"></script>
-    <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/locale/easyui-lang-zh_CN.js"></script>
+<#import "/backend/layout/default.ftl" as default>
 
-    <style type="text/css">
-    	.editDiv{
-            display: none;
-    	}
-    
-        .editDiv td{
-            background-color: #E7E7E7;
-            padding: 5px 10px;
+<@default.layout>
+  <div class="editDiv">
+    <form id="ff">
+      <input type="text" name="id" value="${pageInfo.id}" hidden>
+      <div style="margin-bottom:15px;">
+        <div style="display:inline-block;width:80px;">标题：</div>
+        <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="title" name="title" style="width:100%;"></div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <div style="display:inline-block;width:80px;">关键字：</div>
+        <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="keyword" name="keyword" style="width:100%;"></div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <div style="display:inline-block;width:80px;">描述：</div>
+        <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="description" name="description" data-options="multiline:true" style="width:100%;height:60px;"></div>
+      </div>
+      <div style="margin-bottom:15px;">
+        <div style="display:inline-block;width:80px;">内容：</div>
+        <div style="display:inline-block;width:calc(100% - 100px);"><textarea id="content" name="content"></textarea></div>
+      </div>
+      <div>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="cancel()">取消</a>
+        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="submitForm()">保存</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="listDiv">
+    <div id="result"></div>
+  </div>
+
+<script type="text/javascript">
+  KindEditor.ready(function (K) {
+    window.editor = K.create('#content', {
+      width : '100%',
+      autoHeightMode: true,
+      afterCreate: function () {
+        this.loadPlugin('autoheight');
+      }
+    });
+  });
+
+  $(function(){
+    getData();
+    $('.editDiv').css('display', 'none');
+  });
+
+  function getData(){
+    $("#result").datagrid({
+      url : '/backend/getAllArticles.action',
+      method : 'get',
+      loadMsg : "数据装载中....",
+      pagination : true,
+      striped : true,
+      pageSize : 20,
+      pageList : [10, 20, 50],
+      singleSelect : true,
+      rownumbers: true,
+      columns:[[
+        {field:'title',title:'标题',width:200},
+        {field:'updateTime',title:'更新时间',width:200},
+        {field:'operator', title:'操作',width:200,
+          formatter: function(value,row,index){
+            return '<a href="javascript:void(0)" onclick="editObj(' + row.id + ')">修改</a>' + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<a href="javascript:void(0)" onclick="deleteObj(' + row.id + ')">删除</a>';
+          }
         }
-    </style>
-</head>
-<body>
-    <div class="editDiv">
-        <form action="updateArticle.action" method="post">
-        <table width="100%" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
-            <tr>
-                <input type="text" name="id" hidden="hidden">
-                <input type="text" name="type" hidden="hidden">
-                <td>标题</td>
-                <td>
-                	<input type="text" name="title" id="test">
-            	</td>
-            </tr>
-            <tr>
-                <td>关键字</td>
-                <td>
-                	<input type="text" name="keyword">
-            	</td>
-            </tr>
-            <tr>
-                <td>描述</td>
-                <td>
-                	<textarea name="description"></textarea>
-            	</td>
-            </tr>
-            <tr>
-                <td>内容</td>
-                <td>
-                	<textarea name="content"></textarea>
-            	</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-            		<input type="button" value="取消" onclick="cancel()" style="width:100px;">
-                	<input type="submit" value="保存" style="width:100px;">
-                </td>
-            </tr>
-        </table>
-        </form>
-    </div>
-    
-    <div class="listDiv">
-		<div id="result"></div>
-    </div>
-    
-    <script type="text/javascript">
-    	var editor;
-        KindEditor.ready(function(K) {
-            editor = K.create('textarea[name="content"]', {
-            	width : '750px',
-                autoHeightMode : true,
-                cssData: 'body {font-size:14px;}',
-                afterCreate : function() {
-                    this.loadPlugin('autoheight');
-                }
-            });
-        });
-        
-        $(function(){
-        	getData();
-        });
-    
-        function getData(){
-        	$("#result").datagrid({
-				url : 'getAllArticles.action',
-				method : 'get',
-				loadMsg : "数据装载中....",
-				data : {
-					type: $("input[name='type']").val()
-				},
-				pagination : true,
-				striped : true,
-				pageSize : 20,
-				pageList : [10, 20, 50],
-				singleSelect : true,
-				rownumbers: true,
-			    columns:[[
-			        {field:'title',title:'标题',width:200},
-			        {field:'updateTime',title:'更新时间',width:200},
-			        {field:'operator', title:'操作',width:200,
-			        	formatter: function(value,row,index){
-			        		return '<a href="javascript:void(0)" onclick="editObj(' + row.id + ')">修改</a>' + '&nbsp;&nbsp;|&nbsp;&nbsp;' 
-			        			+ '<a href="javascript:void(0)" onclick="deleteObj(' + row.id + ')">删除</a>';
-			        	}
-			        }
-			    ]]
-			});
+      ]],
+      toolbar: [{
+        text: "增加",
+        iconCls: "icon-add",
+        handler: function(){openEditDiv()}
+      }]
+    });
+  }
+
+  function openEditDiv(){
+    $(".editDiv").css("display", "block");
+    $(".listDiv").css("display", "none");
+  }
+
+  function editObj(id){
+    $.ajax({
+      type: "get",
+      url: "/backend/getArticle.action",
+      dataType: "json",
+      data: {
+        'id':id
+      },
+      success: function (pageInfo) {
+        if(pageInfo){
+          $("input[name='id']").val(pageInfo.id);
+          $('#title').textbox('setValue', pageInfo.title);
+          $('#keyword').textbox('setValue', pageInfo.keyword);
+          $('#description').textbox('setValue', pageInfo.description);
+          editor.html(pageInfo.content);
+
+          $(".editDiv").css("display", "block");
+          $(".listDiv").css("display", "none");
         }
-        
-        function editObj(id){
-        	$.ajax({
-                type: "get",
-                url: "getArticle.action",
-                dataType: "json",
-                data: {
-                    'id':id
-                },
-                success: function (pageInfo) {
-					if(pageInfo != undefined && pageInfo != null){
-						$("input[name='id']").val(pageInfo.id);
-						$("input[name='type']").val(pageInfo.type);
-						$("input[name='title']").val(pageInfo.title);
-						$("input[name='keyword']").val(pageInfo.keyword);
-						$("textarea[name='description']").html(pageInfo.description);
-						editor.html(pageInfo.content);
-						
-						$(".editDiv").css("display", "block");
-						$(".listDiv").css("display", "none");
-					}
-                },
-                error: function (data) {
-                    $.messager.alert("警告", "网络异常！");
-                }
-            });
+      },
+      error: function (data) {
+        $.messager.alert("警告", "网络异常！");
+      }
+    });
+  }
+
+  function deleteObj(id){
+    if(confirm('确定要删除这条记录吗？')){
+      $.ajax({
+        type: "post",
+        url: "/backend/deleteArticle.action",
+        // dataType: "json",
+        data: {
+          'id':id
+        },
+        success: function (status) {
+          if(status){
+            getData();
+          }else{
+            $.messager.alert("提示", "删除失败!");
+          }
+        },
+        error: function (data) {
+          $.messager.alert("警告", "网络异常！");
         }
-        
-        function deleteObj(id){
-        	if(confirm('确定要删除这条记录吗？')){
-	    		$.ajax({
-	                type: "post",
-	                url: "deleteArticle.action",
-	                // dataType: "json",
-	                data: {
-	                    'id':id
-	                },
-	                success: function (status) {
-						if(status){
-	                    	getData();
-	                	}else{
-	                   		$.messager.alert("提示", "删除失败!");
-	                	}
-	                },
-	                error: function (data) {
-	                    $.messager.alert("警告", "网络异常！");
-	                }
-	            });
-			}
-        }
-        
-        function cancel(){
-			$(".editDiv").css("display", "none");
-			$(".listDiv").css("display", "block");
-        }
-    </script>
-</body>
-</html>
+      });
+    }
+  }
+
+  function cancel(){
+    $(".editDiv").css("display", "none");
+    $(".listDiv").css("display", "block");
+    $('#ff').form('clear');
+    window.editor.html('');
+  }
+
+  function submitForm() {
+    // 提交钱刷新editor到area（基于KindEditor）
+    editor.sync();
+
+    var $form = $('#ff'),
+            $id = $('[name="id"]');
+    // 当id字段严格为空字符串时执行保存操作
+    var url = ($id.val() === '') ? '/backend/addArticle.action' : '/backend/updateArticle.action';
+
+    $form.ajaxSubmit({
+      url: url,
+      type: 'post',
+      dataType: 'json',
+      success: function (result) {
+        cancel();
+        getData();
+        $.messager.alert('提示', result.message);
+      },
+      error: function () {
+        $.messager.alert('提示', '服务器异常');
+      }
+    });
+  }
+</script>
+</@default.layout>

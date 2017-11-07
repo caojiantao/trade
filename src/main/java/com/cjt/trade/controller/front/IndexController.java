@@ -6,6 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.cjt.trade.constant.CategoryEnum;
+import com.cjt.trade.dto.CategoryDto;
+import com.cjt.trade.service.ICategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,6 @@ import com.cjt.trade.model.Advertisement;
 import com.cjt.trade.model.Brand;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.service.IAdvertisementService;
-import com.cjt.trade.service.IBrandService;
 import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.vo.front.CategoryVo;
 
@@ -28,12 +30,12 @@ public class IndexController extends BaseFrontController {
   @Resource
   private IGoodsService goodsService;
   @Resource
-  private IBrandService brandService;
+  private ICategoryService categoryService;
 
   @RequestMapping(value = "/index")
   public String index(HttpServletRequest request, Model model) {
     // 固定化模块
-    List<CategoryVo> vos = initFixModule(request, model);
+    initFixModule(request, model);
     // 广告banner
     initAdBanner(model);
     // 最新商品
@@ -43,7 +45,7 @@ public class IndexController extends BaseFrontController {
     // 热卖商品
     initHotGoods(model);
     // 各分类下对应的最新商品
-    initLastestCategoryGoods(model, vos);
+//    initLastestCategoryGoods(model, vos);
     // 品牌专区
     initShowBrand(model);
     return "front/build/index";
@@ -104,8 +106,10 @@ public class IndexController extends BaseFrontController {
   /**
    * 获取品牌专区推荐
    */
-  public void initShowBrand(Model model) {
-    List<Brand> brands = brandService.listShowBrands();
+  private void initShowBrand(Model model) {
+    CategoryDto dto = new CategoryDto();
+    dto.setType(CategoryEnum.BRAND.getType());
+    List<Brand> brands = categoryService.listBrands(dto);
     model.addAttribute("brands", brands);
   }
 }

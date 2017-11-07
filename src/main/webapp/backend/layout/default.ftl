@@ -15,6 +15,7 @@
   <script type="text/javascript" src="${base}/plugins/jquery.form.min.js"></script>
   <script type="text/javascript" src="${base}/js/pre-img.js"></script>
   <script type="text/javascript" src="${base}/js/common.js"></script>
+  <script type="text/javascript" src="${base}/js/select.js"></script>
 
 </head>
 <body>

@@ -1,107 +1,103 @@
-$(function(){
-	getTrade();
-	$("select[name='tradeId']").change(function(){
-		getBrandByTradeId($("select[name='tradeId']").val());
-	});
-	$("select[name='brandId']").change(function(){
-		getProductByBrandId($("select[name='brandId']").val());
-	});
+$(function () {
+  getTrade();
+  $('#tradeId').change(function () {
+    getBrandByTradeId($(this).val());
+  });
+  $('#brandId').change(function () {
+    getProductByBrandId($(this).val());
+  });
 });
 
 /**
  * 获取商品行业下拉框并赋值
  */
-function getTrade(){
-	var tradeSel = $("select[name='tradeId']");
-	if(tradeSel == undefined) return;
-	$.ajax({
-	    type: "get",
-	    url: "/api/getAllTradesOpt.action",
-	    async: false,
-	    dataType: "json",
-	    success: function (opts) {
-			if(opts != undefined && opts != null){
-				for(index in opts){
-					var opt = opts[index];
-					var option = $(tradeSel.find("option").get(0)).clone();
-					option.val(opt.key);
-					option.html(opt.value);
-					tradeSel.append(option);
-				}
-			}
-	    },
-	    error: function (data) {
-	        $.messager.alert("警告", "网络异常！");
-	    }
-	});
+function getTrade() {
+  var tradeSel = $('#tradeId');
+  if (tradeSel.length===0) return;
+  $.ajax({
+    type: "get",
+    url: "/backend/listTradesOpt.action",
+    async: false,
+    dataType: "json",
+    success: function (opts) {
+      if (opts) {
+        $.each(opts, function (index, opt) {
+          var option = $('<option></option>');
+          option.val(opt.key);
+          option.html(opt.value);
+          tradeSel.append(option);
+        });
+      }
+    },
+    error: function (data) {
+      $.messager.alert("警告", "网络异常！");
+    }
+  });
 }
 
 /**
  * 获取品牌类型下拉框并赋值
  */
-function getBrandByTradeId(tradeId){
-	var brandSel = $("select[name='brandId']");
-	if(brandSel == undefined) return;
-	$.ajax({
-	    type: "get",
-	    url: "/api/getAllBrandsOptByTradeId.action",
-	    async: false,
-	    dataType: "json",
-	    data:{
-	    	'tradeId': tradeId
-	    },
-	    success: function (opts) {
-	    	brandSel.find("option:gt(0)").remove();
-	    	var productSel = $("select[name='productId']");
-	    	if(productSel != undefined){
-		    	productSel.find("option:gt(0)").remove();
-	    	}
-	    	
-			if(opts != undefined && opts != null){
-				for(index in opts){
-					var opt = opts[index];
-					var option = $(brandSel.find("option").get(0)).clone();
-					option.val(opt.key);
-					option.html(opt.value);
-					brandSel.append(option);
-				}
-			}
-	    },
-	    error: function (data) {
-	        $.messager.alert("警告", "网络异常！");
-	    }
-	});
+function getBrandByTradeId(parentId) {
+  var brandSel = $('#brandId');
+  if (brandSel.length===0) return;
+  $.ajax({
+    type: "get",
+    url: "/backend/listBrandsOpt.action",
+    async: false,
+    dataType: "json",
+    data: {
+      'parentId': parentId
+    },
+    success: function (opts) {
+      brandSel.find("option:gt(0)").remove();
+      var productSel = $('#productId');
+      if (productSel.length===0) {
+        productSel.find("option:gt(0)").remove();
+      }
+
+      if (opts) {
+        $.each(opts, function(index, opt){
+          var option = $('<option></option>');
+          option.val(opt.key);
+          option.html(opt.value);
+          brandSel.append(option);
+        });
+      }
+    },
+    error: function (data) {
+      $.messager.alert("警告", "网络异常！");
+    }
+  });
 }
 
 /**
  * 获取产品类型下拉框并赋值
  */
-function getProductByBrandId(brandId){
-	var productSel = $("select[name='productId']");
-	if(productSel == undefined) return;
-	$.ajax({
-	    type: "get",
-	    url: "/api/getAllProductsOptByBrandId.action",
-	    async: false,
-	    dataType: "json",
-	    data:{
-	    	'brandId': brandId
-	    },
-	    success: function (opts) {
-	    	productSel.find("option:gt(0)").remove();
-	    	
-			if(opts != undefined && opts != null){
-				for(index in opts){
-					var opt = opts[index];
-					var option = $($("select[name='productId']").find("option").get(0)).clone();
-					option.val(opt.key);
-					option.html(opt.value);
-					$("select[name='productId']").append(option);
-				}
-			}
-	    },
-	    error: function (data) {
-	        $.messager.alert("警告", "网络异常！");
-	    }
-	});
+function getProductByBrandId(parentId) {
+  var productSel = $('#productId');
+  if (productSel.length===0) return;
+  $.ajax({
+    type: "get",
+    url: "/backend/listProductsOpt.action",
+    async: false,
+    dataType: "json",
+    data: {
+      'parentId': parentId
+    },
+    success: function (opts) {
+      productSel.find("option:gt(0)").remove();
+      if (opts) {
+        $.each(opts, function(index, opt){
+          var option = $('<option></option>');
+          option.val(opt.key);
+          option.html(opt.value);
+          $('#productId').append(option);
+        });
+      }
+    },
+    error: function (data) {
+      $.messager.alert("警告", "网络异常！");
+    }
+  });
 }

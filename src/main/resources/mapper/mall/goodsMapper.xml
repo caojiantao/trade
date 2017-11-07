@@ -15,7 +15,7 @@
 			g.`name` 'name',
 			g.number 'number',
 			g.price 'price',
-			g.scroll scroll,
+			g.scroll 'scroll',
 			g.hot hot,
 			g.title 'title',
 			g.keyword 'keyword',
@@ -27,9 +27,9 @@
 			g.browse_times 'browseTimes'
 		FROM
 			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		LEFT JOIN category p ON g.product_id = p.id
+		LEFT JOIN category b ON p.parent_id = b.id
+		LEFT JOIN category t ON b.parent_id = t.id
 	</sql>
 
 	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
@@ -166,9 +166,9 @@
 		SELECT COUNT(*)
 		FROM
 			goods g
-		LEFT JOIN product p ON g.product_id = p.id
-		LEFT JOIN brand b ON p.brand_id = b.id
-		LEFT JOIN trade t ON b.trade_id = t.id
+		LEFT JOIN category p ON g.product_id = p.id
+		LEFT JOIN category b ON p.parent_id = b.id
+		LEFT JOIN category t ON b.parent_id = t.id
 		WHERE
 		1 = 1
         <if test="tradeId != null and tradeId != 0">

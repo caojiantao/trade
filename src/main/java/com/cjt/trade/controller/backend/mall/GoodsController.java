@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.cjt.trade.dto.ResultDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import com.cjt.trade.util.PathUtil;
 import com.cjt.trade.vo.GoodsVo;
 
 @Controller
-@RequestMapping(value="/backend/")
+@RequestMapping(value="/backend")
 public class GoodsController extends BaseController{
 
 	@Resource
@@ -33,8 +34,8 @@ public class GoodsController extends BaseController{
 		return "backend/mall/goodsList";
 	}
 
-	@RequestMapping(value = "getAllGoods.action")
 	@ResponseBody
+	@RequestMapping(value = "/getAllGoods.action")
 	public JSONObject getAllGoods(int page, int rows, BaseDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
@@ -42,30 +43,25 @@ public class GoodsController extends BaseController{
 		int count = goodsService.getAllGoodsCount(dto);
 		return JSONUtil.toGridJson(vos, count);
 	}
-	
-	@RequestMapping(value = "addGoods.action")
-	public String addGoods(MultipartFile file, Goods goods, Model model) {
+
+	@ResponseBody
+	@RequestMapping(value = "/addGoods.action")
+	public ResultDto addGoods(MultipartFile file, Goods goods, Model model) {
 		setLogoUrl(file, goods);
-		int lines = goodsService.insertGoods(goods);
-		if (lines > 0) {
-			model.addAttribute("returnUrl", "goodsAdd.action");
-			return "success";
-		}
-		return "ERROR";
+		goodsService.insertGoods(goods);
+		return success("添加成功", null);
 	}
-	
-	@RequestMapping(value = "updateGoods.action")
-	public String updateGoods(MultipartFile file, Goods goods, Model model){
+
+	@ResponseBody
+	@RequestMapping(value = "/updateGoods.action")
+	public ResultDto updateGoods(MultipartFile file, Goods goods, Model model){
 		setLogoUrl(file, goods);
 		int lines = goodsService.updateGoods(goods);
-		if (lines > 0) {
-			return goodsList();
-		}
-		return "ERROR";
+		return lines > 0 ? success("更新成功", null) : failed("更新失败");
 	}
 	
 	public void setLogoUrl(MultipartFile file, Goods goods){
-		if (file.getSize() == 0) {
+		if (file == null || file.getSize() == 0) {
 			return;
 		}
 		FileUtil.deleteFile(goods.getLogoRealUrl());
@@ -86,19 +82,14 @@ public class GoodsController extends BaseController{
         goods.setLogoUrl(PathUtil.getGoodsUrlPath() + fileName);
 	}
 
-	@RequestMapping(value = "goodsAdd.action")
-	public String goodsAdd() {
-		return "backend/mall/goodsAdd";
-	}
-	
-	@RequestMapping(value = "getGoodsById.action")
 	@ResponseBody
+	@RequestMapping(value = "/getGoodsById.action")
 	public Goods getgoodsById(int id) {
 		return goodsService.getGoodsById(id);
 	}
 
-	@RequestMapping(value = "deleteGoodsById.action")
 	@ResponseBody
+	@RequestMapping(value = "/deleteGoodsById.action")
 	public boolean deleteGoodsById(int id) {
 		Goods goods = getgoodsById(id);
 		FileUtil.deleteFile(goods.getLogoRealUrl());

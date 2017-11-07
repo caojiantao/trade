@@ -32,128 +32,132 @@
 </div>
 
 <script type="text/javascript">
-	$(function(){
-		getData();
-      $('.editDiv').css('display', 'none');
-	});
+  $(function () {
+    getData();
+    $('.editDiv').css('display', 'none');
+  });
 
-	function getData(){
-		$("#result").datagrid({
-			url : '/backend/listAllAds.action',
-			method : 'get',
-			loadMsg : "数据装载中....",
-			striped : true,
-			singleSelect : true,
-			rownumbers: true,
-			fitColumns: true,
-			columns:[[
-				{field:'order',title:'排序',width:200},
-				{field:'url',title:'广告链接',width:200},
-				{field:'operator', title:'操作',width:200,
-					formatter: function(value,row,index){
-						return '<a href="javascript:void(0)" onclick="editObj(' + row.id + ')">修改</a>'
-							+ '&nbsp;&nbsp;|&nbsp;&nbsp;'
-							+ '<a href="javascript:void(0)" onclick="removeObj(' + row.id + ')">删除</a>';
-					}
-				}
-			]],
-			toolbar: [{
-				text: "增加",
-				iconCls: "icon-add",
-				handler: function(){openEditDiv()}
-			}]
-		});
-	}
+  function getData() {
+    $("#result").datagrid({
+      url: '/backend/listAllAds.action',
+      method: 'get',
+      loadMsg: "数据装载中....",
+      striped: true,
+      singleSelect: true,
+      rownumbers: true,
+      fitColumns: true,
+      columns: [[
+        {field: 'order', title: '排序', width: 200},
+        {field: 'url', title: '广告链接', width: 200},
+        {
+          field: 'operator', title: '操作', width: 200,
+          formatter: function (value, row, index) {
+            return '<a href="javascript:void(0)" onclick="editObj(' + row.id + ')">修改</a>'
+                    + '&nbsp;&nbsp;|&nbsp;&nbsp;'
+                    + '<a href="javascript:void(0)" onclick="removeObj(' + row.id + ')">删除</a>';
+          }
+        }
+      ]],
+      toolbar: [{
+        text: "增加",
+        iconCls: "icon-add",
+        handler: function () {
+          openEditDiv()
+        }
+      }]
+    });
+  }
 
-	function editObj(id){
-		$.ajax({
-			url: "/backend/getAdById.action",
-			dataType: "json",
-			data: {
-				'id':id
-			},
-			success: function (obj) {
-				if(obj){
-					$("input[name='id']").val(obj.id);
-                  	$("input[name='logoRealUrl']").val(obj.logoRealUrl);
-					$("#order").textbox('setValue', obj.order);
-					$("#url").textbox('setValue', obj.url);
+  function editObj(id) {
+    $.ajax({
+      url: "/backend/getAdById.action",
+      dataType: "json",
+      data: {
+        'id': id
+      },
+      success: function (obj) {
+        if (obj) {
+          $("input[name='id']").val(obj.id);
+          $("input[name='logoRealUrl']").val(obj.logoRealUrl);
+          $("#order").textbox('setValue', obj.order);
+          $("#url").textbox('setValue', obj.url);
 
-					// 防止logoUrl为null导致图片路径不变
-					$("#logoImg").attr("src", obj.logoUrl ? obj.logoUrl : '');
+          // 防止logoUrl为null导致图片路径不变
+          $("#logoImg").attr("src", obj.logoUrl ? obj.logoUrl : '');
 
-					openEditDiv();
-				}
-			},
-			error: function (data) {
-				$.messager.alert("警告", "网络异常！");
-			}
-		});
-	}
+          openEditDiv();
+        }
+      },
+      error: function (data) {
+        $.messager.alert("警告", "网络异常！");
+      }
+    });
+  }
 
-	function removeObj(id){
-		if(confirm('确定要删除这条记录吗？')){
-			$.ajax({
-				url: "/backend/removeAdById.action",
-				// dataType: "json",
-				data: {
-					'id':id
-				},
-				success: function (line) {
-					if(line > 0){
-						$("#result").datagrid("reload");
-					}else{
-						$.messager.alert("提示", "删除失败!");
-					}
-				},
-				error: function (data) {
-					$.messager.alert("警告", "网络异常！");
-				}
-			});
-		}
-	}
-
-	function submitForm(){
-		var url;
-		if($("input[name='id']").val() === ""){
-			url = "/backend/saveAd.action";
-		} else {
-			url = "/backend/updateAd.action";
-		}
-
-      	$('#ff').ajaxSubmit({
-        url: url,
-        type: 'post',
-        dataType: 'json',
-        success: function (result) {
-          closeEditDiv();
-          getData();
-          $.messager.alert('提示', result.message);
+  function removeObj(id) {
+    if (confirm('确定要删除这条记录吗？')) {
+      $.ajax({
+        url: "/backend/removeAdById.action",
+        // dataType: "json",
+        data: {
+          'id': id
         },
-        error: function () {
-          $.messager.alert('提示', '服务器异常');
+        success: function (line) {
+          if (line > 0) {
+            $("#result").datagrid("reload");
+          } else {
+            $.messager.alert("提示", "删除失败!");
+          }
+        },
+        error: function (data) {
+          $.messager.alert("警告", "网络异常！");
         }
       });
-	}
+    }
+  }
 
-	function openEditDiv(){
-		$(".editDiv").css("display", "block");
-		$(".listDiv").css("display", "none");
-	}
+  function submitForm() {
+    var url;
+    if ($("input[name='id']").val() === "") {
+      url = "/backend/saveAd.action";
+    } else {
+      url = "/backend/updateAd.action";
+    }
 
-	function closeEditDiv(){
-		$(".editDiv").css("display", "none");
-		$(".listDiv").css("display", "block");
-		clearForm();
+    $('#ff').ajaxSubmit({
+      url: url,
+      type: 'post',
+      dataType: 'json',
+      success: function (result) {
+        closeEditDiv();
+        getData();
+        $.messager.alert('提示', result.message);
+      },
+      error: function () {
+        $.messager.alert('提示', '服务器异常');
+      }
+    });
+  }
 
-		// 防止clear后预览图片失效
-		previewImg();
-	}
+  function openEditDiv() {
+    $(".editDiv").css("display", "block");
+    $(".listDiv").css("display", "none");
+  }
 
-	function clearForm(){
-		$('#ff').form("clear");
-		$("#logoImg").attr("src", "");
-	}
+  function closeEditDiv() {
+    $(".editDiv").css("display", "none");
+    $(".listDiv").css("display", "block");
+    clearForm();
+
+    // 防止clear后预览图片失效
+    previewImg();
+    editor.html("");
+  }
+
+  function clearForm() {
+    $('#ff').form("clear");
+    $("#logoImg").attr("src", "");
+  }
 </script>
 
 </@default.layout>

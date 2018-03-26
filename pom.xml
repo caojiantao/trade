@@ -116,8 +116,34 @@
     </dependency>
   </dependencies>
 
+  <!-- 分环境打包 -->
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <profiles.active>dev</profiles.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>pro</id>
+      <properties>
+        <profiles.active>pro</profiles.active>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
     <finalName>trade</finalName>
+    <!-- 分环境打包需要设置该项，允许变量替换资源文件 -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

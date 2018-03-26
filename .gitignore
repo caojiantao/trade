@@ -2,4 +2,3 @@
 .setttings/
 *.iml
 target/
-!/.gitignore

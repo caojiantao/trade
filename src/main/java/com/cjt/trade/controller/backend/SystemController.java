@@ -1,25 +1,23 @@
 package com.cjt.trade.controller.backend;
 
-import java.io.File;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.alibaba.fastjson.JSONArray;
+import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.model.Admin;
+import com.cjt.trade.model.Website;
+import com.cjt.trade.service.IAdminServcie;
+import com.cjt.trade.service.IUploadService;
+import com.cjt.trade.service.IWebsiteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONArray;
-import com.cjt.trade.constant.GlobalConfig;
-import com.cjt.trade.controller.BaseController;
-import com.cjt.trade.model.Admin;
-import com.cjt.trade.model.Website;
-import com.cjt.trade.service.IAdminServcie;
-import com.cjt.trade.service.IWebsiteService;
-import com.cjt.trade.util.PathUtil;
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author wulitaotao
@@ -28,104 +26,78 @@ import com.cjt.trade.util.PathUtil;
 @RequestMapping("/backend")
 public class SystemController extends BaseController {
 
-  @Resource
-  private IWebsiteService websiteService;
+    @Resource
+    private IWebsiteService websiteService;
 
-  @Resource
-  private IAdminServcie adminServcie;
+    @Resource
+    private IAdminServcie adminServcie;
 
-  /**
-   * 网站信息页
-   */
-  @RequestMapping(value = "/website")
-  public String website(Model model) {
-    model.addAttribute("website", websiteService.getWebsite());
-    return "backend/system/website";
-  }
+    @Autowired
+    private IUploadService uploadService;
 
-  @ResponseBody
-  @RequestMapping(value = "/updateWebsite")
-  public ResultDto updateWebsite(MultipartFile file, Website website) {
-    if (!setLogoUrl(file, website)) {
-      return failed("上传图片出现异常，请检查文件操作权限。");
+    /**
+     * 网站信息页
+     */
+    @RequestMapping(value = "/website")
+    public String website(Model model) {
+        model.addAttribute("website", websiteService.getWebsite());
+        return "backend/system/website";
     }
-    if (website.getId() == null) {
-      websiteService.insertWebSite(website);
-    } else {
-      websiteService.updateWebsite(website);
-    }
-    return success();
-  }
 
-  public boolean setLogoUrl(MultipartFile file, Website website) {
-    if (file == null) {
-      return true;
+    @ResponseBody
+    @RequestMapping(value = "/updateWebsite")
+    public ResultDto updateWebsite(MultipartFile file, Website website) throws IOException {
+        website.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        if (website.getId() == null) {
+            websiteService.insertWebSite(website);
+        } else {
+            websiteService.updateWebsite(website);
+        }
+        return success();
     }
-    String path = PathUtil.getRootPath();
-    String fileName = GlobalConfig.LOGO_NAME;
-    File targetFile = new File(path, fileName);
-    if (targetFile.exists()) {
-      if (!targetFile.delete()) {
-        // 删除文件失败
-        return false;
-      }
+
+    @RequestMapping(value = "/admin")
+    public String admin() {
+        return "backend/system/admin";
     }
-    if (!targetFile.mkdirs()) {
-      // 创建文件失败
-      return false;
+
+    @RequestMapping(value = "/getAllAdmins")
+    @ResponseBody
+    public String getAllAdmins() {
+        List<Admin> admins = adminServcie.getAllAdmins();
+        return JSONArray.toJSONString(admins);
     }
-    //保存
-    try {
-      file.transferTo(targetFile);
-    } catch (Exception e) {
-      e.printStackTrace();
+
+    @RequestMapping(value = "/addAdmin")
+    @ResponseBody
+    public boolean addAdmin(Admin admin) {
+        int result = adminServcie.getAdminCountByAccount(admin.getAccount());
+        if (result > 0) {
+            return false;
+        } else {
+            adminServcie.addAdmin(admin);
+            return true;
+        }
     }
-    website.setLogoUrl(PathUtil.getLogoUrlPath() + fileName);
-    return true;
-  }
 
-  @RequestMapping(value = "/admin")
-  public String admin() {
-    return "backend/system/admin";
-  }
-
-  @RequestMapping(value = "/getAllAdmins")
-  @ResponseBody
-  public String getAllAdmins() {
-    List<Admin> admins = adminServcie.getAllAdmins();
-    return JSONArray.toJSONString(admins);
-  }
-
-  @RequestMapping(value = "/addAdmin")
-  @ResponseBody
-  public boolean addAdmin(Admin admin) {
-    int result = adminServcie.getAdminCountByAccount(admin.getAccount());
-    if (result > 0) {
-      return false;
-    } else {
-      adminServcie.addAdmin(admin);
-      return true;
+    @RequestMapping(value = "/deleteAdmin")
+    @ResponseBody
+    public boolean deleteAdmin(int id) {
+        adminServcie.deleteAdmin(id);
+        return true;
     }
-  }
 
-  @RequestMapping(value = "/deleteAdmin")
-  @ResponseBody
-  public boolean deleteAdmin(int id) {
-    adminServcie.deleteAdmin(id);
-    return true;
-  }
-
-  @RequestMapping(value = "/getAdminById")
-  @ResponseBody
-  public Admin getAdminById(int id) {
-    return adminServcie.getAdminById(id);
-  }
-
-  @RequestMapping(value = "/updateAdmin")
-  public String updateAdmin(Admin admin) {
-    if (admin != null) {
-      adminServcie.updateAdmin(admin);
+    @RequestMapping(value = "/getAdminById")
+    @ResponseBody
+    public Admin getAdminById(int id) {
+        return adminServcie.getAdminById(id);
     }
-    return admin();
-  }
+
+    @RequestMapping(value = "/updateAdmin")
+    public String updateAdmin(Admin admin) {
+        if (admin != null) {
+            adminServcie.updateAdmin(admin);
+        }
+        return admin();
+    }
 }

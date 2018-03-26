@@ -48,13 +48,9 @@ public class BaseFrontController extends BaseController {
   /**
    * 左侧商品分类菜单
    */
-  private List<CategoryVo> initCategory(Model model) {
-    List<CategoryVo> vos = categoryService.getCategoryVos();
-    model.addAttribute("categorys", vos);
-
+  private void initCategory(Model model) {
     List<Category> categories = categoryService.listCategories();
     model.addAttribute("categories", categories);
-    return vos;
   }
 
   /**
@@ -82,11 +78,10 @@ public class BaseFrontController extends BaseController {
   /**
    * header、left、footer三个固定的模块页面传值，返回左侧导航分类信息
    */
-  List<CategoryVo> initFixModule(HttpServletRequest request, Model model) {
+  void initFixModule(HttpServletRequest request, Model model) {
     initWebSite(model);
     initUser(model, request.getSession());
-    List<CategoryVo> vos = initCategory(model);
+    initCategory(model);
     initEms(model);
-    return vos;
   }
 }

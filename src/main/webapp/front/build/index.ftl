@@ -13,15 +13,15 @@
   <div class="right top fn-clear">
     <div class="_search-list border fn-clear">
       &nbsp;業界:&nbsp;
-      <select name="tradeId">
+      <select id="tradeId" name="tradeId">
         <option value="0">選択します</option>
       </select>
       &nbsp;ブランド:&nbsp;
-      <select name="brandId">
+      <select id="brandId" name="brandId">
         <option value="0">選択します</option>
       </select>
       &nbsp;分類:&nbsp;
-      <select name="productId">
+      <select id="productId" name="productId">
         <option value="0">選択します</option>
       </select>
       &nbsp;価格:&nbsp;

@@ -8,11 +8,11 @@ public class Category {
 
   private Integer parentId;
 
-  private Integer hasChild;
-
   private String name;
 
   private Integer order;
+
+  private Integer type;
 
   private String title;
 
@@ -25,6 +25,24 @@ public class Category {
   private String logoRealUrl;
 
   private String content;
+
+  private Boolean show;
+
+  public Integer getType() {
+    return type;
+  }
+
+  public void setType(Integer type) {
+    this.type = type;
+  }
+
+  public Boolean getShow() {
+    return show;
+  }
+
+  public void setShow(Boolean show) {
+    this.show = show;
+  }
 
   private List<Category> children;
 
@@ -106,14 +124,6 @@ public class Category {
 
   public void setParentId(Integer parentId) {
     this.parentId = parentId;
-  }
-
-  public Integer getHasChild() {
-    return hasChild;
-  }
-
-  public void setHasChild(Integer hasChild) {
-    this.hasChild = hasChild;
   }
 
   public List<Category> getChildren() {

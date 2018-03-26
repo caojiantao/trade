@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.cjt.trade.constant.PageEnum;
+import com.cjt.trade.dto.ResultDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,58 +34,44 @@ public class ArticleController extends BaseController {
 		return "backend/page/articleList";
 	}
 
-	/**
-	 * 文章添加
-	 */
-	@RequestMapping(value = "articleAdd.action")
-	public String articleAdd() {
-		return "backend/page/articleAdd";
-	}
-
-	@RequestMapping(value = "getAllArticles.action")
+	@RequestMapping(value = "/getAllArticles.action")
 	@ResponseBody
 	public JSONObject getAllArticles(int page, int rows, PageInfoDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
-		// 手动设置type为8
-		dto.setType(8);
+		dto.setType(PageEnum.wzxx.getType());
 		List<PageInfoVo> vos = pageInfoService.getAllPageInfos(dto);
 		int count = pageInfoService.getAllPageInfosCount(dto);
 		return JSONUtil.toGridJson(vos, count);
 	}
-	
-	@RequestMapping(value = "addArticle.action")
-	public String addArticle(PageInfo pageInfo, Model model) {
+
+	@ResponseBody
+	@RequestMapping(value = "/addArticle.action")
+	public ResultDto addArticle(PageInfo pageInfo) {
 		// 手动设置type，表示类型为文章
-		pageInfo.setType(8);
+		pageInfo.setType(PageEnum.wzxx.getType());
 		int lines = pageInfoService.insertPageInfo(pageInfo);
-		if (lines > 0) {
-			model.addAttribute("returnUrl", "articleAdd.action");
-			return "success";
-		}
-		return "ERROR";
-	}
-	
-	@RequestMapping(value = "updateArticle.action")
-	public String updateArticle(PageInfo pageInfo, Model model){
-		int lines = pageInfoService.updatePageInfo(pageInfo);
-		if (lines > 0) {
-			return articleList();
-		}
-		return "ERROR";
+		return lines > 0 ? success("添加成功", null) : failed("添加失败");
 	}
 
-	@RequestMapping(value = "getArticle.action")
+	@ResponseBody
+	@RequestMapping(value = "/updateArticle.action")
+	public ResultDto updateArticle(PageInfo pageInfo){
+		int lines = pageInfoService.updatePageInfo(pageInfo);
+		return lines > 0 ? success("更新成功", null) : failed("更新失败");
+	}
+
+	@RequestMapping(value = "/getArticle.action")
 	@ResponseBody
 	public PageInfo getArticle(int id) {
 		PageInfoDto dto = new PageInfoDto();
 		// 手动设置type为8
-		dto.setType(8);
+		dto.setType(PageEnum.wzxx.getType());
 		dto.setId(id);
 		return pageInfoService.getPageInfo(dto);
 	}
 	
-	@RequestMapping(value = "deleteArticle.action")
+	@RequestMapping(value = "/deleteArticle.action")
 	@ResponseBody
 	public boolean deleteArticle(int id){
 		int lines = pageInfoService.deletePageInfo(id);

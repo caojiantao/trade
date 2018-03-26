@@ -1,45 +1,27 @@
 package com.cjt.trade.controller.front;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.cjt.trade.dto.GoodsDto;
+import com.cjt.trade.model.*;
+import com.cjt.trade.service.*;
+import com.cjt.trade.service.impl.CategoryServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cjt.trade.dto.GoodsDto;
-import com.cjt.trade.model.Brand;
-import com.cjt.trade.model.MapModel;
-import com.cjt.trade.model.Navigation;
-import com.cjt.trade.model.Product;
-import com.cjt.trade.model.Trade;
-import com.cjt.trade.service.IBrandService;
-import com.cjt.trade.service.IDictionaryService;
-import com.cjt.trade.service.IEmsService;
-import com.cjt.trade.service.IPageInfoService;
-import com.cjt.trade.service.IProductService;
-import com.cjt.trade.service.ITradeService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("")
 public class FrontController extends BaseFrontController {
 
   @Resource
-  private IPageInfoService pageInfoService;
-  @Resource
-  private ITradeService tradeService;
-  @Resource
-  private IBrandService brandService;
-  @Resource
-  private IProductService productService;
+  private ICategoryService categoryService;
   @Resource
   private IDictionaryService dictionaryService;
-  @Resource
-  private IEmsService emsService;
 
   /**
    * 品牌类型
@@ -49,7 +31,7 @@ public class FrontController extends BaseFrontController {
     initFixModule(request, model);
 
     // 品牌信息
-    Brand brand = brandService.getBrandById(id);
+    Brand brand = categoryService.getBrandById(id);
     model.addAttribute("brand", brand);
 
     // 面包屑导航
@@ -59,7 +41,7 @@ public class FrontController extends BaseFrontController {
     model.addAttribute("navs", navs);
 
     // 当前brand“品牌类型”所有product“产品类型”
-    List<MapModel> maps = productService.getAllProductsOptByBrandId(id);
+    List<MapModel> maps = categoryService.listProductsOptByParentId(id);
     model.addAttribute("maps", maps);
 
     return "front/build/brand";
@@ -73,7 +55,7 @@ public class FrontController extends BaseFrontController {
     initFixModule(request, model);
 
     // 产品信息
-    Product product = productService.getProductById(id);
+    Product product = categoryService.getProductById(id);
     model.addAttribute("product", product);
 
     List<Navigation> navs = new ArrayList<Navigation>();
@@ -83,7 +65,7 @@ public class FrontController extends BaseFrontController {
     model.addAttribute("navs", navs);
 
     // 当前brand“品牌类型”所有product“产品类型”
-    List<MapModel> maps = productService.getAllProductsOptByBrandId(product.getBrandId());
+    List<MapModel> maps = categoryService.listProductsOptByParentId(product.getBrandId());
     model.addAttribute("maps", maps);
     return "front/build/product";
   }
@@ -102,7 +84,7 @@ public class FrontController extends BaseFrontController {
       navs.add(new Navigation("检索", ""));
     } else {
       // 商品行业热卖 trade
-      Trade trade = tradeService.getTradeById(dto.getTradeId());
+      Trade trade = categoryService.getTradeById(dto.getTradeId());
       navs.add(new Navigation(trade.getName(), ""));
     }
     model.addAttribute("navs", navs);

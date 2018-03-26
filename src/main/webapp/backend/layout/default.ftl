@@ -13,7 +13,10 @@
   <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
   <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
   <script type="text/javascript" src="${base}/plugins/jquery.form.min.js"></script>
+  <script type="text/javascript" src="${base}/js/pre-img.js"></script>
   <script type="text/javascript" src="${base}/js/common.js"></script>
+  <script type="text/javascript" src="${base}/js/select.js"></script>
+
 </head>
 <body>
   <#-- 嵌套的内容 -->

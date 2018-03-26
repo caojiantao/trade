@@ -56,14 +56,18 @@ public class AdvertisementController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "saveAd.action")
     public int saveAd(MultipartFile file, Advertisement advertisement) throws IOException {
-        advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        if (file != null) {
+            advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        }
         return advertisementService.saveAd(advertisement);
     }
 
     @ResponseBody
     @RequestMapping(value = "updateAd.action")
     public int updateAd(MultipartFile file, Advertisement advertisement) throws IOException {
-        advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        if (file != null) {
+            advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        }
         return advertisementService.updateAd(advertisement);
     }
 }

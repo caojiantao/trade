@@ -70,10 +70,13 @@
 	<script src="${plugins}/paging.js"></script>
 	<script>
 		$(function(){
-			var apiUrl = "/api/getNewGoods.action?type=3&id=${product.id}";
+          	var apiUrl = "/api/listLatestGoods.action";
 			$.setPages({
 				url: apiUrl,
-				limit: 1,
+			  	data: {
+                  limit: 24,
+                  productId: ${product.id}
+				},
 				className: '_paging',
 				onClick: function(index, pageNum, total, rows) {
 					initGoodsEle(index, pageNum, total, rows, "#js-goods");

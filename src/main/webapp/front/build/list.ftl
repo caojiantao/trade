@@ -43,7 +43,7 @@
 			$.setPages({
 				url: apiUrl,
 				data: {
-					limit: 1,
+					limit: 24,
 					tradeId: ${dto.tradeId},
 					brandId: ${dto.brandId},
 					productId: ${dto.productId},

@@ -1,17 +1,19 @@
 package com.cjt.trade.controller.backend.mall;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cjt.trade.constant.CategoryEnum;
 import com.cjt.trade.controller.BaseController;
-import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.dto.CategoryDto;
+import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.model.Category;
+import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
-import com.cjt.trade.service.IProductService;
+import com.cjt.trade.service.ICategoryService;
 import com.cjt.trade.service.IUploadService;
-import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
-import com.cjt.trade.vo.ProductVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +30,7 @@ import java.util.List;
 public class ProductController extends BaseController {
 
     @Resource
-    private IProductService productService;
+    private ICategoryService categoryService;
 
     @Autowired
     private IUploadService uploadService;
@@ -38,54 +40,60 @@ public class ProductController extends BaseController {
         return "backend/mall/productList";
     }
 
-    @RequestMapping(value = "/getAllProducts.action")
     @ResponseBody
-    public JSONObject getAllProducts(int page, int rows, BaseDto dto) {
+    @RequestMapping("/getAllProducts.action")
+    public JSONObject getAllProducts(int page, int rows, CategoryDto dto) {
+        dto.setType(CategoryEnum.PRODUCT.getType());
         dto.setStart((page - 1) * rows);
         dto.setLimit(rows);
-        List<ProductVo> vos = productService.getAllProducts(dto);
-        int count = productService.getAllProductsCount(dto);
-        return JSONUtil.toGridJson(vos, count);
+        List<Product> products = categoryService.listProducts(dto);
+        int count = categoryService.countCategoriesByDto(dto);
+        return JSONUtil.toGridJson(products, count);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/addProduct.action")
-    public String addproduct(MultipartFile file, Product product, Model model) throws IOException {
-        product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
-        int lines = productService.insertProduct(product);
-        if (lines > 0) {
-            model.addAttribute("returnUrl", "productAdd.action");
-            return "success";
+    public ResultDto addproduct(MultipartFile file, Product product) throws IOException {
+        if (file != null) {
+            product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return "ERROR";
+        Category category = new Category();
+        BeanUtils.copyProperties(product, category);
+        category.setParentId(product.getBrandId());
+        category.setType(CategoryEnum.PRODUCT.getType());
+        categoryService.saveCategory(category);
+        return success("添加成功", null);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/updateProduct.action")
-    public String updateProduct(MultipartFile file, Product product) throws IOException {
-        product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
-        int lines = productService.updateProduct(product);
-        if (lines > 0) {
-            return productList();
+    public ResultDto updateProduct(MultipartFile file, Product product) throws IOException {
+        if (file != null) {
+            product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return "ERROR";
+        Category category = new Category();
+        BeanUtils.copyProperties(product, category);
+        category.setParentId(product.getBrandId());
+        int lines = categoryService.updateCategory(category);
+        return lines > 0 ? success("更新成功", null) : failed("更新失败");
     }
 
-    @RequestMapping(value = "/productAdd.action")
-    public String productAdd() {
-        return "backend/mall/productAdd";
-    }
-
+    @ResponseBody
     @RequestMapping(value = "/getProductById.action")
-    @ResponseBody
     public Product getproductById(int id) {
-        return productService.getProductById(id);
+        return categoryService.getProductById(id);
     }
 
-    @RequestMapping(value = "/deleteProductById.action")
     @ResponseBody
+    @RequestMapping(value = "/deleteProductById.action")
     public boolean deleteProductById(int id) {
-        Product product = getproductById(id);
-        FileUtil.deleteFile(product.getLogoRealUrl());
-        int lines = productService.deleteProduct(id);
+        int lines = categoryService.removeCategoryById(id);
         return lines > 0;
+    }
+
+    @ResponseBody
+    @RequestMapping("/listProductsOpt.action")
+    public List<MapModel> listProductsOpt(int parentId) {
+        return categoryService.listProductsOptByParentId(parentId);
     }
 }

@@ -167,6 +167,7 @@
 </@default.layout>
 
 <script src="${plugins}/carousel.js"></script>
+<script src="${plugins}/common.js"></script>
 <script src="/js/select.js"></script>
 <script>
   var $c = $('.slideBox');
@@ -254,49 +255,5 @@
         });
       })
     })
-  });
-</script>
-
-<script>
-  $(function () {
-    var setScroll = function ($ele, $node) {
-      var marginL = parseInt($ele.css('marginLeft')),
-              width = $ele.get(0).offsetWidth - parseInt($ele.css('paddingLeft')) * 2,
-              itemEdge = $ele.find('.item').first().width() + parseInt($ele.find('.item').first().css('marginLeft')) + parseInt($ele.find('.item').first().css('marginRight'));
-      $ele.css('marginLeft', marginL - 1 + 'px');
-      if (Math.abs(marginL) >= itemEdge) {
-        $ele.find('.item').first().appendTo($ele);
-        $ele.css('marginLeft', 0);
-      }
-    };
-    var interval;
-    var stopScroll = function () {
-      window.clearInterval(interval);
-    };
-    var scrollH = function ($node, $scroll) {
-      var width = $node.width(),
-              $items = $scroll.find('.item'),
-              scrollLength = $items.length * ($items.width() + parseInt($items.css('marginLeft')));
-      $scroll.css('width', scrollLength);
-      if (width >= scrollLength) {
-        console.log("No Need To Scroll");
-      } else {
-        var items = $scroll.find('.item'),
-                last = items.last();
-        interval = setInterval(function () {
-          setScroll($scroll, $node);
-        }, 50);
-        $node.hover(function () {
-          stopScroll();
-        }, function () {
-          interval = setInterval(function () {
-            setScroll($scroll, $node);
-          }, 50);
-        });
-      }
-    };
-    var $node = $('.js-scroll-h'),
-            $scroll = $node.find('.scroll-auto');
-    scrollH($node, $scroll);
   });
 </script>

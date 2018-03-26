@@ -3,10 +3,10 @@
 	<div class="login-1">
 		<ul class="login-1">
 			<li><span>電子メール:</span>
-				<input id="email" type="text" class="ipt mail">
+				<input id="email-left" type="text" class="ipt mail">
 			</li>
 			<li><span>パスワード：</span>
-				<input id="password" type="password" class="ipt password">
+				<input id="password-left" type="password" class="ipt password">
 			</li>
 			<#-- <li><span>画像認証：</span>
 				<input type="text" class="validate"><img src="${img}/validate.jpg" alt="" class="vali-img">
@@ -41,8 +41,8 @@
 		$.ajax({
 			url:"/api/login.action",
 			data:{
-				email:$("#email").val(),
-				password:$("#password").val()
+				email:$("#email-left").val(),
+				password:$("#password-left").val()
 			},
 			success:function(user){
 				if(user != null && user != ""){

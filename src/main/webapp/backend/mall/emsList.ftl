@@ -72,6 +72,7 @@
             editor = K.create('textarea[name="content"]', {
                 width : '750px',
                 autoHeightMode : true,
+                uploadJson: '/files.action',
                 cssData: 'body {font-size:14px;}',
                 afterCreate : function() {
                     this.loadPlugin('autoheight');

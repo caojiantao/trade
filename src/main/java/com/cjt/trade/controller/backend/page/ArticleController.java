@@ -19,6 +19,9 @@ import com.cjt.trade.service.IPageInfoService;
 import com.cjt.trade.util.JSONUtil;
 import com.cjt.trade.vo.PageInfoVo;
 
+/**
+ * @author caojiantao
+ */
 @Controller
 @RequestMapping(value="/backend")
 public class ArticleController extends BaseController {
@@ -34,8 +37,8 @@ public class ArticleController extends BaseController {
 		return "backend/page/articleList";
 	}
 
-	@RequestMapping(value = "/getAllArticles.action")
 	@ResponseBody
+	@RequestMapping(value = "/getAllArticles.action")
 	public JSONObject getAllArticles(int page, int rows, PageInfoDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
@@ -61,8 +64,8 @@ public class ArticleController extends BaseController {
 		return lines > 0 ? success("更新成功", null) : failed("更新失败");
 	}
 
-	@RequestMapping(value = "/getArticle.action")
 	@ResponseBody
+	@RequestMapping(value = "/getArticle.action")
 	public PageInfo getArticle(int id) {
 		PageInfoDto dto = new PageInfoDto();
 		// 手动设置type为8
@@ -70,9 +73,9 @@ public class ArticleController extends BaseController {
 		dto.setId(id);
 		return pageInfoService.getPageInfo(dto);
 	}
-	
-	@RequestMapping(value = "/deleteArticle.action")
+
 	@ResponseBody
+	@RequestMapping(value = "/deleteArticle.action")
 	public boolean deleteArticle(int id){
 		int lines = pageInfoService.deletePageInfo(id);
 		return lines > 0;

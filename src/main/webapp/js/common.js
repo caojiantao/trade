@@ -6,6 +6,7 @@ function createEditor(selectors) {
         K.create(selector, {
           width : '100%',
           autoHeightMode: true,
+          uploadJson: '/files.action',
           afterCreate: function () {
             this.loadPlugin('autoheight');
           }

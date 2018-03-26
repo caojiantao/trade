@@ -13,6 +13,9 @@ import com.cjt.trade.model.PageInfo;
 import com.cjt.trade.service.IPageInfoService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author caojiantao
+ */
 @Controller
 @RequestMapping(value = "/backend")
 public class PageInfoController extends BaseController {
@@ -31,15 +34,15 @@ public class PageInfoController extends BaseController {
     return "backend/page/pageInfo";
   }
 
-  @RequestMapping("/savePageInfo.action")
   @ResponseBody
+  @RequestMapping("/savePageInfo.action")
   public ResultDto savePageInfo(PageInfo pageInfo) {
     int count = pageInfoService.insertPageInfo(pageInfo);
     return count > 0 ? success("保存成功", pageInfo) : failed("保存失败");
   }
 
-  @RequestMapping("/updatePageInfo.action")
   @ResponseBody
+  @RequestMapping("/updatePageInfo.action")
   public ResultDto updatePageInfo(PageInfo pageInfo) {
     int count = pageInfoService.updatePageInfo(pageInfo);
     return count > 0 ? success("更新成功", pageInfo) : failed("更新失败");

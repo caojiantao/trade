@@ -74,7 +74,7 @@
 			$.setPages({
 				url: apiUrl,
 				data: {
-					limit: 1,
+					limit: 24,
 					brandId: ${brand.id}
 				},
 				className: '_paging',

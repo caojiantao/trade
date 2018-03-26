@@ -1,17 +1,19 @@
 package com.cjt.trade.controller.backend.mall;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cjt.trade.constant.CategoryEnum;
 import com.cjt.trade.controller.BaseController;
-import com.cjt.trade.dto.BaseDto;
+import com.cjt.trade.dto.CategoryDto;
+import com.cjt.trade.dto.ResultDto;
 import com.cjt.trade.model.Brand;
-import com.cjt.trade.service.IBrandService;
+import com.cjt.trade.model.Category;
+import com.cjt.trade.model.MapModel;
+import com.cjt.trade.service.ICategoryService;
 import com.cjt.trade.service.IUploadService;
-import com.cjt.trade.util.FileUtil;
 import com.cjt.trade.util.JSONUtil;
-import com.cjt.trade.vo.BrandVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +30,7 @@ import java.util.List;
 public class BrandController extends BaseController {
 
     @Resource
-    private IBrandService brandService;
+    private ICategoryService categoryService;
 
     @Autowired
     private IUploadService uploadService;
@@ -38,55 +40,60 @@ public class BrandController extends BaseController {
         return "backend/mall/brandList";
     }
 
-    @RequestMapping(value = "/getAllBrands.action")
     @ResponseBody
-    public JSONObject getAllBrands(int page, int rows, BaseDto dto) {
+    @RequestMapping("/getAllBrands.action")
+    public JSONObject getAllBrands(int page, int rows, CategoryDto dto) {
+        dto.setType(CategoryEnum.BRAND.getType());
         dto.setStart((page - 1) * rows);
         dto.setLimit(rows);
-        List<BrandVo> vos = brandService.getAllBrands(dto);
-        int count = brandService.getAllBrandsCount(dto);
-        return JSONUtil.toGridJson(vos, count);
+        List<Brand> brands = categoryService.listBrands(dto);
+        int count = categoryService.countCategoriesByDto(dto);
+        return JSONUtil.toGridJson(brands, count);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/addBrand.action")
-    public String addbrand(MultipartFile file, Brand brand, Model model) throws IOException {
-        brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
-        int lines = brandService.insertBrand(brand);
-        if (lines > 0) {
-            model.addAttribute("returnUrl", "brandAdd.action");
-            return "success";
+    public ResultDto addbrand(MultipartFile file, Brand brand) throws IOException {
+        if (file != null) {
+            brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return "ERROR";
+        Category category = new Category();
+        BeanUtils.copyProperties(brand, category);
+        category.setParentId(brand.getTradeId());
+        category.setType(CategoryEnum.BRAND.getType());
+        categoryService.saveCategory(category);
+        return success("添加成功", null);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/updateBrand.action")
-    public String updateBrand(MultipartFile file, Brand brand) throws IOException {
-        brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
-        int lines = brandService.updateBrand(brand);
-        if (lines > 0) {
-            return brandList();
+    public ResultDto updateBrand(MultipartFile file, Brand brand) throws IOException {
+        if (file != null) {
+            brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return "ERROR";
+        Category category = new Category();
+        BeanUtils.copyProperties(brand, category);
+        category.setParentId(brand.getTradeId());
+        int lines = categoryService.updateCategory(category);
+        return lines > 0 ? success("更新成功", null) : failed("更新失败");
     }
 
-    @RequestMapping(value = "/brandAdd.action")
-    public String brandAdd() {
-        return "backend/mall/brandAdd";
-    }
-
+    @ResponseBody
     @RequestMapping(value = "/getBrandById.action")
-    @ResponseBody
-    public Brand getbrandById(int id) {
-        return brandService.getBrandById(id);
+    public Brand getBrandById(int id) {
+        return categoryService.getBrandById(id);
     }
 
-    @RequestMapping(value = "/deleteBrandById.action")
     @ResponseBody
+    @RequestMapping(value = "/deleteBrandById.action")
     public boolean deleteBrandById(int id) {
-        Brand brand = getbrandById(id);
-        // 删除原本的图片
-        FileUtil.deleteFile(brand.getLogoRealUrl());
-        int lines = brandService.deleteBrand(id);
+        int lines = categoryService.removeCategoryById(id);
         return lines > 0;
+    }
+
+    @ResponseBody
+    @RequestMapping("/listBrandsOpt.action")
+    public List<MapModel> listTradesOpt(int parentId) {
+        return categoryService.listBrandsOptByParentId(parentId);
     }
 }

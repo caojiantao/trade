@@ -47,7 +47,9 @@ public class SystemController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/updateWebsite")
     public ResultDto updateWebsite(MultipartFile file, Website website) throws IOException {
-        website.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        if (file != null) {
+            website.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+        }
         if (website.getId() == null) {
             websiteService.insertWebSite(website);
         } else {

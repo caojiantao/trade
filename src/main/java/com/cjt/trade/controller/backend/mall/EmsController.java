@@ -16,6 +16,9 @@ import com.cjt.trade.model.Ems;
 import com.cjt.trade.service.IEmsService;
 import com.cjt.trade.util.JSONUtil;
 
+/**
+ * @author caojiantao
+ */
 @Controller
 @RequestMapping(value = "/backend/")
 public class EmsController extends BaseController {
@@ -28,8 +31,8 @@ public class EmsController extends BaseController {
 		return "backend/mall/emsList";
 	}
 
-	@RequestMapping(value = "getAllEms.action")
 	@ResponseBody
+	@RequestMapping(value = "getAllEms.action")
 	public JSONObject getAllEms(int page, int rows, BaseDto dto) {
 		dto.setStart((page - 1) * rows);
 		dto.setLimit(rows);
@@ -41,7 +44,7 @@ public class EmsController extends BaseController {
 	@RequestMapping(value = "addEms.action")
 	public String addEms(Ems ems, Model model) {
 		Integer id = ems.getId();
-		int lines = 0;
+		int lines;
 		if (id == null || id == 0) {
 			// 新增
 			lines = emsService.insertEms(ems);
@@ -64,15 +67,14 @@ public class EmsController extends BaseController {
 		return "backend/mall/emsAdd";
 	}
 
-	@RequestMapping(value = "getEmsById.action")
 	@ResponseBody
+	@RequestMapping(value = "getEmsById.action")
 	public Ems getEmsById(int id) {
-		Ems ems = emsService.getEmsById(id);
-		return ems;
+		return emsService.getEmsById(id);
 	}
 
-	@RequestMapping(value = "deleteEmsById.action")
 	@ResponseBody
+	@RequestMapping(value = "deleteEmsById.action")
 	public boolean deleteEmsById(int id) {
 		int lines = emsService.deleteEmsById(id);
 		return lines > 0;

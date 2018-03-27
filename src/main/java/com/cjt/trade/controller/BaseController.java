@@ -14,46 +14,46 @@ import javax.servlet.http.HttpSession;
  */
 public class BaseController {
 
-  public HttpServletRequest request;
+    public HttpServletRequest request;
 
-  public HttpServletResponse response;
+    public HttpServletResponse response;
 
-  public HttpSession session;
+    public HttpSession session;
 
-  /**
-   * 该注释表示每个该类及子类的请求调用之前都回执行该方法
-   *
-   */
-  @ModelAttribute
-  public void initReqResSession(HttpServletRequest request, HttpServletResponse response) {
-    this.request = request;
-    this.response = response;
-    this.session = request.getSession();
-  }
+    /**
+     * 该注释表示每个该类及子类的请求调用之前都回执行该方法
+     */
+    @ModelAttribute
+    public void initReqResSession(HttpServletRequest request, HttpServletResponse response) {
+        this.request = request;
+        this.response = response;
+        this.session = request.getSession();
+    }
 
-  /**
-   * 采用注解方式统一处理异常
-   */
-  @ExceptionHandler
-  public String handleException(HttpServletRequest request, Exception ex) {
-    request.setAttribute("error", ex);
-    return "error";
-  }
+    /**
+     * 采用注解方式统一处理异常
+     */
+    @ExceptionHandler
+    public String handleException(HttpServletRequest request, Exception ex) {
+        request.setAttribute("error", ex);
+        return "error";
+    }
 
-  public ResultDto success(){
-    return new ResultDto(true, "", null);
-  }
-  public ResultDto success(Object data){
-    return new ResultDto(true, "", data);
-  }
+    public ResultDto success() {
+        return new ResultDto(true, "", null);
+    }
 
-  public ResultDto success(String msg, Object data){
-    return new ResultDto(true, msg, data);
-  }
+    public ResultDto success(Object data) {
+        return new ResultDto(true, "", data);
+    }
+
+    public ResultDto success(String msg, Object data) {
+        return new ResultDto(true, msg, data);
+    }
 
 
-  public ResultDto failed(String message){
-    return new ResultDto(false, message, null);
-  }
+    public ResultDto failed(String message) {
+        return new ResultDto(false, message, null);
+    }
 }
 

@@ -23,7 +23,7 @@
       <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="number" name="number" style="width:100%;"></div>
     </div>
     <div style="margin-bottom:15px;">
-      <div style="display:inline-block;width:80px;">类型名称：</div>
+      <div style="display:inline-block;width:80px;">商品名称：</div>
       <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="name" name="name" style="width:100%;"></div>
     </div>
     <div style="margin-bottom:15px;">
@@ -37,9 +37,9 @@
     <div style="margin-bottom:15px;">
       <div style="display:inline-block;width:80px;">推荐：</div>
       <div style="display:inline-block;width:calc(100% - 100px);">
-		<label><input type="checkbox" id="scroll" name="scroll" checked/>滚动展示</label>
+        <label><input type="checkbox" id="scroll" name="scroll" checked/>滚动展示</label>
         <label><input type="checkbox" id="hot" name="hot" checked/>人气商品</label>
-	  </div>
+      </div>
     </div>
     <div style="margin-bottom:15px;">
       <div style="display:inline-block;width:80px;">关键字：</div>
@@ -47,14 +47,15 @@
     </div>
     <div style="margin-bottom:15px;">
       <div style="display:inline-block;width:80px;">描述：</div>
-      <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="description" name="description" style="width:100%;" data-options="multiline:true"></div>
+      <div style="display:inline-block;width:calc(100% - 100px);"><input class="easyui-textbox" id="description" name="description" style="width:100%;"
+                                                                         data-options="multiline:true"></div>
     </div>
     <div style="margin-bottom:15px;">
       <div style="display:inline-block;width:80px;">logo：</div>
       <div style="display:inline-block;width:calc(100% - 100px);">
         <input type="text" id="logoRealUrl" name="logoRealUrl" hidden="hidden">
         <img id="logoImg" style="width:277px;height:68px;">
-        <input id="selector" name="file" type="file" />
+        <input id="selector" name="file" type="file"/>
       </div>
     </div>
     <div style="margin-bottom:15px;">
@@ -76,7 +77,7 @@
 <script type="text/javascript">
   KindEditor.ready(function (K) {
     window.editor = K.create('#content', {
-      width : '100%',
+      width: '100%',
       autoHeightMode: true,
       uploadJson: '/files.action',
       afterCreate: function () {
@@ -118,7 +119,9 @@
       toolbar: [{
         text: "增加",
         iconCls: "icon-add",
-        handler: function(){openEditDiv()}
+        handler: function () {
+          openEditDiv()
+        }
       }]
     });
   }
@@ -152,9 +155,9 @@
           $('#keyword').textbox('setValue', goods.keyword);
           $('#description').textbox('setValue', goods.description);
           // 防止logoUrl为null导致图片路径不变
-          $("#logoImg").attr("src", goods.logoUrl?goods.logoUrl:"");
+          $("#logoImg").attr("src", goods.logoUrl ? goods.logoUrl : "");
           $("input[name='logoRealUrl']").val(goods.logoRealUrl);
-          editor.html(goods.content?goods.content:"");
+          editor.html(goods.content ? goods.content : "");
 
           $(".editDiv").css("display", "block");
           $(".listDiv").css("display", "none");
@@ -199,7 +202,7 @@
     editor.html("");
   }
 
-  function openEditDiv(){
+  function openEditDiv() {
     $(".editDiv").css("display", "block");
     $(".listDiv").css("display", "none");
   }

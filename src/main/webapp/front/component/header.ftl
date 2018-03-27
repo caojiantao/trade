@@ -3,10 +3,10 @@
     <div class="scroll fn-left">
       <marquee direction="left" behavior="scroll" scrollamount="3">${website.topScrollText}</marquee>
     </div>
-  <#-- <div class="txt fn-right icon-index_02">${website.topFixText}</div> -->
     <div class="txt fn-right icon-index_02">
-      <div class="fn-clear">
-        <div class="fn-right">
+      <span>${website.topFixText}</span>
+
+      <div class="fn-right">
         <#if user==null>
           <a href="javascript:toLogin();" class="mr-5">登录</a>
           <a href="/register.action" class="mr-5">注册</a>
@@ -14,14 +14,13 @@
           <a href="/user.action" class="mr-5">${user.email}</a>
           <a href="javascript:logout();" class="mr-5">退出</a>
         </#if>
-        </div>
-        <script>
-          function toLogin () {
-            var _pop = document.querySelector('._pop');
-            _pop.style.display = "block";
-          }
-        </script>
       </div>
+      <script>
+        function toLogin () {
+          var _pop = document.querySelector('._pop');
+          _pop.style.display = "block";
+        }
+      </script>
     </div>
   </div>
   <div class="mid fn-clear"><a href="/" class="logo"><img src="${website.logoUrl}" alt=""></a>
@@ -41,12 +40,12 @@
   </div>
   <div class="_nav">
     <a href="/">ホーム</a>
-    <a href="/pageInfo.action?type=0">会社概要</a>
-    <a href="/pageInfo.action?type=1">注文方法</a>
+    <a href="/pageInfo.action?type=1">会社概要</a>
+    <a href="/pageInfo.action?type=2">注文方法</a>
     <a href="">最新情報</a>
-    <a href="/pageInfo.action?type=2">重要事项</a>
+    <a href="/pageInfo.action?type=3">重要事项</a>
     <a href="/list.action">商品一覧</a>
-    <a href="/pageInfo.action?type=3">割引情报</a>
+    <a href="/pageInfo.action?type=4">割引情报</a>
     <a href="/faq.action">FAQ</a>
   </div>
 

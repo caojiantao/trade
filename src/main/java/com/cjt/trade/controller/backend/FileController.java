@@ -22,8 +22,8 @@ public class FileController extends BaseController {
     @Autowired
     private IUploadService uploadService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public JSONObject uploadFile(MultipartFile imgFile) throws IOException {
         JSONObject object = new JSONObject();
         object.put("error", 0);

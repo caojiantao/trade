@@ -44,19 +44,19 @@ public class GoodsController extends BaseFrontController {
 
         PageInfoDto dto = new PageInfoDto();
         // 注意事项
-        dto.setType(4);
+        dto.setType(5);
         PageInfo attention = pageInfoService.getPageInfo(dto);
         model.addAttribute("attention", attention);
         // 返品返金
-        dto.setType(5);
+        dto.setType(6);
         PageInfo award = pageInfoService.getPageInfo(dto);
         model.addAttribute("award", award);
         // 营业时间
-        dto.setType(6);
+        dto.setType(7);
         PageInfo businessInfo = pageInfoService.getPageInfo(dto);
         model.addAttribute("businessInfo", businessInfo);
         // 配送时间
-        dto.setType(7);
+        dto.setType(8);
         PageInfo deliveryInfo = pageInfoService.getPageInfo(dto);
         model.addAttribute("deliveryInfo", deliveryInfo);
         // 面包屑

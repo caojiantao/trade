@@ -39,7 +39,7 @@
 			name = #{name}
 	</select>
 	
-	<select id="getUserByNameAndPwd" resultType="com.cjt.trade.model.User">
+	<select id="getUserByEmailAndPwd" resultType="com.cjt.trade.model.User">
 		<include refid="getUser"/>
 		WHERE
 			email = #{email}

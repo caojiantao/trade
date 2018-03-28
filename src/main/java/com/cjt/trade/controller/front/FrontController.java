@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author caojiantao
+ */
 @Controller
 @RequestMapping("")
 public class FrontController extends BaseFrontController {

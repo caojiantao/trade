@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.util.ExceptionUtils;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
  * @author caojiantao
  */
 public class BaseController {
+
+    private final static Logger logger = Logger.getLogger(BaseController.class);
 
     public HttpServletRequest request;
 
@@ -34,9 +38,9 @@ public class BaseController {
      * 采用注解方式统一处理异常
      */
     @ExceptionHandler
-    public String handleException(HttpServletRequest request, Exception ex) {
-        request.setAttribute("error", ex);
-        return "error";
+    public void handleException(Exception ex) {
+        logger.error(ExceptionUtils.toDetailStr(ex));
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     public ResultDto success() {
@@ -50,7 +54,6 @@ public class BaseController {
     public ResultDto success(String msg, Object data) {
         return new ResultDto(true, msg, data);
     }
-
 
     public ResultDto failed(String message) {
         return new ResultDto(false, message, null);

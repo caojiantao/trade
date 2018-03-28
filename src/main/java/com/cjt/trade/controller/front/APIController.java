@@ -3,6 +3,7 @@ package com.cjt.trade.controller.front;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.constant.GlobalConfig;
+import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.CartDto;
 import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api")
-public class APIController {
+public class APIController extends BaseController {
 
     @Resource
     private IGoodsService goodsService;
@@ -111,8 +112,8 @@ public class APIController {
         }
     }
 
-    @RequestMapping(value = "/register.action")
     @ResponseBody
+    @RequestMapping(value = "/register.action")
     public int register(String email, String password) {
         User user = userService.getUserByEmail(email);
         if (user != null) {
@@ -126,7 +127,7 @@ public class APIController {
 
     @RequestMapping(value = "/login.action")
     @ResponseBody
-    public User login(HttpSession session, HttpServletResponse response, String email, String password) {
+    public User login(String email, String password) {
         User user = userService.login(email, password);
         if (user != null) {
             String name = "email";

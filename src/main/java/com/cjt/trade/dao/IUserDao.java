@@ -20,7 +20,7 @@ public interface IUserDao {
 
   int updateUser(User user);
 
-  User getUserByNameAndPwd(@Param(value = "email") String email, @Param(value = "password") String password);
+  User getUserByEmailAndPwd(@Param(value = "email") String email, @Param(value = "password") String password);
 
   User getUserByEmail(String email);
 

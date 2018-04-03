@@ -18,8 +18,8 @@
 					</div>
 					<div class="content">
 						<div class="_brand fn-clear">
-							<div class="img fn-left"><img src="${product.logoUrl}" alt=""></div>
-							<div class="txt fn-right">
+							<#--<div class="img fn-left"><img src="${product.logoUrl}" alt=""></div>-->
+							<div class="txt fn-right" style="width: auto;">
 								${product.content}
 							</div>
 						</div>

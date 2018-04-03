@@ -1,213 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.ICategoryDao">
 
-	<select id="listCategories" resultType="com.cjt.trade.model.Category">
-		SELECT
-			id,
-			parent_id AS 'parentId',
-			`order`,
-			type,
-			name,
-			keyword,
-			description,
-			logo_url AS 'logoUrl',
-			logo_real_url AS 'logoRealUrl',
-			content
-		FROM category
-	</select>
+    <select id="listCategories" resultType="com.cjt.trade.model.Category">
+        SELECT
+            id,
+            parent_id     AS 'parentId',
+            `order`,
+            type,
+            name,
+            keyword,
+            description,
+            logo_url      AS 'logoUrl',
+            logo_real_url AS 'logoRealUrl',
+            content
+        FROM category
+    </select>
 
-	<select id="countCategoriesByDto" resultType="int" parameterType="com.cjt.trade.dto.CategoryDto">
-		SELECT
-		count(*)
-		FROM category
-		WHERE type = #{type}
-	</select>
+    <select id="countCategoriesByDto" resultType="int" parameterType="com.cjt.trade.dto.CategoryDto">
+        SELECT count(*)
+        FROM category
+        WHERE type = #{type}
+    </select>
 
-	<select id="getTradeById" resultType="com.cjt.trade.model.Trade">
-		SELECT
-		id,
-		name,
-		`order`
-		FROM category
-		WHERE id = #{id}
-	</select>
+    <select id="getTradeById" resultType="com.cjt.trade.model.Trade">
+        SELECT
+            id,
+            name,
+            `order`
+        FROM category
+        WHERE id = #{id}
+    </select>
 
-	<select id="listTrades" resultType="com.cjt.trade.model.Trade" parameterType="com.cjt.trade.dto.CategoryDto">
-		SELECT
-		id,
-		name,
-		`order`
-		FROM category
-		WHERE type = #{type}
-		LIMIT #{start}, #{limit}
-	</select>
+    <select id="listTrades" resultType="com.cjt.trade.model.Trade" parameterType="com.cjt.trade.dto.CategoryDto">
+        SELECT
+            id,
+            name,
+            `order`
+        FROM category
+        WHERE type = #{type}
+        LIMIT #{start}, #{limit}
+    </select>
 
-	<select id="getBrandById" resultType="com.cjt.trade.model.Brand">
-		SELECT
-		  b.id,
-		  a.id AS 'tradeId',
-		  a.name AS 'tradeName',
-		  b.name,
-		  b.`order`,
-		  b.title,
-		  b.show,
-		  b.keyword,
-		  b.description,
-		  b.logo_url AS 'logoUrl',
-		  b.logo_real_url AS 'logoRealUrl',
-		  b.content
-		FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
-		WHERE b.id = #{id}
-	</select>
+    <select id="getBrandById" resultType="com.cjt.trade.model.Brand">
+        SELECT
+            b.id,
+            a.id            AS 'tradeId',
+            a.name          AS 'tradeName',
+            b.name,
+            b.`order`,
+            b.title,
+            b.show,
+            b.keyword,
+            b.description,
+            b.logo_url      AS 'logoUrl',
+            b.logo_real_url AS 'logoRealUrl',
+            b.content
+        FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
+        WHERE b.id = #{id}
+    </select>
 
-	<select id="listBrands" resultType="com.cjt.trade.model.Brand" parameterType="com.cjt.trade.dto.CategoryDto">
-		SELECT
-		  b.id,
-		  a.id AS 'tradeId',
-		  a.name AS 'tradeName',
-		  b.name,
-		  b.`order`,
-		  b.title,
-		  b.show,
-		  b.keyword,
-		  b.description,
-		  b.logo_url AS 'logoUrl',
-		  b.logo_real_url AS 'logoRealUrl',
-		  b.content
-		FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
-		WHERE b.type = #{type}
-		<if test="limit!=null and limit!=0">
-			LIMIT #{start}, #{limit}
-		</if>
-	</select>
+    <select id="listBrands" resultType="com.cjt.trade.model.Brand" parameterType="com.cjt.trade.dto.CategoryDto">
+        SELECT
+        b.id,
+        a.id AS 'tradeId',
+        a.name AS 'tradeName',
+        b.name,
+        b.`order`,
+        b.title,
+        b.show,
+        b.keyword,
+        b.description,
+        b.logo_url AS 'logoUrl',
+        b.logo_real_url AS 'logoRealUrl',
+        b.content
+        FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
+        WHERE b.type = #{type}
+        <if test="show">
+            and b.show = #{show}
+        </if>
+        <if test="limit!=0 and limit!=0">
+            LIMIT #{start}, #{limit}
+        </if>
+    </select>
 
-	<select id="getProductById" resultType="com.cjt.trade.model.Product">
-		SELECT
-		c.id,
-		a.id AS 'tradeId',
-		a.name AS 'tradeName',
-		b.id AS 'brandId',
-		b.name AS 'brandName',
-		c.name,
-		c.`order`,
-		c.title,
-		c.keyword,
-		c.description,
-		c.logo_url AS 'logoUrl',
-		c.logo_real_url AS 'logoRealUrl',
-		c.content
-		FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
-		INNER JOIN category AS c ON b.id = c.parent_id
-		WHERE c.id = #{id}
-	</select>
+    <select id="getProductById" resultType="com.cjt.trade.model.Product">
+        SELECT
+            c.id,
+            a.id            AS 'tradeId',
+            a.name          AS 'tradeName',
+            b.id            AS 'brandId',
+            b.name          AS 'brandName',
+            c.name,
+            c.`order`,
+            c.title,
+            c.keyword,
+            c.description,
+            c.logo_url      AS 'logoUrl',
+            c.logo_real_url AS 'logoRealUrl',
+            c.content
+        FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
+            INNER JOIN category AS c ON b.id = c.parent_id
+        WHERE c.id = #{id}
+    </select>
 
-	<select id="listProducts" resultType="com.cjt.trade.model.Product" parameterType="com.cjt.trade.dto.CategoryDto">
-		SELECT
-		c.id,
-		a.id AS 'tradeId',
-		a.name AS 'tradeName',
-		b.id AS 'brandId',
-		b.name AS 'brandName',
-		c.name,
-		c.`order`,
-		c.title,
-		c.keyword,
-		c.description,
-		c.logo_url AS 'logoUrl',
-		c.logo_real_url AS 'logoRealUrl',
-		c.content
-		FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
-			INNER JOIN category AS c ON b.id = c.parent_id
-		WHERE c.type = #{type}
-		LIMIT #{start}, #{limit}
-	</select>
+    <select id="listProducts" resultType="com.cjt.trade.model.Product" parameterType="com.cjt.trade.dto.CategoryDto">
+        SELECT
+            c.id,
+            a.id            AS 'tradeId',
+            a.name          AS 'tradeName',
+            b.id            AS 'brandId',
+            b.name          AS 'brandName',
+            c.name,
+            c.`order`,
+            c.title,
+            c.keyword,
+            c.description,
+            c.logo_url      AS 'logoUrl',
+            c.logo_real_url AS 'logoRealUrl',
+            c.content
+        FROM category AS a INNER JOIN category AS b ON a.id = b.parent_id
+            INNER JOIN category AS c ON b.id = c.parent_id
+        WHERE c.type = #{type}
+        LIMIT #{start}, #{limit}
+    </select>
 
-	<update id="updateCategory" parameterType="com.cjt.trade.model.Category">
-		UPDATE category
-		<trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
-			<if test="parentId!=null">parent_id = #{parentId},</if>
-			<if test="order!=null">`order` = #{order},</if>
-			<if test="type!=null">`type` = #{type},</if>
-			<if test="name!=null">`name` = #{name},</if>
-			<if test="keyword!=null">keyword = #{keyword},</if>
-			<if test="description!=null">description = #{description},</if>
-			<if test="logoUrl!=null">logo_url = #{logoUrl},</if>
-			<if test="logoRealUrl!=null">logo_real_url = #{logoRealUrl},</if>
-			<if test="content!=null">content = #{content},</if>
-			<if test="title!=null">title = #{title},</if>
-			<if test="show!=null">`show` = #{show},</if>
-		</trim>
-	</update>
+    <update id="updateCategory" parameterType="com.cjt.trade.model.Category">
+        UPDATE category
+        <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+            <if test="parentId!=null">parent_id = #{parentId},</if>
+            <if test="order!=null">`order` = #{order},</if>
+            <if test="type!=null">`type` = #{type},</if>
+            <if test="name!=null">`name` = #{name},</if>
+            <if test="keyword!=null">keyword = #{keyword},</if>
+            <if test="description!=null">description = #{description},</if>
+            <if test="logoUrl!=null">logo_url = #{logoUrl},</if>
+            <if test="logoRealUrl!=null">logo_real_url = #{logoRealUrl},</if>
+            <if test="content!=null">content = #{content},</if>
+            <if test="title!=null">title = #{title},</if>
+            <if test="show!=null">`show` = #{show},</if>
+        </trim>
+    </update>
 
-	<insert id="saveCategory" parameterType="com.cjt.trade.model.Category">
-		INSERT INTO category
-		(
-			<trim suffixOverrides=",">
-				<if test="parentId!=null">parent_id,</if>
-				<if test="order!=null">`order`,</if>
-				<if test="type!=null">`type`,</if>
-				<if test="name!=null">`name`,</if>
-				<if test="keyword!=null">keyword,</if>
-				<if test="description!=null">description,</if>
-				<if test="logoUrl!=null">logo_url,</if>
-				<if test="logoRealUrl!=null">logo_real_url,</if>
-				<if test="content!=null">content,</if>
-				<if test="title!=null">title,</if>
-				<if test="show!=null">`show`,</if>
-			</trim>
-		)
-		VALUES
-		(
-			<trim suffixOverrides=",">
-				<if test="parentId!=null">#{parentId},</if>
-				<if test="order!=null">#{order},</if>
-				<if test="type!=null">#{type},</if>
-				<if test="name!=null">#{name},</if>
-				<if test="keyword!=null">#{keyword},</if>
-				<if test="description!=null">#{description},</if>
-				<if test="logoUrl!=null">#{logoUrl},</if>
-				<if test="logoRealUrl!=null">#{logoRealUrl},</if>
-				<if test="content!=null">#{content},</if>
-				<if test="title!=null">#{title},</if>
-				<if test="show!=null">#{show},</if>
-			</trim>
-		)
-	</insert>
+    <insert id="saveCategory" parameterType="com.cjt.trade.model.Category">
+        INSERT INTO category
+        (
+        <trim suffixOverrides=",">
+            <if test="parentId!=null">parent_id,</if>
+            <if test="order!=null">`order`,</if>
+            <if test="type!=null">`type`,</if>
+            <if test="name!=null">`name`,</if>
+            <if test="keyword!=null">keyword,</if>
+            <if test="description!=null">description,</if>
+            <if test="logoUrl!=null">logo_url,</if>
+            <if test="logoRealUrl!=null">logo_real_url,</if>
+            <if test="content!=null">content,</if>
+            <if test="title!=null">title,</if>
+            <if test="show!=null">`show`,</if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="parentId!=null">#{parentId},</if>
+            <if test="order!=null">#{order},</if>
+            <if test="type!=null">#{type},</if>
+            <if test="name!=null">#{name},</if>
+            <if test="keyword!=null">#{keyword},</if>
+            <if test="description!=null">#{description},</if>
+            <if test="logoUrl!=null">#{logoUrl},</if>
+            <if test="logoRealUrl!=null">#{logoRealUrl},</if>
+            <if test="content!=null">#{content},</if>
+            <if test="title!=null">#{title},</if>
+            <if test="show!=null">#{show},</if>
+        </trim>
+        )
+    </insert>
 
-	<delete id="removeCategoryById">
-		DELETE FROM category
-		WHERE id = #{id}
-	</delete>
+    <delete id="removeCategoryById">
+        DELETE FROM category
+        WHERE id = #{id}
+    </delete>
 
-	<select id="listTradesOpt" resultType="com.cjt.trade.model.MapModel">
-		SELECT
-		id 'key',
-		name 'value'
-		FROM
-		category
-		WHERE type = 0
-	</select>
+    <select id="listTradesOpt" resultType="com.cjt.trade.model.MapModel">
+        SELECT
+            id   'key',
+            name 'value'
+        FROM
+            category
+        WHERE type = 0
+    </select>
 
-	<select id="listBrandsOptByParentId" resultType="com.cjt.trade.model.MapModel">
-		SELECT
-		id 'key',
-		name 'value'
-		FROM
-		category
-		WHERE type = 1
-		AND parent_id = #{parentId}
-	</select>
+    <select id="listBrandsOptByParentId" resultType="com.cjt.trade.model.MapModel">
+        SELECT
+            id   'key',
+            name 'value'
+        FROM
+            category
+        WHERE type = 1
+              AND parent_id = #{parentId}
+    </select>
 
-	<select id="listProductsOptByParentId" resultType="com.cjt.trade.model.MapModel">
-		SELECT
-		id 'key',
-		name 'value'
-		FROM
-		category
-		WHERE type = 2
-		AND parent_id = #{parentId}
-	</select>
+    <select id="listProductsOptByParentId" resultType="com.cjt.trade.model.MapModel">
+        SELECT
+            id   'key',
+            name 'value'
+        FROM
+            category
+        WHERE type = 2
+              AND parent_id = #{parentId}
+    </select>
 </mapper>

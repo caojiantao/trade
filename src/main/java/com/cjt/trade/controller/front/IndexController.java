@@ -110,6 +110,7 @@ public class IndexController extends BaseFrontController {
     private void initShowBrand(Model model) {
         CategoryDto dto = new CategoryDto();
         dto.setType(CategoryEnum.BRAND.getType());
+        dto.setShow(true);
         List<Brand> brands = categoryService.listBrands(dto);
         model.addAttribute("brands", brands);
     }

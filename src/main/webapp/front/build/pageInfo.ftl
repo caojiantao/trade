@@ -13,7 +13,7 @@
   <div class="right top fn-clear">
     <div class="_widget fn-clear">
       <div class="title">
-        <i class="icon-index_31"></i>
+        <i class="icon-item"></i>
         <#include "${component}/navigation.ftl"/>
       </div>
       <div class="content" style="padding: 10px;">

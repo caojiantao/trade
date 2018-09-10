@@ -29,7 +29,7 @@
             <div style="border:none;" class="txt"><span class="pro-info">${website.goodsDetailBottom}</span></div>
           </div>
           <div class="txt fn-clear">
-            <h1>${goods.name}</h1>
+            <h1 class="bg-red">${goods.name}</h1>
             <table>
               <tbody>
               <tr>

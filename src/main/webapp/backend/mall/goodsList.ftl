@@ -37,8 +37,8 @@
     <div style="margin-bottom:15px;">
       <div style="display:inline-block;width:80px;">推荐：</div>
       <div style="display:inline-block;width:calc(100% - 100px);">
-        <label><input type="checkbox" id="scroll" name="scroll" checked/>滚动展示</label>
-        <label><input type="checkbox" id="hot" name="hot" checked/>人气商品</label>
+        <label><input type="checkbox" id="scroll" name="scroll"/>滚动展示</label>
+        <label><input type="checkbox" id="hot" name="hot"/>人气商品</label>
       </div>
     </div>
     <div style="margin-bottom:15px;">
@@ -195,8 +195,19 @@
   function cancel() {
     $(".editDiv").css("display", "none");
     $(".listDiv").css("display", "block");
-    $('#ff').form('clear');
-    $("#logoImg").attr("src", "");
+
+    $('#id').val('');
+    $('#name').textbox('setValue', '');
+    $('#title').textbox('setValue', '');
+    $('#number').textbox('setValue', '');
+    $('#price').textbox('setValue', '');
+    $('#scroll')[0].checked = false;
+    $('#hot')[0].checked = false;
+    $('#keyword').textbox('setValue', '');
+    $('#description').textbox('setValue', '');
+    // 防止logoUrl为null导致图片路径不变
+    $("#logoImg").removeAttr('src');
+    $("input[name='logoRealUrl']").val('');
     // 防止clear后预览图片失效
     previewImg();
     editor.html("");

@@ -38,7 +38,7 @@
             <ul>
               <#list latestGoods as goods>
                 <li><i></i><a href="/goods.action?id=${goods.id}">${goods.updateTime?string("yyyy-MM-dd")}
-                  &nbsp;${goods.title}</a></li>
+                  &nbsp;${goods.name}</a></li>
               </#list>
             </ul>
           </div>
@@ -73,12 +73,12 @@
           <div class="_pro-sell fn-clear js-scroll-h">
             <div class="scroll-auto fn-clear">
               <#list scrollGoods as goods>
-                <div class="item">
+                <div class="pro-item">
                   <span>${goods_index+1}</span>
                   <div class="ibox">
                     <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
                   </div>
-                  <p class="t"><a href="">${goods.title}</a></p>
+                  <p class="t"><a href="">${goods.name}</a></p>
                   <p class="p">N品：${goods.price}円 </p>
                 </div>
               </#list>
@@ -92,11 +92,11 @@
       <div class="content">
         <div class="_pro-hot fn-clear">
           <#list hotGoods as goods>
-            <div class="item">
+            <div class="pro-item">
               <div class="ibox">
                 <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
               </div>
-              <p class="t"><a href="">${goods.title}</a></p>
+              <p class="t"><a href="">${goods.name}</a></p>
               <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
             </div>
           </#list>
@@ -116,12 +116,12 @@
             <#list tabGoods as goodsList>
               <div class="box fn-clear">
                 <#list goodsList as goods>
-                  <div class="item">
+                  <div class="pro-item">
                     <div class="ibox">
                       <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>
                       </div>
                     </div>
-                    <p class="t"><a href="">${goods.title}</a></p>
+                    <p class="t"><a href="">${goods.name}</a></p>
                     <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
                   </div>
                 </#list>

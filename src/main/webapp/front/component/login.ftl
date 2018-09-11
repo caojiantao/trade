@@ -45,7 +45,7 @@
 				password:$("#password-left").val()
 			},
 			success:function(user){
-				if(user != null && user != ""){
+				if(user){
 					window.location.href="/user.action";
 				} else {
 					alert("密码错误！");

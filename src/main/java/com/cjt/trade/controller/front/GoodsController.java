@@ -61,10 +61,10 @@ public class GoodsController extends BaseFrontController {
         model.addAttribute("deliveryInfo", deliveryInfo);
         // 面包屑
         List<Navigation> navs = new ArrayList<Navigation>();
-        navs.add(new Navigation(goods.getTradeName(), "/list.action?tradeId=" + goods.getTradeId()));
-        navs.add(new Navigation(goods.getBrandName(), "/brand.action?id=" + goods.getBrandId()));
+//        navs.add(new Navigation(goods.getTradeName(), "/list.action?tradeId=" + goods.getTradeId()));
+//        navs.add(new Navigation(goods.getBrandName(), "/brand.action?id=" + goods.getBrandId()));
         navs.add(new Navigation(goods.getProductName(), "/product.action?id=" + goods.getProductId()));
-        navs.add(new Navigation(goods.getTitle(), ""));
+        navs.add(new Navigation(goods.getName(), ""));
         model.addAttribute("navs", navs);
         return "front/build/detail";
     }

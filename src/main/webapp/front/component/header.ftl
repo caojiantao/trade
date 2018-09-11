@@ -4,7 +4,7 @@
       <marquee direction="left" behavior="scroll" scrollamount="3">${website.topScrollText}</marquee>
     </div>
     <div class="txt fn-right icon-index_02">
-      <span>${website.topFixText}</span>
+      <span style="display: inline-block;width: 260px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${website.topFixText}</span>
 
       <div class="fn-right">
         <#if user==null>
@@ -69,7 +69,7 @@
               <#--</li>-->
               <li class="ta-c"><a href="javascript:login()"><img src="${img}/index_35.png" alt=""></a><a
                       href="/register.action"><img src="${img}/index_38.png" alt=""></a></li>
-              <li class="ta-c"><a href="javascript:forget()"><img src="${img}/index_43.png" alt=""></a></li>
+              <li class="ta-c"><a href="javascript:void(0);"><img src="${img}/index_43.png" alt=""></a></li>
             </ul>
           </div>
         </div>
@@ -116,7 +116,7 @@
       data: {
         email: $("em.user").val()
       },
-      success: function (user) {
+      success: function () {
         window.location.reload();
       }
     });

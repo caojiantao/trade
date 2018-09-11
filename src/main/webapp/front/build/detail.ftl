@@ -74,7 +74,7 @@
             <table>
               <tbody>
               <tr>
-                <td><a href="javascript:saveGoods(${goods.id})"><img src="${img}/index_3_15.png" alt=""></a></td>
+                <td><a href="javascript:addGoods(${goods.id})"><img src="${img}/index_3_15.png" alt=""></a></td>
                 <td><a href=""><img src="${img}/index_3_17.png" alt=""></a></td>
               </tr>
               </tbody>
@@ -99,7 +99,7 @@
       <div class="title"><i class="icon-item"></i><span>相關產品</span></div>
       <div class="content">
         <div class="_pro-relate fn-clear">
-          <div class="item">
+          <div class="pro-item">
             <div class="ibox">
               <div class="img"><a href=""><img src="${img}/201651413453270101.jpg" alt=""></a></div>
             </div>
@@ -135,4 +135,9 @@
 <#include "${component}/sidebar.ftl" />
 </body>
 <script src="${plugins}/common.js"></script>
+<script type="text/javascript">
+    function addGoods(goodsId){
+      saveGoods(goodsId, $('.countSel').val())
+    }
+</script>
 </html>

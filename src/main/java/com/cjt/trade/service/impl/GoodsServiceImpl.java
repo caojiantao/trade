@@ -1,17 +1,14 @@
 package com.cjt.trade.service.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.cjt.trade.dao.IGoodsDao;
-import com.cjt.trade.dto.BaseDto;
 import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.vo.GoodsVo;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class GoodsServiceImpl implements IGoodsService {
@@ -30,12 +27,12 @@ public class GoodsServiceImpl implements IGoodsService {
   }
 
   @Override
-  public List<GoodsVo> getAllGoods(BaseDto dto) {
+  public List<GoodsVo> getAllGoods(GoodsDto dto) {
     return goodsDao.getAllGoods(dto);
   }
 
   @Override
-  public int getAllGoodsCount(BaseDto dto) {
+  public int getAllGoodsCount(GoodsDto dto) {
     return goodsDao.getAllGoodsCount(dto);
   }
 

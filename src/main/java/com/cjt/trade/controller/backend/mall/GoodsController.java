@@ -2,8 +2,8 @@ package com.cjt.trade.controller.backend.mall;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.controller.BaseController;
-import com.cjt.trade.dto.BaseDto;
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.GoodsDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.service.IGoodsService;
 import com.cjt.trade.service.IUploadService;
@@ -39,9 +39,7 @@ public class GoodsController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/getAllGoods.action")
-    public JSONObject getAllGoods(int page, int rows, BaseDto dto) {
-        dto.setStart((page - 1) * rows);
-        dto.setLimit(rows);
+    public JSONObject getAllGoods(GoodsDto dto) {
         List<GoodsVo> vos = goodsService.getAllGoods(dto);
         int count = goodsService.getAllGoodsCount(dto);
         return JSONUtil.toGridJson(vos, count);
@@ -49,22 +47,22 @@ public class GoodsController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/addGoods.action")
-    public ResultDto addGoods(MultipartFile file, Goods goods) throws IOException {
+    public ResultDTO addGoods(MultipartFile file, Goods goods) throws IOException {
         if (file != null) {
             goods.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
         goodsService.insertGoods(goods);
-        return success("添加成功", null);
+        return success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateGoods.action")
-    public ResultDto updateGoods(MultipartFile file, Goods goods) throws IOException {
+    public ResultDTO updateGoods(MultipartFile file, Goods goods) throws IOException {
         if (file != null) {
             goods.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
         int lines = goodsService.updateGoods(goods);
-        return lines > 0 ? success("更新成功", null) : failed("更新失败");
+        return lines > 0 ? success() : failed("更新失败");
     }
 
     @ResponseBody
@@ -75,8 +73,8 @@ public class GoodsController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteGoodsById.action")
-    public boolean deleteGoodsById(int id) {
+    public ResultDTO deleteGoodsById(int id) {
         int lines = goodsService.deleteGoods(id);
-        return lines > 0;
+        return lines > 0 ? success() : failed("删除失败");
     }
 }

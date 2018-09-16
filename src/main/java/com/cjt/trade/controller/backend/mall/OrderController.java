@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.cjt.trade.dto.ResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,8 +102,8 @@ public class OrderController extends BaseController {
 
 	@RequestMapping(value = "deleteOrderById.action")
 	@ResponseBody
-	public boolean deleteOrderById(int id) {
+	public ResultDTO deleteOrderById(int id) {
 		int lines = orderService.deleteOrder(id);
-		return lines > 0;
+		return lines > 0 ? success() : failed("删除失败");
 	}
 }

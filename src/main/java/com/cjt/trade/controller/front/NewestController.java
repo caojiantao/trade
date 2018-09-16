@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class NewestController extends BaseFrontController {
     private IPageInfoService pageInfoService;
 
     @RequestMapping("/index.action")
-    public String newest(Model model) {
+    public String newest(Model model, HttpServletRequest request) {
         initFixModule(request, model);
         // 面包屑
         List<Navigation> navs = new ArrayList<Navigation>();

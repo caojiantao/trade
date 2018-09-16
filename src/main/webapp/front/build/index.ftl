@@ -74,7 +74,7 @@
             <div class="scroll-auto fn-clear">
               <#list scrollGoods as goods>
                 <div class="pro-item">
-                  <span>${goods_index+1}</span>
+                  <#--<span>${goods_index+1}</span>-->
                   <div class="ibox">
                     <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
                   </div>

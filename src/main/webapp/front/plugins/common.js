@@ -105,7 +105,7 @@ function initGoodsEle(index, pageNum, total, rows, className) {
     itemsDiv.empty();
     for (var i in rows) {
         var goods = rows[i];
-        var ele = "<div class=\"item\">" +
+        var ele = "<div class=\"pro-item\">" +
             "<div class=\"ibox\">" +
             "<div class=\"img\"><a href=\"/goods.action?id=" + goods.id + "\"><img src=\"" + goods.logoUrl + "\" alt=\"\"></a></div>" +
             "</div>" +

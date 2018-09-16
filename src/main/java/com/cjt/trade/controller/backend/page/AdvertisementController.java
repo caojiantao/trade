@@ -1,6 +1,7 @@
 package com.cjt.trade.controller.backend.page;
 
 import com.cjt.trade.controller.BaseController;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Advertisement;
 import com.cjt.trade.service.IAdvertisementService;
 import com.cjt.trade.service.IUploadService;
@@ -47,27 +48,27 @@ public class AdvertisementController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "removeAdById.action")
-    public int removeAdById(int id) {
+    public ResultDTO removeAdById(int id) {
         Advertisement ad = advertisementService.getAdById(id);
         FileUtil.deleteFile(ad.getLogoRealUrl());
-        return advertisementService.removeAdById(id);
+        return advertisementService.removeAdById(id) > 0 ? success() : failed("删除失败");
     }
 
     @ResponseBody
     @RequestMapping(value = "saveAd.action")
-    public int saveAd(MultipartFile file, Advertisement advertisement) throws IOException {
+    public ResultDTO saveAd(MultipartFile file, Advertisement advertisement) throws IOException {
         if (file != null) {
             advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return advertisementService.saveAd(advertisement);
+        return advertisementService.saveAd(advertisement) > 0 ? success() : failed("新增失败");
     }
 
     @ResponseBody
     @RequestMapping(value = "updateAd.action")
-    public int updateAd(MultipartFile file, Advertisement advertisement) throws IOException {
+    public ResultDTO updateAd(MultipartFile file, Advertisement advertisement) throws IOException {
         if (file != null) {
             advertisement.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
-        return advertisementService.updateAd(advertisement);
+        return advertisementService.updateAd(advertisement) > 0 ? success() : failed("更新失败");
     }
 }

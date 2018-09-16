@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.cjt.trade.dto.ResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,42 +23,42 @@ import com.cjt.trade.util.JSONUtil;
 @RequestMapping(value = "/backend/")
 public class UserController extends BaseController {
 
-	@Resource
-	private IUserService userService;
-	
-	@Resource
-	private IDictionaryService dictionaryService;
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="userList.action")
-	public String userList(Model model){
-		// 县郡
-		Map countiesMap = dictionaryService.getOptsBySetId(1);
-		model.addAttribute("countiesMap", countiesMap);
-		return "backend/mall/userList";
-	}
-	
-	@RequestMapping(value = "getAllUsers.action")
-	@ResponseBody
-	public JSONObject getAllUsers(int page, int rows, BaseDto dto) {
-		dto.setStart((page - 1) * rows);
-		dto.setLimit(rows);
-		List<User> users = userService.getAllUsers(dto);
-		int count = userService.getAllUsersCount();
-		return JSONUtil.toGridJson(users, count);
-	}
+    @Resource
+    private IUserService userService;
 
-	@RequestMapping(value = "getUserByEmail.action")
-	@ResponseBody
-	public User getUserByEmail(String email) {
-		User ems = userService.getUserByEmail(email);
-		return ems;
-	}
+    @Resource
+    private IDictionaryService dictionaryService;
 
-	@RequestMapping(value = "deleteUserByEmail.action")
-	@ResponseBody
-	public boolean deleteUserByEmail(String email) {
-		int lines = userService.deleteUserByEmail(email);
-		return lines > 0;
-	}
+    @SuppressWarnings("rawtypes")
+    @RequestMapping(value = "userList.action")
+    public String userList(Model model) {
+        // 县郡
+        Map countiesMap = dictionaryService.getOptsBySetId(1);
+        model.addAttribute("countiesMap", countiesMap);
+        return "backend/mall/userList";
+    }
+
+    @RequestMapping(value = "getAllUsers.action")
+    @ResponseBody
+    public JSONObject getAllUsers(int page, int rows, BaseDto dto) {
+        dto.setStart((page - 1) * rows);
+        dto.setLimit(rows);
+        List<User> users = userService.getAllUsers(dto);
+        int count = userService.getAllUsersCount();
+        return JSONUtil.toGridJson(users, count);
+    }
+
+    @RequestMapping(value = "getUserByEmail.action")
+    @ResponseBody
+    public User getUserByEmail(String email) {
+        User ems = userService.getUserByEmail(email);
+        return ems;
+    }
+
+    @RequestMapping(value = "deleteUserByEmail.action")
+    @ResponseBody
+    public ResultDTO deleteUserByEmail(String email) {
+        int lines = userService.deleteUserByEmail(email);
+        return lines > 0 ? success() : failed("删除失败");
+    }
 }

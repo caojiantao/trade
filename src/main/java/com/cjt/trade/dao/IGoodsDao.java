@@ -13,9 +13,9 @@ public interface IGoodsDao {
 
   int deleteGoods(int id);
 
-  List<GoodsVo> getAllGoods(BaseDto dto);
+  List<GoodsVo> getAllGoods(GoodsDto dto);
 
-  int getAllGoodsCount(BaseDto dto);
+  int getAllGoodsCount(GoodsDto dto);
 
   Goods getGoodsById(int id);
 

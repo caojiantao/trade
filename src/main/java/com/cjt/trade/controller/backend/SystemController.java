@@ -1,8 +1,7 @@
 package com.cjt.trade.controller.backend;
 
-import com.alibaba.fastjson.JSONArray;
 import com.cjt.trade.controller.BaseController;
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Admin;
 import com.cjt.trade.model.Website;
 import com.cjt.trade.service.IAdminServcie;
@@ -46,7 +45,7 @@ public class SystemController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/updateWebsite")
-    public ResultDto updateWebsite(MultipartFile file, Website website) throws IOException {
+    public ResultDTO updateWebsite(MultipartFile file, Website website) throws IOException {
         if (file != null) {
             website.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
@@ -65,28 +64,28 @@ public class SystemController extends BaseController {
 
     @RequestMapping(value = "/getAllAdmins")
     @ResponseBody
-    public String getAllAdmins() {
-        List<Admin> admins = adminServcie.getAllAdmins();
-        return JSONArray.toJSONString(admins);
+    public List<Admin> getAllAdmins() {
+        return adminServcie.getAllAdmins();
     }
 
     @RequestMapping(value = "/addAdmin")
     @ResponseBody
-    public boolean addAdmin(Admin admin) {
-        int result = adminServcie.getAdminCountByAccount(admin.getAccount());
+    public ResultDTO<Object> addAdmin(Admin admin) {
+        String account = admin.getAccount();
+        int result = adminServcie.getAdminCountByAccount(account);
         if (result > 0) {
-            return false;
+            return failed(account + "已经存在");
         } else {
             adminServcie.addAdmin(admin);
-            return true;
+            return success();
         }
     }
 
     @RequestMapping(value = "/deleteAdmin")
     @ResponseBody
-    public boolean deleteAdmin(int id) {
+    public ResultDTO deleteAdmin(int id) {
         adminServcie.deleteAdmin(id);
-        return true;
+        return success();
     }
 
     @RequestMapping(value = "/getAdminById")

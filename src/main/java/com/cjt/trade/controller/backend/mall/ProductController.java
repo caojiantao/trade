@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.constant.CategoryEnum;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.CategoryDto;
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Category;
 import com.cjt.trade.model.MapModel;
 import com.cjt.trade.model.Product;
@@ -53,7 +53,7 @@ public class ProductController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/addProduct.action")
-    public ResultDto addproduct(MultipartFile file, Product product) throws IOException {
+    public ResultDTO addproduct(MultipartFile file, Product product) throws IOException {
         if (file != null) {
             product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
@@ -62,12 +62,12 @@ public class ProductController extends BaseController {
         category.setParentId(product.getBrandId());
         category.setType(CategoryEnum.PRODUCT.getType());
         categoryService.saveCategory(category);
-        return success("添加成功", null);
+        return success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateProduct.action")
-    public ResultDto updateProduct(MultipartFile file, Product product) throws IOException {
+    public ResultDTO updateProduct(MultipartFile file, Product product) throws IOException {
         if (file != null) {
             product.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
@@ -75,7 +75,7 @@ public class ProductController extends BaseController {
         BeanUtils.copyProperties(product, category);
         category.setParentId(product.getBrandId());
         int lines = categoryService.updateCategory(category);
-        return lines > 0 ? success("更新成功", null) : failed("更新失败");
+        return lines > 0 ? success() : failed("更新失败");
     }
 
     @ResponseBody
@@ -86,9 +86,9 @@ public class ProductController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteProductById.action")
-    public boolean deleteProductById(int id) {
+    public ResultDTO deleteProductById(int id) {
         int lines = categoryService.removeCategoryById(id);
-        return lines > 0;
+        return lines > 0 ? success() : failed("删除失败");
     }
 
     @ResponseBody

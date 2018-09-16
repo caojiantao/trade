@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.constant.PageEnum;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.PageInfoDto;
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.PageInfo;
 import com.cjt.trade.service.IPageInfoService;
 import com.cjt.trade.util.JSONUtil;
@@ -47,18 +47,18 @@ public class ArticleController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/addArticle.action")
-    public ResultDto addArticle(PageInfo pageInfo) {
+    public ResultDTO addArticle(PageInfo pageInfo) {
         // 手动设置type，表示类型为文章
         pageInfo.setType(PageEnum.wzxx.getType());
         int lines = pageInfoService.insertPageInfo(pageInfo);
-        return lines > 0 ? success("添加成功", null) : failed("添加失败");
+        return lines > 0 ? success() : failed("添加失败");
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateArticle.action")
-    public ResultDto updateArticle(PageInfo pageInfo) {
+    public ResultDTO updateArticle(PageInfo pageInfo) {
         int lines = pageInfoService.updatePageInfo(pageInfo);
-        return lines > 0 ? success("更新成功", null) : failed("更新失败");
+        return lines > 0 ? success() : failed("更新失败");
     }
 
     @ResponseBody
@@ -73,8 +73,8 @@ public class ArticleController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteArticle.action")
-    public boolean deleteArticle(int id) {
+    public ResultDTO deleteArticle(int id) {
         int lines = pageInfoService.deletePageInfo(id);
-        return lines > 0;
+        return lines > 0 ? success() : failed("删除失败");
     }
 }

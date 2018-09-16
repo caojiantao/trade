@@ -6,6 +6,7 @@ import com.cjt.trade.constant.GlobalConfig;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.CartDto;
 import com.cjt.trade.dto.GoodsDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.model.Order;
 import com.cjt.trade.model.User;
@@ -127,7 +128,7 @@ public class APIController extends BaseController {
 
     @RequestMapping(value = "/login.action")
     @ResponseBody
-    public User login(String email, String password) {
+    public User login(String email, String password, HttpSession session, HttpServletResponse response) {
         User user = userService.login(email, password);
         if (user != null) {
             String name = "email";
@@ -146,8 +147,8 @@ public class APIController extends BaseController {
 
     @RequestMapping(value = "/updateUser.action")
     @ResponseBody
-    public int updateUser(User user) {
-        return userService.updateUser(user);
+    public ResultDTO updateUser(User user) {
+        return userService.updateUser(user) > 0 ? success() : failed("更新失败");
     }
 
     @RequestMapping(value = "/logout.action")

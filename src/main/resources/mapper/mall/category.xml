@@ -81,7 +81,7 @@
         <if test="show">
             and b.show = #{show}
         </if>
-        <if test="limit!=0 and limit!=0">
+        <if test="limit!=null and limit!=0">
             LIMIT #{start}, #{limit}
         </if>
     </select>

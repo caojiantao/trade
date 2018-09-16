@@ -1,24 +1,24 @@
 package com.cjt.trade.dto;
 
+import lombok.Data;
+
+@Data
 public class BaseDto {
 
-	private int start;
-	
-	private int limit;
+    private Integer page;
+    private Integer rows;
 
-	public int getStart() {
-		return start;
-	}
+    private Integer start;
+    private Integer limit;
 
-	public void setStart(int start) {
-		this.start = start;
-	}
+    public Integer getStart() {
+        if (page != null && rows != null) {
+            return (page - 1) * rows;
+        }
+        return null;
+    }
 
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
+    public Integer getLimit() {
+        return rows;
+    }
 }

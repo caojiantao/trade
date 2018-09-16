@@ -2,7 +2,7 @@ package com.cjt.trade.controller.backend.page;
 
 import javax.annotation.Resource;
 
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.ResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,15 +36,15 @@ public class PageInfoController extends BaseController {
 
   @ResponseBody
   @RequestMapping("/savePageInfo.action")
-  public ResultDto savePageInfo(PageInfo pageInfo) {
+  public ResultDTO savePageInfo(PageInfo pageInfo) {
     int count = pageInfoService.insertPageInfo(pageInfo);
-    return count > 0 ? success("保存成功", pageInfo) : failed("保存失败");
+    return count > 0 ? success() : failed("保存失败");
   }
 
   @ResponseBody
   @RequestMapping("/updatePageInfo.action")
-  public ResultDto updatePageInfo(PageInfo pageInfo) {
+  public ResultDTO updatePageInfo(PageInfo pageInfo) {
     int count = pageInfoService.updatePageInfo(pageInfo);
-    return count > 0 ? success("更新成功", pageInfo) : failed("更新失败");
+    return count > 0 ? success() : failed("更新失败");
   }
 }

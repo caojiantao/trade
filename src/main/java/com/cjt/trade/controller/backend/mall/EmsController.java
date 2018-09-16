@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.cjt.trade.dto.ResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,60 +24,60 @@ import com.cjt.trade.util.JSONUtil;
 @RequestMapping(value = "/backend/")
 public class EmsController extends BaseController {
 
-	@Resource
-	private IEmsService emsService;
+    @Resource
+    private IEmsService emsService;
 
-	@RequestMapping(value = "/emsList.action")
-	public String emsList() {
-		return "backend/mall/emsList";
-	}
+    @RequestMapping(value = "/emsList.action")
+    public String emsList() {
+        return "backend/mall/emsList";
+    }
 
-	@ResponseBody
-	@RequestMapping(value = "getAllEms.action")
-	public JSONObject getAllEms(int page, int rows, BaseDto dto) {
-		dto.setStart((page - 1) * rows);
-		dto.setLimit(rows);
-		List<Ems> ems = emsService.getAllEms(dto);
-		int count = emsService.getAllEmsCount();
-		return JSONUtil.toGridJson(ems, count);
-	}
+    @ResponseBody
+    @RequestMapping(value = "getAllEms.action")
+    public JSONObject getAllEms(int page, int rows, BaseDto dto) {
+        dto.setStart((page - 1) * rows);
+        dto.setLimit(rows);
+        List<Ems> ems = emsService.getAllEms(dto);
+        int count = emsService.getAllEmsCount();
+        return JSONUtil.toGridJson(ems, count);
+    }
 
-	@RequestMapping(value = "addEms.action")
-	public String addEms(Ems ems, Model model) {
-		Integer id = ems.getId();
-		int lines;
-		if (id == null || id == 0) {
-			// 新增
-			lines = emsService.insertEms(ems);
-			if (lines > 0) {
-				model.addAttribute("returnUrl", "emsAdd.action");
-				return "success";
-			}
-		} else {
-			// 更新
-			lines = emsService.updateEms(ems);
-			if (lines > 0) {
-				return emsList();
-			}
-		}
-		return "ERROR";
-	}
+    @RequestMapping(value = "addEms.action")
+    public String addEms(Ems ems, Model model) {
+        Integer id = ems.getId();
+        int lines;
+        if (id == null || id == 0) {
+            // 新增
+            lines = emsService.insertEms(ems);
+            if (lines > 0) {
+                model.addAttribute("returnUrl", "emsAdd.action");
+                return "success";
+            }
+        } else {
+            // 更新
+            lines = emsService.updateEms(ems);
+            if (lines > 0) {
+                return emsList();
+            }
+        }
+        return "ERROR";
+    }
 
-	@RequestMapping(value = "emsAdd.action")
-	public String emsAdd() {
-		return "backend/mall/emsAdd";
-	}
+    @RequestMapping(value = "emsAdd.action")
+    public String emsAdd() {
+        return "backend/mall/emsAdd";
+    }
 
-	@ResponseBody
-	@RequestMapping(value = "getEmsById.action")
-	public Ems getEmsById(int id) {
-		return emsService.getEmsById(id);
-	}
+    @ResponseBody
+    @RequestMapping(value = "getEmsById.action")
+    public Ems getEmsById(int id) {
+        return emsService.getEmsById(id);
+    }
 
-	@ResponseBody
-	@RequestMapping(value = "deleteEmsById.action")
-	public boolean deleteEmsById(int id) {
-		int lines = emsService.deleteEmsById(id);
-		return lines > 0;
-	}
+    @ResponseBody
+    @RequestMapping(value = "deleteEmsById.action")
+    public ResultDTO deleteEmsById(int id) {
+        int lines = emsService.deleteEmsById(id);
+        return lines > 0 ? success() : failed("删除失败");
+    }
 }

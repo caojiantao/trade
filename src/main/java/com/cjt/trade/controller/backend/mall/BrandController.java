@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cjt.trade.constant.CategoryEnum;
 import com.cjt.trade.controller.BaseController;
 import com.cjt.trade.dto.CategoryDto;
-import com.cjt.trade.dto.ResultDto;
+import com.cjt.trade.dto.ResultDTO;
 import com.cjt.trade.model.Brand;
 import com.cjt.trade.model.Category;
 import com.cjt.trade.model.MapModel;
@@ -53,7 +53,7 @@ public class BrandController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/addBrand.action")
-    public ResultDto addbrand(MultipartFile file, Brand brand) throws IOException {
+    public ResultDTO addbrand(MultipartFile file, Brand brand) throws IOException {
         if (file != null) {
             brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
@@ -62,12 +62,12 @@ public class BrandController extends BaseController {
         category.setParentId(brand.getTradeId());
         category.setType(CategoryEnum.BRAND.getType());
         categoryService.saveCategory(category);
-        return success("添加成功", null);
+        return success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateBrand.action")
-    public ResultDto updateBrand(MultipartFile file, Brand brand) throws IOException {
+    public ResultDTO updateBrand(MultipartFile file, Brand brand) throws IOException {
         if (file != null) {
             brand.setLogoUrl(uploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
         }
@@ -75,7 +75,7 @@ public class BrandController extends BaseController {
         BeanUtils.copyProperties(brand, category);
         category.setParentId(brand.getTradeId());
         int lines = categoryService.updateCategory(category);
-        return lines > 0 ? success("更新成功", null) : failed("更新失败");
+        return lines > 0 ? success() : failed("更新失败");
     }
 
     @ResponseBody
@@ -86,9 +86,9 @@ public class BrandController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteBrandById.action")
-    public boolean deleteBrandById(int id) {
+    public ResultDTO<Object> deleteBrandById(int id) {
         int lines = categoryService.removeCategoryById(id);
-        return lines > 0;
+        return lines > 0 ? success() : failed("删除失败");
     }
 
     @ResponseBody

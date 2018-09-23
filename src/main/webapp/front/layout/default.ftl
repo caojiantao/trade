@@ -28,6 +28,7 @@
   <script type="text/javascript" src="/plugins/editor/lang/zh_CN.js"></script>
   <script type="text/javascript" src="/js/pre-img.js"></script>
   <script type="text/javascript" src="/js/common.js"></script>
+  ${website.countScript}
 </body>
 </html>
 </#macro>

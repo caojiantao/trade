@@ -78,7 +78,7 @@
                   <div class="ibox">
                     <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
                   </div>
-                  <p class="t"><a href="">${goods.name}</a></p>
+                  <p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>
                   <p class="p">N品：${goods.price}円 </p>
                 </div>
               </#list>
@@ -96,7 +96,7 @@
               <div class="ibox">
                 <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
               </div>
-              <p class="t"><a href="">${goods.name}</a></p>
+              <p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>
               <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
             </div>
           </#list>
@@ -121,7 +121,7 @@
                       <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>
                       </div>
                     </div>
-                    <p class="t"><a href="">${goods.name}</a></p>
+                    <p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>
                     <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
                   </div>
                 </#list>
@@ -158,11 +158,11 @@
     </div>
   </div>
   <div class="left fn-clear">
-  <#-- <#include "${component}/login.ftl" /> -->
-                  <#-- <#include "${component}/ems.ftl" /> -->
-                  <#include "${component}/category.ftl" />
-                  <#include "${component}/introduction.ftl" />
-                  <#-- <#include "${component}/lastest.ftl" /> -->
+    <#-- <#include "${component}/login.ftl" /> -->
+    <#-- <#include "${component}/ems.ftl" /> -->
+    <#include "${component}/category.ftl" />
+    <#include "${component}/introduction.ftl" />
+    <#-- <#include "${component}/lastest.ftl" /> -->
   </div>
 </@default.layout>
 

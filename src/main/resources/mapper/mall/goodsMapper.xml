@@ -215,4 +215,20 @@
             id > #{id}
         ]]>
     </select>
+
+    <select id="getSimilarGoodsById" parameterType="com.cjt.trade.model.Goods" resultType="com.cjt.trade.model.Goods">
+        SELECT
+            id,
+            name,
+            price,
+            logo_url 'logoUrl'
+        FROM
+            goods
+        WHERE
+            product_id = ${productId}
+            <![CDATA[
+            AND id <> #{id}
+            ]]>
+        LIMIT 5
+    </select>
 </mapper>

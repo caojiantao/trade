@@ -9,12 +9,12 @@
 </head>
 <body class="about">
 <div class="wrap-1000">
-			<#include "${component}/header.ftl"/>
+    <#include "${component}/header.ftl"/>
     <div class="right top fn-clear">
         <div class="_widget fn-clear">
             <div class="title">
                 <i class="icon-index_31"></i>
-						<#include "${component}/navigation.ftl"/>
+                <#include "${component}/navigation.ftl"/>
             </div>
             <div class="content">
                 <div class="_brand fn-clear">
@@ -28,9 +28,9 @@
         <div class="_pro-type">
             <p>產品分類</p>
             <ul>
-						<#list maps as map>
-                            <li><a href="/product.action?id=${map.key}">${map.value}</a></li>
-                        </#list>
+            <#list maps as map>
+                <li><a href="/product.action?id=${map.key}">${map.value}</a></li>
+            </#list>
             </ul>
         </div>
         <div class="_search-list brand border fn-clear">ブランド:
@@ -74,7 +74,7 @@
         $.setPages({
             url: apiUrl,
             data: {
-                limit: 24,
+                limit: 20,
                 productId: ${product.id}
             },
             className: '_paging',

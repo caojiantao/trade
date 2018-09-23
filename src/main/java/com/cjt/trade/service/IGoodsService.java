@@ -42,4 +42,6 @@ public interface IGoodsService {
     int getLastGoodsIdById(int id);
 
     int getNextGoodsIdById(int id);
+
+    List<Goods> getSimilarGoodsById(Goods goods);
 }

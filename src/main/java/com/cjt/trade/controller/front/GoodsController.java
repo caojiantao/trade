@@ -59,6 +59,9 @@ public class GoodsController extends BaseFrontController {
         dto.setType(8);
         PageInfo deliveryInfo = pageInfoService.getPageInfo(dto);
         model.addAttribute("deliveryInfo", deliveryInfo);
+        // 相关商品
+        List<Goods> similarGoods = goodsService.getSimilarGoodsById(goods);
+        model.addAttribute("similarGoods", similarGoods);
         // 面包屑
         List<Navigation> navs = new ArrayList<Navigation>();
 //        navs.add(new Navigation(goods.getTradeName(), "/list.action?tradeId=" + goods.getTradeId()));

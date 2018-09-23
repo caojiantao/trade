@@ -81,6 +81,7 @@ public class IndexController extends BaseFrontController {
      */
     private void initLatestGoods(Model model) {
         GoodsDto dto = new GoodsDto();
+        dto.setStart(0);
         dto.setLimit(showCount);
         List<Goods> newGoods = goodsService.listLatestGoods(dto);
         model.addAttribute("latestGoods", newGoods);

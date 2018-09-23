@@ -27,12 +27,12 @@
         </div>
     </div>
     <div class="left fn-clear">
-    <#-- <#include "${component}/login.ftl" /> -->
-    <#-- <#include "${component}/ems.ftl" /> -->
-    <#include "${component}/category.ftl" />
-    <#-- <#include "${component}/lastest.ftl" /> -->
+        <#-- <#include "${component}/login.ftl" /> -->
+        <#-- <#include "${component}/ems.ftl" /> -->
+        <#include "${component}/category.ftl" />
+        <#-- <#include "${component}/lastest.ftl" /> -->
     </div>
-			<#include "${component}/footer.ftl" />
+    <#include "${component}/footer.ftl" />
 </div>
 </body>
 <script src="${plugins}/common.js"></script>
@@ -43,7 +43,7 @@
         $.setPages({
             url: apiUrl,
             data: {
-                limit: 24,
+                limit: 20,
                 tradeId: ${dto.tradeId},
                 brandId: ${dto.brandId},
                 productId: ${dto.productId},

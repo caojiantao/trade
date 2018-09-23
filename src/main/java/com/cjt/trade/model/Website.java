@@ -20,4 +20,5 @@ public class Website {
     private String goodsDetailRight;
     private String introduction;
     private String bottomFixText;
+    private String countScript;
 }

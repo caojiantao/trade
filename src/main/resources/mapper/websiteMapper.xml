@@ -19,7 +19,8 @@
             goods_detail_bottom,
             goods_detail_right,
             introduction,
-            bottom_fix_text
+            bottom_fix_text,
+            count_script,
         )
         VALUES
             (
@@ -36,7 +37,8 @@
                 #{goodsDetailBottom},
                 #{goodsDetailRight},
                 #{introduction},
-                #{bottomFixText}
+                #{bottomFixText},
+                #{countScript}
             )
     </insert>
 
@@ -57,7 +59,8 @@
         goods_detail_bottom = #{goodsDetailBottom},
         goods_detail_right = #{goodsDetailRight},
         introduction = #{introduction},
-        bottom_fix_text = #{bottomFixText}
+        bottom_fix_text = #{bottomFixText},
+        count_script = #{countScript}
         WHERE
         id = #{id}
     </update>
@@ -78,7 +81,8 @@
             goods_detail_bottom 'goodsDetailBottom',
             goods_detail_right  'goodsDetailRight',
             introduction,
-            bottom_fix_text     'bottomFixText'
+            bottom_fix_text     'bottomFixText',
+            count_script        'countScript'
         FROM
             website
         LIMIT 1

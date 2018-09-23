@@ -12,6 +12,10 @@ public class BaseDto {
     private Integer limit;
 
     public Integer getStart() {
+        if (start != null) {
+            return start;
+        }
+
         if (page != null && rows != null) {
             return (page - 1) * rows;
         }
@@ -19,6 +23,9 @@ public class BaseDto {
     }
 
     public Integer getLimit() {
+        if (limit != null) {
+            return limit;
+        }
         return rows;
     }
 }

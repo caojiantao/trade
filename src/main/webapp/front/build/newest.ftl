@@ -59,7 +59,7 @@
             url: apiUrl,
             className: '_paging',
             data: {
-                limit: 24
+                limit: 20
             },
             onClick: function (index, pageNum, total, rows) {
                 initNewest(rows);

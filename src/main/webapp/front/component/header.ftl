@@ -4,17 +4,7 @@
             <marquee direction="left" behavior="scroll" scrollamount="3">${website.topScrollText}</marquee>
         </div>
         <div class="txt fn-right icon-index_02">
-            <span style="display: inline-block;width: 260px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${website.topFixText}</span>
-
-            <div class="fn-right">
-        <#if user==null>
-            <a href="javascript:toLogin();" class="mr-5">ログイン</a>
-            <a href="/register.action" class="mr-5">登録</a>
-        <#else>
-          <a href="/user.action" class="mr-5">${user.email}</a>
-          <a href="javascript:logout();" class="mr-5">脱退</a>
-        </#if>
-            </div>
+            <span>${website.topFixText}</span>
             <script>
                 function toLogin() {
                     var _pop = document.querySelector('._pop');
@@ -27,6 +17,15 @@
         <div class="_search">
             <input id="keyword" type="text" class="key">
             <a href="javascript:search()" class="submit">検索</a>
+        </div>
+        <div class="fn-right" style="margin:40px 100px 0 0;">
+        <#if user==null>
+            <a href="javascript:toLogin();" class="mr-5">ログイン</a>
+            <a href="/register.action" class="mr-5">登録</a>
+        <#else>
+          <a href="/user.action" class="mr-5">${user.email}</a>
+          <a href="javascript:logout();" class="mr-5">脱退</a>
+        </#if>
         </div>
     <#-- <div class="cart fn-clear"><a href="/cart.action"><img src="${img}/index_06.png" alt=""></a><a href=""><img src="${img}/index_08.png" alt=""></a></div> -->
     </div>

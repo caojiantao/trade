@@ -90,6 +90,10 @@
             </td>
         </tr>
         <tr>
+            <td>统计代码</td>
+            <td><textarea class="resizable" type="text" name="countScript">${website.countScript}</textarea></td>
+        </tr>
+        <tr>
             <td colspan="2" style="text-align: center;"><input type="submit" value="确认修改" style="width:100px;"></td>
         </tr>
     </table>

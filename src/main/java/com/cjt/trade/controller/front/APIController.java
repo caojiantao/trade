@@ -115,15 +115,15 @@ public class APIController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/register.action")
-    public int register(String email, String password) {
-        User user = userService.getUserByEmail(email);
-        if (user != null) {
-            return -1;
+    public ResultDTO register(String email, String password) {
+        if (userService.countUserByEmail(email) > 0) {
+            return failed("该邮箱已经注册");
         }
-        user = new User();
+        User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        return userService.register(user);
+        userService.register(user);
+        return success();
     }
 
     @RequestMapping(value = "/login.action")
@@ -131,7 +131,7 @@ public class APIController extends BaseController {
     public User login(String email, String password, HttpSession session, HttpServletResponse response) {
         User user = userService.login(email, password);
         if (user != null) {
-            String name = "email";
+            String name = "id";
             int second = 1000 * 60 * 60 * 24;
             // session跟踪
             Cookie cookie = new Cookie(GlobalConfig.SESSION_ID, session.getId());
@@ -139,7 +139,7 @@ public class APIController extends BaseController {
             cookie.setMaxAge(second);
             response.addCookie(cookie);
 
-            session.setAttribute(name, user.getEmail());
+            session.setAttribute(name, user.getId());
             session.setMaxInactiveInterval(second);
         }
         return user;

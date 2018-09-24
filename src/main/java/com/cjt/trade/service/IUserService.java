@@ -7,18 +7,21 @@ import com.cjt.trade.model.User;
 
 public interface IUserService {
 
-	int register(User user);
-	
-	User login(String email, String password);
-	
-	User getUserByEmail(String email);
-	
-	int updateUser(User user);
-	
-	List<User> getAllUsers(BaseDto dto);
-	int getAllUsersCount();
-	
-	int insertUser(User user);
-	
-	int deleteUserByEmail(String email);
+    int register(User user);
+
+    User login(String email, String password);
+
+    User getUserById(int id);
+
+    int updateUser(User user);
+
+    List<User> getAllUsers(BaseDto dto);
+
+    int getAllUsersCount();
+
+    int insertUser(User user);
+
+    int deleteUserById(int id);
+
+    int countUserByEmail(String email);
 }

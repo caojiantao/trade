@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IDictionaryDao">
-	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
-	<select id="getOptsBySetId" resultType="map">
-		SELECT
-			id 'key',
-			description 'value'
-		FROM
-			code_value
-		WHERE
-			set_id = #{setId}
-	</select>
+    <!-- 这里面的id一定是与dao中的方法名所对应的 -->
+    <select id="getOptsBySetId" resultType="map">
+        SELECT
+            id          'key',
+            description 'value'
+        FROM
+            code_value
+        WHERE
+            set_id = #{setId}
+    </select>
 </mapper>

@@ -19,6 +19,7 @@ public class Goods {
     private Double price;
     private Boolean scroll;
     private Boolean hot;
+    private Boolean recommend;
     private String title;
     private String keyword;
     private String description;

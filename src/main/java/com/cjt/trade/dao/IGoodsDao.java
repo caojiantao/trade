@@ -3,6 +3,7 @@ package com.cjt.trade.dao;
 import com.cjt.trade.dto.GoodsDto;
 import com.cjt.trade.model.Goods;
 import com.cjt.trade.vo.GoodsVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,6 +31,8 @@ public interface IGoodsDao {
      */
     List<Goods> getHotGoods();
 
+    List<Goods> getRecommendGoods();
+
     /**
      * 获取最新添加的所有商品，或者是某一类行业（trade）
      */
@@ -48,4 +51,6 @@ public interface IGoodsDao {
      * 获取相似商品
      */
     List<Goods> getSimilarGoodsById(Goods goods);
+
+    int batchDeleteGoods(@Param("ids") List<Integer> ids);
 }

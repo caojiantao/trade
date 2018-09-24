@@ -21,4 +21,5 @@ public class Website {
     private String introduction;
     private String bottomFixText;
     private String countScript;
+    private String customContent;
 }

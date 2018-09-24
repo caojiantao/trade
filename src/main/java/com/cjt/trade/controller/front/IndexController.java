@@ -45,6 +45,8 @@ public class IndexController extends BaseFrontController {
         initScrollGoods(model);
         // 热卖商品
         initHotGoods(model);
+        // 推荐商品
+        initRecommendGoods(model);
         // 各分类下对应的最新商品
 //    initLastestCategoryGoods(model, vos);
         // 品牌专区
@@ -74,6 +76,14 @@ public class IndexController extends BaseFrontController {
     private void initHotGoods(Model model) {
         List<Goods> hotGoods = goodsService.getHotGoods();
         model.addAttribute("hotGoods", hotGoods);
+    }
+
+    /**
+     * 获取推荐商品
+     */
+    private void initRecommendGoods(Model model) {
+        List<Goods> goods = goodsService.getRecommendGoods();
+        model.addAttribute("recommendGoods", goods);
     }
 
     /**

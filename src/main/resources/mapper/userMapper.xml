@@ -1,104 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace通常是dao的完整路径 -->
 <mapper namespace="com.cjt.trade.dao.IUserDao">
-	<sql id="getUser">
-		SELECT
-			id,
-			name,
-			password,
-			nick_name 'nickName',
-			post_code 'postCode',
-			county,
-			address,
-			phone_number 'phoneNumber',
-			email,
-			remark,
-			create_time 'createTime'
-		FROM
-			user
-	</sql>
-	
-	<select id="getAllUsers" resultType="com.cjt.trade.model.User" parameterType="com.cjt.trade.dto.BaseDto">
-		<include refid="getUser" />
-		LIMIT #{start}, #{limit}
-	</select>
-	
-	<select id="getAllUsersCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			user
-	</select>
+    <sql id="getUser">
+        SELECT
+            id,
+            name,
+            password,
+            nick_name    'nickName',
+            post_code    'postCode',
+            county,
+            address,
+            phone_number 'phoneNumber',
+            email,
+            remark,
+            create_time  'createTime'
+        FROM
+            user
+    </sql>
 
-	<!-- 这里面的id一定是与dao中的方法名所对应的 -->
-	<select id="getUserByName" resultType="com.cjt.trade.model.User">
-		<include refid="getUser"/>
-		WHERE
-			name = #{name}
-	</select>
-	
-	<select id="getUserByEmailAndPwd" resultType="com.cjt.trade.model.User">
-		<include refid="getUser"/>
-		WHERE
-			email = #{email}
-		AND password = #{password}
-	</select>
-	
-	<insert id="insertUser" parameterType="com.cjt.trade.model.User" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO `user` (
-			`name`,
-			password,
-			nick_name,
-			post_code,
-			county,
-			address,
-			phone_number,
-			email,
-			remark,
-			create_time
-		)
-		VALUES
-			(
-				#{name},
-				#{password},
-				#{nickName},
-				#{postCode},
-				#{county},
-				#{address},
-				#{phoneNumber},
-				#{email},
-				#{remark},
-				CURRENT_TIMESTAMP
-			)
-	</insert>
-	
-	<update id="updateUser" parameterType="com.cjt.trade.model.User">
-		UPDATE `user`
-		SET `name` = #{name},
-		 nick_name = #{nickName},
-		 post_code = #{postCode},
-		 county = #{county},
-		 address = #{address},
-		 phone_number = #{phoneNumber},
-		 remark = #{remark},
-		 create_time = CURRENT_TIMESTAMP
-		WHERE
-		 email = #{email}
-	</update>
-	
-	<select id="getUserByEmail" resultType="com.cjt.trade.model.User">
-		<include refid="getUser"/>
-		WHERE
-			email = #{email}
-	</select>
-	
-	<delete id="deleteUserByEmail">
-		DELETE
-		FROM
-			user
-		WHERE
-			email = #{email}
-	</delete>
+    <select id="getAllUsers" resultType="com.cjt.trade.model.User" parameterType="com.cjt.trade.dto.BaseDto">
+        <include refid="getUser"/>
+        LIMIT #{start}, #{limit}
+    </select>
+
+    <select id="getAllUsersCount" resultType="int">
+        SELECT COUNT(*)
+        FROM
+            user
+    </select>
+
+    <!-- 这里面的id一定是与dao中的方法名所对应的 -->
+    <select id="getUserByName" resultType="com.cjt.trade.model.User">
+        <include refid="getUser"/>
+        WHERE
+        name = #{name}
+    </select>
+
+    <select id="getUserByEmailAndPwd" resultType="com.cjt.trade.model.User">
+        <include refid="getUser"/>
+        WHERE
+        email = #{email}
+        AND password = #{password}
+    </select>
+
+    <insert id="insertUser" parameterType="com.cjt.trade.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user` (
+            `name`,
+            password,
+            nick_name,
+            post_code,
+            county,
+            address,
+            phone_number,
+            email,
+            remark,
+            create_time
+        )
+        VALUES
+            (
+                #{name},
+                #{password},
+                #{nickName},
+                #{postCode},
+                #{county},
+                #{address},
+                #{phoneNumber},
+                #{email},
+                #{remark},
+                CURRENT_TIMESTAMP
+            )
+    </insert>
+
+    <update id="updateUser" parameterType="com.cjt.trade.model.User">
+        UPDATE `user`
+        SET `name`       = #{name},
+            nick_name    = #{nickName},
+            post_code    = #{postCode},
+            county       = #{county},
+            address      = #{address},
+            phone_number = #{phoneNumber},
+            remark       = #{remark},
+            create_time  = CURRENT_TIMESTAMP
+        WHERE
+            email = #{email}
+    </update>
+
+    <select id="getUserById" resultType="com.cjt.trade.model.User">
+        <include refid="getUser"/>
+        WHERE
+        id = #{id}
+    </select>
+
+    <delete id="deleteUserById">
+        DELETE
+        FROM
+            user
+        WHERE
+            id = #{id}
+    </delete>
+
+    <select id="countUserByEmail" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE email = #{email}
+    </select>
 </mapper>

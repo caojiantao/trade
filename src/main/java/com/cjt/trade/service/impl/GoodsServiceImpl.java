@@ -85,4 +85,14 @@ public class GoodsServiceImpl implements IGoodsService {
     public List<Goods> getSimilarGoodsById(Goods goods) {
         return goodsDao.getSimilarGoodsById(goods);
     }
+
+    @Override
+    public List<Goods> getRecommendGoods() {
+        return goodsDao.getRecommendGoods();
+    }
+
+    @Override
+    public int batchDeleteGoods(List<Integer> ids) {
+        return goodsDao.batchDeleteGoods(ids);
+    }
 }

@@ -20,8 +20,8 @@
         </div>
         <div class="fn-right" style="margin:40px 100px 0 0;">
         <#if user==null>
-            <a href="javascript:toLogin();" class="mr-5">ログイン</a>
-            <a href="/register.action" class="mr-5">登録</a>
+            <a href="javascript:toLogin();" class="mr-5">会員ログイン</a>
+            <a href="/register.action" class="mr-5">新規会員登録</a>
         <#else>
           <a href="/user.action" class="mr-5">${user.email}</a>
           <a href="javascript:logout();" class="mr-5">脱退</a>
@@ -103,11 +103,8 @@
     function logout() {
         $.ajax({
             url: "/api/logout.action",
-            data: {
-                email: $("em.user").val()
-            },
             success: function () {
-                window.location.reload();
+                window.location.href = "/";
             }
         });
     }

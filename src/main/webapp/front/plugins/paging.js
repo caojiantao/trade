@@ -20,7 +20,7 @@
                     $pageOuter: $('.' + opts.className)
                 },
                 DOM: {
-                    ellipsis: '<span class="x-ellipsis">...</span>',//省略号
+                    ellipsis: '<span class="x-ellipsis" style="float:left;line-height:22px;margin:0 5px 0 0;">...</span>',//省略号
                     $pageBox: $('<div class="x-pageBoxer"></div>'),//分页组件最外层结构
                     prev: '<a class="x-pageBtn x-prev">上一页</a>',
                     next: '<a class="x-pageBtn x-next">下一页</a>',

@@ -90,6 +90,12 @@
             </td>
         </tr>
         <tr>
+            <td>自定义内容</td>
+            <td><textarea class="resizable" id="customContent" name="customContent"
+                          style="visibility:hidden;">${website.customContent}</textarea>
+            </td>
+        </tr>
+        <tr>
             <td>统计代码</td>
             <td><textarea class="resizable" type="text" name="countScript">${website.countScript}</textarea></td>
         </tr>
@@ -122,7 +128,7 @@
         });
     });
 
-    var editorIds = ['goodsDetailBottom', 'goodsDetailRight', 'introduction', 'bottomFixText'];
+    var editorIds = ['goodsDetailBottom', 'goodsDetailRight', 'introduction', 'bottomFixText', 'customContent'];
     createEditor(editorIds);
 </script>
 </body>

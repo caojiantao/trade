@@ -44,4 +44,8 @@ public interface IGoodsService {
     int getNextGoodsIdById(int id);
 
     List<Goods> getSimilarGoodsById(Goods goods);
+
+    List<Goods> getRecommendGoods();
+
+    int batchDeleteGoods(List<Integer> ids);
 }

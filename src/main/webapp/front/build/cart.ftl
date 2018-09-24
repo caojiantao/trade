@@ -125,8 +125,9 @@
             </tr>
             <tr>
                 <td class="td_top">メールアドレス<span>*</span>（半角英数字）</td>
-                <td class="td_right">
-                    <input name="mail" type="text" class="len m-need">（例:info@gmail.com ）
+                <td class="td_right" style="display: flex;align-items: center;">
+                    <input name="mail" type="text" class="len m-need" style="flex-shrink: 0;">
+                    <label>（例:info@gmail.com ）ご注文後、ご注文日の12時間以内。万一，メールが届かない場合、 当社まで御一報お願いします。@docomoの外のメールアドレスを使 ってください。ありがとうございます！</label>
                 </td>
             </tr>
             <tr>

@@ -57,9 +57,9 @@ public class CartController extends BaseFrontController {
 
         // 获取当前用户信息
         HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("email");
-        if (email != null && !"".equals(email)) {
-            User user = userService.getUserByEmail(email);
+        Integer id = (Integer) session.getAttribute("id");
+        if (id != null && id != 0) {
+            User user = userService.getUserById(id);
             model.addAttribute("user", user);
         }
 

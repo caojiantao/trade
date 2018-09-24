@@ -5,10 +5,11 @@
   <meta http-equiv="Content-Type" content="charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" type="text/css" href="${css}/kopi6.min.css">
+  <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.5.3/jquery.min.js"></script>
 </head>
 <body class="signIn">
 <div class="wrap-1000">
-			<#include "${component}/header.ftl"/>
+  <#include "${component}/header.ftl"/>
   <div class="_signIn">
     <fieldset>
       <legend>ユーザ登録</legend>
@@ -27,10 +28,9 @@
       </div>
     </fieldset>
   </div>
-			<#include "${component}/footer.ftl"/>
+  <#include "${component}/footer.ftl"/>
 </div>
 </body>
-<script src="${plugins}/jquery-1.12.4/jquery.1.12.4.min.js"></script>
 <script src="${plugins}/common.js"></script>
 <script src="${base}/js/regex.js"></script>
 <script>
@@ -53,23 +53,25 @@
         email: $email.val(),
         password: $password.val()
       },
-      success: function (status) {
-        if (status === "-1") {
-          alert("该邮箱已被注册！");
-        } else if (status > 0) {
-          $.ajax({
-            url: "/api/login.action",
-            data: {
-              email: $email.val(),
-              password: $password.val()
-            },
-            success: function (user) {
-              if (user == null) {
-                alert("密码错误！");
-              }
-              window.location.href = "/user.action";
-            }
-          });
+      dataType: 'json',
+      success: function (result) {
+        if (result.code === 200) {
+            // 注册成功立即跳转用户页面
+            $.ajax({
+                url: "/api/login.action",
+                data: {
+                    email: $email.val(),
+                    password: $password.val()
+                },
+                success: function (user) {
+                    if (user == null) {
+                        alert("密码错误！");
+                    }
+                    window.location.href = "/user.action";
+                }
+            });
+        } else {
+            alert(result.message);
         }
       }
     });

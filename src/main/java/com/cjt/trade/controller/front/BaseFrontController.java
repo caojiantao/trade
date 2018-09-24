@@ -22,63 +22,63 @@ import java.util.List;
 @Controller
 public class BaseFrontController extends BaseController {
 
-  @Value("${show_count}")
-  public int showCount;
+    @Value("${show_count}")
+    public int showCount;
 
-  @Resource
-  private IWebsiteService websiteService;
-  @Resource
-  private IUserService userService;
-  @Resource
-  private IEmsService emsService;
-  @Resource
-  private ICategoryService categoryService;
+    @Resource
+    private IWebsiteService websiteService;
+    @Resource
+    private IUserService userService;
+    @Resource
+    private IEmsService emsService;
+    @Resource
+    private ICategoryService categoryService;
 
-  /**
-   * 网站基本信息
-   */
-  void initWebSite(Model model) {
-    Website website = websiteService.getWebsite();
-    model.addAttribute("website", website);
-  }
-
-  /**
-   * 左侧商品分类菜单
-   */
-  private void initCategory(Model model) {
-    List<Category> categories = categoryService.listCategories();
-    model.addAttribute("categories", categories);
-  }
-
-  /**
-   * 获取最新指定条目数EMS信息
-   */
-  private void initEms(Model model) {
-    BaseDto dto = new BaseDto();
-    dto.setStart(0);
-    dto.setLimit(showCount);
-    List<Ems> emsList = emsService.getAllEms(dto);
-    model.addAttribute("emsList", emsList);
-  }
-
-  /**
-   * 初始化登录用户
-   */
-  private void initUser(Model model, HttpSession session) {
-    String email = (String) session.getAttribute("email");
-    if (email != null && !"".equals(email)) {
-      User user = userService.getUserByEmail(email);
-      model.addAttribute("user", user);
+    /**
+     * 网站基本信息
+     */
+    void initWebSite(Model model) {
+        Website website = websiteService.getWebsite();
+        model.addAttribute("website", website);
     }
-  }
 
-  /**
-   * header、left、footer三个固定的模块页面传值，返回左侧导航分类信息
-   */
-  void initFixModule(HttpServletRequest request, Model model) {
-    initWebSite(model);
-    initUser(model, request.getSession());
-    initCategory(model);
-    initEms(model);
-  }
+    /**
+     * 左侧商品分类菜单
+     */
+    private void initCategory(Model model) {
+        List<Category> categories = categoryService.listCategories();
+        model.addAttribute("categories", categories);
+    }
+
+    /**
+     * 获取最新指定条目数EMS信息
+     */
+    private void initEms(Model model) {
+        BaseDto dto = new BaseDto();
+        dto.setStart(0);
+        dto.setLimit(showCount);
+        List<Ems> emsList = emsService.getAllEms(dto);
+        model.addAttribute("emsList", emsList);
+    }
+
+    /**
+     * 初始化登录用户
+     */
+    private void initUser(Model model, HttpSession session) {
+        Integer id = (Integer) session.getAttribute("id");
+        if (id != null && id != 0) {
+            User user = userService.getUserById(id);
+            model.addAttribute("user", user);
+        }
+    }
+
+    /**
+     * header、left、footer三个固定的模块页面传值，返回左侧导航分类信息
+     */
+    void initFixModule(HttpServletRequest request, Model model) {
+        initWebSite(model);
+        initUser(model, request.getSession());
+        initCategory(model);
+        initEms(model);
+    }
 }

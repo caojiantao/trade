@@ -46,11 +46,11 @@
             <td>城市</td>
             <td>
                 <select name="county">
-						<#list counties as county>
-                            <option value=${county.key}>
-                              ${county.value}
-                            </option>
-                        </#list>
+                    <#list countiesMap?keys as key>
+                        <option value="${key}">
+                            ${countiesMap[key]}
+                        </option>
+                    </#list>
                 </select>
             </td>
         </tr>
@@ -102,22 +102,23 @@
                 {
                     field: 'operator', title: '操作', width: 200,
                     formatter: function (value, row, index) {
-                        return "<a href=\"javascript:showDetail('" + row.email + "')\">查看</a>"
+                        return "<a href=\"javascript:showDetail(" + row.id + ")\">查看</a>"
                                 + "&nbsp;&nbsp;|&nbsp;&nbsp;"
-                                + "<a href=\"javascript:deleteItem('" + row.email + "')\">删除</a>";
+                                + "<a href=\"javascript:deleteItem(" + row.id + ")\">删除</a>";
                     }
                 }
             ]]
         });
     });
 
-    function showDetail(email) {
+    function showDetail(id) {
         $.ajax({
             type: "post",
-            url: "getUserByEmail.action",
+            url: "getUserById.action",
             data: {
-                'email': email
+                'id': id
             },
+            dataType: 'json',
             success: function (user) {
                 $("#name").html(user.name);
                 $("#nickName").html(user.nickName);
@@ -137,14 +138,14 @@
         });
     }
 
-    function deleteItem(email) {
+    function deleteItem(id) {
         if (confirm('确定要删除这条记录吗？')) {
             $.ajax({
                 type: "post",
-                url: "deleteUserByEmail.action",
+                url: "deleteUserById.action",
                 dataType: "json",
                 data: {
-                    'email': email
+                    id: id
                 },
                 success: function (result) {
                     if (result.code === 200) {

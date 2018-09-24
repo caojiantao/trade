@@ -104,31 +104,32 @@
       </div>
     </div>
     <div class="_widget fn-clear">
-      <div class="title"><i class="icon-item"></i><span>一番新しいアップロード</span></div>
-      <div class="content">
-        <div class="_pro-new-pic">
-          <div class="pro-tab top fn-clear">
-            <#list tabNames as name>
-              <span class="t-${name_index+1}">${name}</span>
-            </#list>
-          </div>
-          <div class="tab-pro-box fn-clear">
-            <#list tabGoods as goodsList>
-              <div class="box fn-clear">
-                <#list goodsList as goods>
-                  <div class="pro-item">
-                    <div class="ibox">
-                      <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>
-                      </div>
-                    </div>
-                    <p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>
-                    <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
-                  </div>
-                </#list>
-              </div>
-            </#list>
-          </div>
-        </div>
+      <div class="title"><i class="icon-item"></i><span>店長推薦</span></div>
+      <div class="content" style="padding: 5px;">
+        ${website.customContent}
+        <#--<div class="_pro-new-pic">-->
+          <#--<div class="pro-tab top fn-clear">-->
+            <#--<#list tabNames as name>-->
+              <#--<span class="t-${name_index+1}">${name}</span>-->
+            <#--</#list>-->
+          <#--</div>-->
+          <#--<div class="tab-pro-box fn-clear">-->
+            <#--<#list tabGoods as goodsList>-->
+              <#--<div class="box fn-clear">-->
+                <#--<#list goodsList as goods>-->
+                  <#--<div class="pro-item">-->
+                    <#--<div class="ibox">-->
+                      <#--<div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a>-->
+                      <#--</div>-->
+                    <#--</div>-->
+                    <#--<p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>-->
+                    <#--<p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>-->
+                  <#--</div>-->
+                <#--</#list>-->
+              <#--</div>-->
+            <#--</#list>-->
+          <#--</div>-->
+        <#--</div>-->
       </div>
     </div>
   <#-- <div class="_widget fn-clear">

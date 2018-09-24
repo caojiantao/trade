@@ -43,6 +43,7 @@
             <div style="display:inline-block;width:calc(100% - 100px);">
                 <label><input type="checkbox" id="scroll" name="scroll"/>滚动展示</label>
                 <label><input type="checkbox" id="hot" name="hot"/>人气商品</label>
+            <#--<label><input type="checkbox" id="recommend" name="recommend"/>店长推荐</label>-->
             </div>
         </div>
         <div style="margin-bottom:15px;">
@@ -124,9 +125,10 @@
             striped: true,
             pageSize: 20,
             pageList: [10, 20, 50],
-            singleSelect: true,
+            singleSelect: false,
             rownumbers: true,
             columns: [[
+                {field: 'ck', checkbox: true},
                 {field: 'tradeName', title: '商品行业', width: 200},
                 {field: 'brandName', title: '品牌类型', width: 200},
                 {field: 'productName', title: '产品类型', width: 200},
@@ -146,8 +148,39 @@
                 handler: function () {
                     openEditDiv()
                 }
+            }, {
+                text: "删除",
+                iconCls: "icon-remove",
+                handler: function () {
+                    batchDelete();
+                }
             }]
         });
+    }
+
+    function batchDelete() {
+      if(confirm("确定删除这些商品吗？")){
+          var rows = $('#result').datagrid('getSelections');
+          if(rows && rows.length > 0){
+              var ids = [];
+              rows.forEach(item => ids.push(item.id));
+              $.ajax({
+                  type: "post",
+                  url: "batchDeleteGoods.action",
+                  dataType: "json",
+                  data: {
+                      'ids': ids.join(',')
+                  },
+                  success: function (result) {
+                      if (result.code === 200) {
+                          getData();
+                      } else {
+                          alert(result.message);
+                      }
+                  }
+              });
+          }
+      }
     }
 
     function editObj(id) {
@@ -175,6 +208,7 @@
                     $('#price').textbox('setValue', goods.price);
                     $('#scroll')[0].checked = goods.scroll;
                     $('#hot')[0].checked = goods.hot;
+                    // $('#recommend')[0].checked = goods.recommend;
 
                     $('#keyword').textbox('setValue', goods.keyword);
                     $('#description').textbox('setValue', goods.description);
@@ -188,7 +222,7 @@
                 }
             },
             error: function (data) {
-                $.messager.alert("警告", "网络异常！");
+                alert("网络异常！");
             }
         });
     }
@@ -206,11 +240,11 @@
                     if (result.code === 200) {
                         getData();
                     } else {
-                        $.messager.alert("提示", result.message);
+                        alert(result.message);
                     }
                 },
                 error: function (data) {
-                    $.messager.alert("警告", "网络异常！");
+                    alert("网络异常！");
                 }
             });
         }
@@ -227,6 +261,7 @@
         $('#price').textbox('setValue', '');
         $('#scroll')[0].checked = false;
         $('#hot')[0].checked = false;
+//        $('#recommend')[0].checked = false;
         $('#keyword').textbox('setValue', '');
         $('#description').textbox('setValue', '');
         // 防止logoUrl为null导致图片路径不变
@@ -256,7 +291,7 @@
             beforeSubmit: function (datas) {
                 var productIdItem = getItem(datas, 'name', 'productId');
                 if (!productIdItem || productIdItem.value === '0') {
-                    $.messager.alert('提示', '产品类型不能为空');
+                    alert('产品类型不能为空');
                     return false;
                 }
                 return true;
@@ -266,11 +301,11 @@
                     cancel();
                     getData();
                 } else {
-                    $.messager.alert("提示", result.message);
+                    alert(result.message);
                 }
             },
             error: function () {
-                $.messager.alert('提示', '服务器异常');
+                alert('服务器异常');
             }
         });
     }

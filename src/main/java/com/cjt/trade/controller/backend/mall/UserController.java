@@ -48,17 +48,17 @@ public class UserController extends BaseController {
         return JSONUtil.toGridJson(users, count);
     }
 
-    @RequestMapping(value = "getUserByEmail.action")
+    @RequestMapping(value = "getUserById.action")
     @ResponseBody
-    public User getUserByEmail(String email) {
-        User ems = userService.getUserByEmail(email);
+    public User getUserById(int id) {
+        User ems = userService.getUserById(id);
         return ems;
     }
 
-    @RequestMapping(value = "deleteUserByEmail.action")
+    @RequestMapping(value = "deleteUserById.action")
     @ResponseBody
-    public ResultDTO deleteUserByEmail(String email) {
-        int lines = userService.deleteUserByEmail(email);
+    public ResultDTO deleteUserById(int id) {
+        int lines = userService.deleteUserById(id);
         return lines > 0 ? success() : failed("删除失败");
     }
 }

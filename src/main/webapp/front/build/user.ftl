@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>填写个人信息</title>
+    <title>個人情報を記入する</title>
     <meta http-equiv="Content-Type" content="charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="${css}/kopi6.min.css">
@@ -9,6 +9,7 @@
     <script src="${plugins}/jquery-1.12.4/jquery.1.12.4.min.js"></script>
     <script src="${plugins}/common.js"></script>
     <script type="text/javascript" src="${base}/plugins/jquery-easyui-1.2.6/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${base}/plugins/jquery.form.min.js"></script>
 </head>
 <body class="info">
 <div class="wrap-1000">
@@ -87,7 +88,7 @@
             </p>
         </div>
     </div>
-			<#include "${component}/footer.ftl"/>
+    <#include "${component}/footer.ftl"/>
 </div>
 </body>
 <script>
@@ -103,18 +104,21 @@
     });
 
     function updateUser() {
-        $('#ff').form('submit', {
+        $('#ff').ajaxSubmit({
             url: "/api/updateUser.action",
-            onSubmit: function () {
+            beforeSubmit: function () {
                 // 返回 false 来阻止提交
             },
+            dataType: 'json',
             success: function (result) {
                 if (result.code === 200) {
-                    alert("更新成功！！");
+                    alert("已修改");
+                } else {
+                    alert(result.message);
                 }
             },
             error: function (data) {
-                $.messager.alert("警告", "网络异常！");
+                alert("网络异常！");
             }
         });
     }

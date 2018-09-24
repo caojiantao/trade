@@ -14,19 +14,21 @@ import com.cjt.trade.model.User;
  */
 public interface IUserDao {
 
-  User getUserByName(String name);
+    User getUserByName(String name);
 
-  int insertUser(User user);
+    int insertUser(User user);
 
-  int updateUser(User user);
+    int updateUser(User user);
 
-  User getUserByEmailAndPwd(@Param(value = "email") String email, @Param(value = "password") String password);
+    User getUserByEmailAndPwd(@Param(value = "email") String email, @Param(value = "password") String password);
 
-  User getUserByEmail(String email);
+    User getUserById(int id);
 
-  List<User> getAllUsers(BaseDto dto);
+    List<User> getAllUsers(BaseDto dto);
 
-  int getAllUsersCount();
+    int getAllUsersCount();
 
-  int deleteUserByEmail(String email);
+    int deleteUserById(int id);
+
+    int countUserByEmail(String email);
 }

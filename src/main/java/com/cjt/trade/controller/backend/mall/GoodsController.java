@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,5 +77,20 @@ public class GoodsController extends BaseController {
     public ResultDTO deleteGoodsById(int id) {
         int lines = goodsService.deleteGoods(id);
         return lines > 0 ? success() : failed("删除失败");
+    }
+
+    @ResponseBody
+    @RequestMapping("/batchDeleteGoods.action")
+    public ResultDTO batchDeleteGoods(String ids) {
+        String[] idArr = ids.split(",");
+        if (idArr.length > 0) {
+            List<Integer> idList = new ArrayList<Integer>();
+            for (String id : idArr) {
+                idList.add(Integer.parseInt(id));
+            }
+            int lines = goodsService.batchDeleteGoods(idList);
+            return lines > 0 ? success() : failed("删除失败");
+        }
+        return failed("删除失败");
     }
 }

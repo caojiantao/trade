@@ -1,16 +1,29 @@
 package com.cjt.trade.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	
     private Integer id;
+
+    private String userId;
     
     private String no;
 
     private String name;
 
-    private String nickName;
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	private String nickName;
     
     private String postCode;
 
@@ -31,6 +44,8 @@ public class Order {
     private String goodsJson;
     
     private Date createTime;
+
+    private List<JSONObject> goodsList;
 
     public Integer getId() {
         return id;
@@ -142,5 +157,13 @@ public class Order {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public List<JSONObject> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<JSONObject> goodsList) {
+		this.goodsList = goodsList;
 	}
 }

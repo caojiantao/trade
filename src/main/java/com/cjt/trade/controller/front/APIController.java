@@ -53,6 +53,11 @@ public class APIController extends BaseController {
     @RequestMapping(value = "/saveCart.action")
     @ResponseBody
     public void saveCart(HttpServletRequest request, HttpServletResponse response, CartDto dto) {
+        Goods goods = goodsService.getGoodsById(dto.getGoodsId());
+        if(goods == null){
+            return;
+        }
+
         // 获取cookies中购物车
         Cookie cookie = CookieUtil.getCookieByName(CookieUtil.CART, request);
         if (cookie == null) {
@@ -74,6 +79,7 @@ public class APIController extends BaseController {
             }
         }
         if (!exist) {
+            dto.setBuyPrice(goods.getPrice());
             // 购物车中不存在添加的商品时添加
             array.add(dto);
         }
@@ -159,20 +165,24 @@ public class APIController extends BaseController {
 
     @RequestMapping(value = "/pay.action")
     @ResponseBody
-    public boolean pay(HttpServletRequest request, HttpServletResponse response, Order order) {
+    public boolean pay(HttpServletRequest request, HttpServletResponse response, Order order, HttpSession session) {
         Cookie cookie = CookieUtil.getCookieByName(CookieUtil.CART, request);
         if (cookie != null) {
             // 存储订单信息至后台
             JSONArray array = JSONArray.parseArray(cookie.getValue());
             order.setNo(DateUtil.parseDate(new Date(), "yyyyMMddHHmmss"));
             order.setGoodsJson(array.toJSONString());
-            orderService.addOrder(order);
+            Integer userId = (Integer) session.getAttribute("id");
+            if(userId!=null){
+                order.setUserId(userId.toString());
+                orderService.addOrder(order);
 
-            // 清空购物车
-            cookie.setPath("/");
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
-            return true;
+                // 清空购物车
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+                return true;
+            }
         }
         return false;
     }

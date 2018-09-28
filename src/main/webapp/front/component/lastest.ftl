@@ -5,7 +5,7 @@
 			<#list newGoods as goods>
 				<li class="item">
 					<div class="new-ibox">
-						<div class="new-img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}" alt=""></a></div>
+						<div class="new-img"><a href="/goods.action?id=${goods.id?c}"><img src="${goods.logoUrl}" alt=""></a></div>
 					</div>
 					<ul>
 						<li><a href="">${goods.title}</a></li>

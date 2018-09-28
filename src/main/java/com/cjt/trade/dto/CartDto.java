@@ -8,6 +8,8 @@ public class CartDto{
 	
 	private int count;
 
+	private double buyPrice;
+
 	public int getGoodsId() {
 		return goodsId;
 	}
@@ -22,5 +24,13 @@ public class CartDto{
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public double getBuyPrice() {
+		return buyPrice;
+	}
+
+	public void setBuyPrice(double buyPrice) {
+		this.buyPrice = buyPrice;
 	}
 }

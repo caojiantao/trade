@@ -18,109 +18,33 @@
         <div class="menu fn-left">
             <ul>
                 <li class="d t">メニュー</li>
-                <li class="d current"><a>ユーザ情報 >></a></li>
-                <li><a>ユーザオーダー</a></li>
+                <li class="d"><a id="userManage" onclick="changeMenu(1)" title="ユーザ情報">ユーザ情報</a></li>
+                <li class="d"><a id="myOrders" onclick="changeMenu(2)" title="ユーザオーダー">ユーザオーダー</a></li>
             </ul>
         </div>
-        <div class="content i-h fn-left">
-            <form id="ff">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td class="td_top">お名前</td>
-                        <td class="td_right">
-                            <input name="name" type="text" title="空ではありません">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">フリガナ</td>
-                        <td class="td_right">
-                            <input name="nickName" name="nickName" type="text" title="空ではありません">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">郵便番号</td>
-                        <td class="td_right">
-                            <input name="postCode" type="text" title="空ではありません">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">都道府県</td>
-                        <td class="td_right">
-                            <select name="county">
-                              <#list countiesMap?keys as key>
-                                  <option value="${key}">
-                                    ${countiesMap[key]}
-                                  </option>
-                              </#list>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">詳しい住所</td>
-                        <td class="td_right">
-                            <input name="address" type="text" title="空ではありません">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">電話番号</td>
-                        <td class="td_right">
-                            <input name="phoneNumber" type="text" title="空ではありません">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">メールアドレス</td>
-                        <td class="td_right">
-                            <input name="email" type="text" title="空ではありません" value="xiongdiao" readonly>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_top">お客様掲示板</td>
-                        <td class="td_right">
-                            <textarea name="remark" cols="20" rows="2"></textarea>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-            <p>
-                <a href="javascript:updateUser();" class="submit">修正情报</a>
-            </p>
-        </div>
+        <iframe id="menuIframe" src="" width="75%" height="600px"></iframe>
     </div>
     <#include "${component}/footer.ftl"/>
 </div>
 </body>
 <script>
     $(function () {
-        $("input[name='name']").val("${user.name}");
-        $("input[name='nickName']").val("${user.nickName}");
-        $("input[name='postCode']").val("${user.postCode}");
-        $("select[name='county']").val("${user.county}");
-        $("input[name='address']").val("${user.address}");
-        $("input[name='phoneNumber']").val("${user.phoneNumber}");
-        $("input[name='email']").val("${user.email}");
-        $("textarea[name='remark']").val("${user.remark}");
+        $("#menuIframe").attr("src", "/userMange.action");
+        $("#userManage").text($("#userManage").attr("title") + " >>");
     });
 
-    function updateUser() {
-        $('#ff').ajaxSubmit({
-            url: "/api/updateUser.action",
-            beforeSubmit: function () {
-                // 返回 false 来阻止提交
-            },
-            dataType: 'json',
-            success: function (result) {
-                if (result.code === 200) {
-                    alert("已修改");
-                } else {
-                    alert(result.message);
-                }
-            },
-            error: function (data) {
-                alert("网络异常！");
-            }
-        });
+    function changeMenu(type) {
+        if(type == 1){
+            $("#menuIframe").attr("src", "/userMange.action");
+            $("#userManage").text($("#userManage").attr("title") + " >>");
+            $("#myOrders").text($("#myOrders").attr("title"));
+
+        }else if(type == 2){
+            $("#menuIframe").attr("src", "/myOrder.action");
+            $("#userManage").text($("#userManage").attr("title"));
+            $("#myOrders").text($("#myOrders").attr("title")  + " >>");
+        }
     }
+
 </script>
 </html>

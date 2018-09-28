@@ -50,6 +50,7 @@ public class CartController extends BaseFrontController {
                 JSONObject obj = new JSONObject();
                 obj.put("goods", goods);
                 obj.put("count", dto.getCount());
+                obj.put("buyPrice", goods.getPrice());
                 goodsArray.add(obj);
             }
         }

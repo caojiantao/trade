@@ -9,7 +9,7 @@
 </head>
 <body class="about">
 <div class="wrap-1000">
-    <#include "${component}/header.ftl">
+<#include "${component}/header.ftl">
     <div class="right top fn-clear">
         <div class="_widget fn-clear">
             <div class="title"><i class="icon-index_31"></i><span>当面の位置：ホーム &gt;&gt; EMS追踪</span></div>
@@ -19,12 +19,14 @@
         </div>
     </div>
     <div class="left top fn-clear">
-    <#include "${component}/login.ftl" />
+    <#--
+        <#include "${component}/login.ftl" />
+    -->
     <#include "${component}/ems.ftl" />
     <#include "${component}/category.ftl" />
     <#-- <#include "${component}/lastest.ftl" /> -->
     </div>
-    <#include "${component}/footer.ftl" />
+<#include "${component}/footer.ftl" />
 </div>
 </body>
 <script src="${plugins}/common.js"></script>

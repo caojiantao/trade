@@ -22,9 +22,9 @@
                         <div class="pro-ibox">
                             <div class="pro-img"><img src="${goods.logoUrl}" alt=""></div>
                             <p class="fn-clear">
-                                <a href="<#if lastId == 0>javascript:void(0);<#else>/goods.action?id=${lastId}</#if>"
+                                <a href="<#if lastId == 0>javascript:void(0);<#else>/goods.action?id=${lastId?c}</#if>"
                                    class="prev">前页</a>
-                                <a href="<#if nextId == 0>javascript:void(0);<#else>/goods.action?id=${nextId}</#if>"
+                                <a href="<#if nextId == 0>javascript:void(0);<#else>/goods.action?id=${nextId?c}</#if>"
                                    class="next">下页</a>
                             </p>
                         </div>
@@ -106,12 +106,12 @@
                   <#list similarGoods as goods>
                       <div class="pro-item">
                           <div class="ibox">
-                              <div class="img"><a href="/goods.action?id=${goods.id}"><img src="${goods.logoUrl}"
+                              <div class="img"><a href="/goods.action?id=${goods.id?c}"><img src="${goods.logoUrl}"
                                                                                            alt=""></a>
                               </div>
                           </div>
-                          <p class="t"><a href="/goods.action?id=${goods.id}">${goods.name}</a></p>
-                          <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
+                          <p class="t"><a href="/goods.action?id=${goods.id?c}">${goods.name}</a></p>
+                          <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id?c})" class="btn">購入商品</a>
                       </div>
                   </#list>
                 </div>

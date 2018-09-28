@@ -38,7 +38,8 @@
 			ems_no,
 			total_price,
 			goods_json,
-			create_time
+			create_time,
+			user_id
 		)
 		VALUES
 			(
@@ -54,7 +55,8 @@
 				#{emsNo},
 				#{totalPrice},
 				#{goodsJson},
-				CURRENT_TIMESTAMP
+				CURRENT_TIMESTAMP,
+				#{userId}
 			)
 	</insert>
 	
@@ -71,7 +73,19 @@
 			`order`
 		LIMIT #{start}, #{limit}
 	</select>
-	
+
+	<select id="getMyOrders" resultType="com.cjt.trade.model.Order" parameterType="com.cjt.trade.dto.OrderDto">
+		<include refid="getOrder"></include>
+		WHERE user_id = #{userId}
+		ORDER BY create_time DESC
+		LIMIT #{start}, #{limit}
+	</select>
+
+	<select id="getMyOrdersCount" resultType="int" parameterType="com.cjt.trade.dto.OrderDto">
+		SELECT COUNT(*) FROM `order`
+		WHERE user_id = #{userId}
+	</select>
+
 	<select id="getAllOrdersCount" resultType="int">
 		SELECT
 			COUNT(*)

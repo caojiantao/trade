@@ -26,10 +26,10 @@
                         `
                         <div class="td_img">
                             <ul class="fn-clear">
-                                <li class="img"><a href="/goods.action?id=${cart.goods.id}"><img
+                                <li class="img"><a href="/goods.action?id=${cart.goods.id?c}"><img
                                         src="${cart.goods.logoUrl}" alt=""></a></li>
                                 <li class="txt"><a
-                                        href="/goods.action?id=${cart.goods.id}">${cart.goods.name}</a>
+                                        href="/goods.action?id=${cart.goods.id?c}">${cart.goods.name}</a>
                                 </li>
                             </ul>
                         </div>

@@ -122,6 +122,12 @@
             <version>1.16.18</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.0</version>
+        </dependency>
     </dependencies>
 
     <!-- 分环境打包 -->

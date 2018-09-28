@@ -1,16 +1,20 @@
 package com.cjt.trade.controller.front;
 
 import com.cjt.trade.dto.GoodsDto;
+import com.cjt.trade.dto.OrderDto;
 import com.cjt.trade.model.*;
 import com.cjt.trade.service.ICategoryService;
 import com.cjt.trade.service.IDictionaryService;
+import com.cjt.trade.service.IOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +30,9 @@ public class FrontController extends BaseFrontController {
     private ICategoryService categoryService;
     @Resource
     private IDictionaryService dictionaryService;
+
+    @Resource
+    private IOrderService orderService;
 
     /**
      * 品牌类型
@@ -106,9 +113,36 @@ public class FrontController extends BaseFrontController {
     @RequestMapping(value = "/user")
     public String user(HttpServletRequest request, Model model) {
         initFixModule(request, model);
+        return "/front/build/user";
+    }
+
+    @RequestMapping(value = "/userMange")
+    public String userManger(HttpServletRequest request, Model model){
+        initFixModule(request, model);
         // 县郡
         Map<String, String> countiesMap = dictionaryService.getOptsBySetId(1);
         model.addAttribute("countiesMap", countiesMap);
-        return "/front/build/user";
+        return "/front/build/userMange";
+    }
+
+
+
+    @RequestMapping(value = "/myOrder")
+    public String myOrder(Model model, HttpSession session, OrderDto orderDto, HttpServletRequest request){
+        Integer id = (Integer) session.getAttribute("id");
+
+        if(orderDto.getRows() == null){
+            orderDto.setRows(10);
+        }
+        if(orderDto.getPage() == null){
+            orderDto.setPage(1);
+        }
+        orderDto.setUserId(String.valueOf(id));
+        List<Order> orders = orderService.getMyOrders(orderDto);
+
+        orderDto.setTotal(orderService.getMyOrdersCount(orderDto));
+        model.addAttribute("page", orderDto);
+        model.addAttribute("orders", orders);
+        return "/front/build/myOrder";
     }
 }

@@ -12,13 +12,13 @@
     <div>
         <div class="myorder-table">
             <div style="width:50%" class="table-title">商品</div>
-            <div style="width:20%" class="table-title">价格</div>
+            <div style="width:20%" class="table-title">価格</div>
             <div style="width:10%" class="table-title">数量</div>
-            <div style="width:20%" class="table-title">小记</div>
+            <div style="width:20%" class="table-title">小計</div>
         </div>
         <#if orders?? && orders?size gt 0>
             <#list orders as order>
-                <div class="myorder-table table-line">订单号：${order.no!''}</div>
+                <div class="myorder-table table-line">注文番号：${order.no!''}</div>
 
                 <#list order.goodsList as good>
                     <div class="myorder-table-item">
@@ -35,11 +35,11 @@
                     </div>
                 </#list>
 
-                <div class="myorder-table table-line"><span class="item-right">合计 : ${order.totalPrice!''}</span></div>
+                <div class="myorder-table table-line"><span class="item-right">合計する : ${order.totalPrice!''}</span></div>
             </#list>
             <#include "${component}/page.ftl"/>
         <#else>
-            <div class="myorder-table table-line">暂无数据</div>
+            <div class="myorder-table table-line" style="color:#000;text-align: center">データなし</div>
         </#if>
     </div>
 </body>

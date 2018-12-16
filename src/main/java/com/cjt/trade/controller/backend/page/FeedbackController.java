@@ -68,7 +68,7 @@ public class FeedbackController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/updateFeedback.action")
 	public ResultDTO updateFeedback(HttpServletRequest request, Feedback feedback){
-		if(IFeedbackService.saveFeedback(feedback)){
+		if(IFeedbackService.updateFeedback(feedback)){
 			return ResultDTO.success().setMessage("成功");
 		}else{
 			return ResultDTO.failure().setMessage("保存失败");

@@ -46,10 +46,20 @@
 	
 	<update id="updateFeedback" parameterType="com.cjt.trade.model.Feedback">
 		UPDATE feedback
-		SET
+		<trim prefix="set" suffixOverrides=",">
 			<if test="reply != null">
-				reply = #{reply}
+				reply = #{reply},
 			</if>
+			<if test="content != null">
+				content = #{content},
+			</if>
+			<if test="nickName != null">
+				nick_name = #{nickName},
+			</if>
+			<if test="reply != null">
+				email = #{email},
+			</if>
+		</trim>
 		WHERE
 			id = #{id}
 	</update>

@@ -23,7 +23,7 @@
 										<input type="text" name="mail" id="mail" title="メールボックスを入力してください"><span class="red">*</span>
 									</li>
 									<li>名&nbsp;&nbsp;前:
-										<input type="text" name="name" id="name"><span class="red">*</span>
+										<input type="text" value="匿名ユーザー" name="name" id="name"><span class="red">*</span>
 									</li>
 									<li>
 										<textarea name="contents" cols="20" rows="2" id="contents" class="area"></textarea><span class="red">*</span>
@@ -84,31 +84,37 @@
                     rows : rows
                 },
                 success: function (result) {
-                    result = eval("("+result+")")
-                    if(result.code == 200){
-                        var online = $(".online").find("ul")
-                        online.empty();
-                        var feedList = result.data;
-                        if(result.data.length > 0){
-                            for(var i=0; i<feedList.length; i++){
-                                online.append("<li class='onlineli_top'>"+feedList[i].nickName +" "+ feedList[i].email +" </li>");
-                                online.append("<li>"+ feedList[i].content +"</li>");
-                                online.append("<li class='onlineli_btm'><span>お返事：お客様:</span> "+ (feedList[i].reply?feedList[i].reply:'') +"</li>");
+                    if (result != "") {
+                        result = eval("(" + result + ")")
+                        if (result.code == 200) {
+                            var online = $(".online").find("ul")
+                            online.empty();
+                            var feedList = result.data;
+                            if (result.data.length > 0) {
+                                for (var i = 0; i < feedList.length; i++) {
+                                    online.append("<li class='onlineli_top'>" + feedList[i].nickName + " " + feedList[i].email + " </li>");
+                                    online.append("<li>" + feedList[i].content + "</li>");
+                                    online.append("<li class='onlineli_btm'><span>お返事：お客様:</span> " + (feedList[i].reply ? feedList[i].reply : '') + "</li>");
+                                }
+                                var total = result.attr.count;
+                                var count = Math.floor(total / rows) + (total % rows == 0 ? 0 : 1);
+                                $(".online").find(".prev").off("click");
+                                $(".online").find(".next").off("click");
+                                if (page > 1) {
+                                    $(".online").find(".prev").on("click", function () {
+                                        toPage(page - 1, rows)
+                                    });
+                                }
+                                if (page < count) {
+                                    $(".online").find(".next").on("click", function () {
+                                        toPage(page + 1, rows)
+                                    });
+                                }
+                                $(".online").find(".current").text(page);
+                            } else {
+                                $(".online").find(".page").css("display", "none")
                             }
-                            var total = result.attr.count;
-                            var count = Math.floor(total/rows) + (total%rows==0?0:1);
-                            $(".online").find(".prev").off("click");
-                            $(".online").find(".next").off("click");
-                            if(page > 1){
-                                $(".online").find(".prev").on("click", function(){toPage(page - 1, rows)});
-                            }
-                            if(page < count){
-                                $(".online").find(".next").on("click", function(){toPage(page + 1, rows)});
-                            }
-                            $(".online").find(".current").text(page);
-						}else{
-                            $(".online").find(".page").css("display","none")
-						}
+                        }
                     }
                 }
             });
@@ -128,13 +134,15 @@
                     verifyCode : $("#validate").val()
                 },
                 success: function (result) {
-                    result = eval("("+result+")")
-					if(result.code != 200){
-                        alert(result.message);
-                        $("#valideImg").attr("src","/api/verification.action?t="+Math.random());
-					}else{
-                        alert("成功!!");
-                        window.location.reload();
+                    if(result != ""){
+                        result = eval("("+result+")")
+                        if(result.code != 200){
+                            alert(result.message);
+                            $("#valideImg").attr("src","/api/verification.action?t="+Math.random());
+                        }else{
+                            alert("成功!!");
+                            window.location.reload();
+                        }
 					}
                 }
             });

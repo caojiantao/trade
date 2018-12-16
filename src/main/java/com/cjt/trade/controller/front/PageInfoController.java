@@ -40,12 +40,6 @@ public class PageInfoController extends BaseFrontController {
         return "front/build/pageInfo";
     }
 
-    @RequestMapping(value = "/faq.action")
-    public String faq(Model model, HttpServletRequest request) {
-        initFixModule(request, model);
-        return "front/build/faq";
-    }
-
     private Navigation getNav(int type) {
         Navigation nav = new Navigation();
         String navName = "";

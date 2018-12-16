@@ -21,11 +21,11 @@ public class BaseController {
     }
 
     public ResultDTO<Object> success(){
-        return new ResultDTO<Object>(200, "", null);
+        return new ResultDTO<Object>(200, "", null, null);
     }
 
     public ResultDTO<Object> failed(String msg){
-        return new ResultDTO<Object>(500, msg, null);
+        return new ResultDTO<Object>(500, msg, null,null);
     }
 }
 

@@ -16,8 +16,10 @@ import com.cjt.trade.service.IUserService;
 import com.cjt.trade.util.CookieUtil;
 import com.cjt.trade.util.DateUtil;
 import com.cjt.trade.util.JSONUtil;
+import com.cjt.trade.util.SCaptcha;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -25,6 +27,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -99,16 +102,18 @@ public class APIController extends BaseController {
         if (cookie != null) {
             // JSON化购物车cookie的value，方便修改
             JSONArray array = JSONArray.parseArray(cookie.getValue());
+            JSONObject curDto = null;
             for (Object obj : array) {
                 if (((JSONObject) obj).getIntValue(CookieUtil.GOODS_ID) == (dto.getGoodsId())) {
+                    curDto = (JSONObject)obj;
                     // 直接修改obj，这样便间接修改了array
-                    ((JSONObject) obj).put(CookieUtil.COUNT, dto.getCount());
+                    curDto.put(CookieUtil.COUNT, dto.getCount());
                     break;
                 }
             }
-            if (dto.getCount() == 0) {
+            if (dto.getCount() == 0 && curDto != null) {
                 // 删除商品
-                array.remove(JSONObject.toJSON(dto));
+                array.remove(curDto);
             }
             cookie.setValue(array.toJSONString());
             // cookie值了maxAge和path后，代码是取不到值得，但是实质上存在。所以必须每次添加覆盖，必须修改他的maxAge/path，这样才能覆盖，并且改变生存周期
@@ -185,5 +190,25 @@ public class APIController extends BaseController {
             }
         }
         return false;
+    }
+
+    /**
+     * @description 生成图片验证码
+     */
+    @RequestMapping(value = "/verification", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public void verification(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+        // 设置响应的类型格式为图片格式
+        response.setContentType("image/jpeg");
+        // 禁止图像缓存。
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        //实例生成验证码对象
+        SCaptcha instance = new SCaptcha();
+        //将验证码存入session
+        session.setAttribute("verification", instance.getCode());
+        //向页面输出验证码图片
+        instance.write(response.getOutputStream());
     }
 }

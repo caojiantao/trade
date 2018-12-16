@@ -97,7 +97,7 @@
                           <div class="img"><a href="/goods.action?id=${goods.id?c}"><img src="${goods.logoUrl}" alt=""></a></div>
                       </div>
                       <p class="t"><a href="/goods.action?id=${goods.id?c}">${goods.name}</a></p>
-                      <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id})" class="btn">購入商品</a>
+                      <p class="p">N品：${goods.price}円 </p><a href="javascript:saveGoods(${goods.id?c})" class="btn">購入商品</a>
                   </div>
               </#list>
             </div>

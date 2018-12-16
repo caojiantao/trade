@@ -19,6 +19,11 @@ public class CookieUtil {
 	 * 商品数量
 	 */
 	public static final String COUNT = "count";
+
+	/**
+	 * 购买价格
+	 */
+	public static final String BUY_PRICE = "buyPrice";
 	
 	/**
 	 * 通过cookie的name获取cookie

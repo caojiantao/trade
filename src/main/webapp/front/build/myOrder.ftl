@@ -23,8 +23,8 @@
                 <#list order.goodsList as good>
                     <div class="myorder-table-item">
                         <div style="width:50%;" class="table-body">
-                            <a href="/goods.action?id=" + ${good.goodsId?c}>
-                                <img src="${good.logUrl!''}" width="70px" height="70px"></img>
+                            <a href="/goods.action?id=${good.goodsId?c}" target="_blank">
+                                <img src="${good.logoUrl!''}" width="70px" height="70px"></img>
                                 <span>${good.productName!''}<br>${good.description!''}</span>
                             </a>
                         </div>

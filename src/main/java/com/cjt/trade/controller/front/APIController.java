@@ -180,14 +180,14 @@ public class APIController extends BaseController {
             Integer userId = (Integer) session.getAttribute("id");
             if(userId!=null){
                 order.setUserId(userId.toString());
-                orderService.addOrder(order);
-
-                // 清空购物车
-                cookie.setPath("/");
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-                return true;
             }
+            orderService.addOrder(order);
+
+            // 清空购物车
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            return true;
         }
         return false;
     }

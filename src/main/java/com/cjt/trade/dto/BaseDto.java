@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class BaseDto {
 
-    private Integer page;
-    private Integer rows;
+    private Integer page;//当前页
+    private Integer rows;//一页多少条
 
     private Integer start;
     private Integer limit;

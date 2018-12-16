@@ -38,7 +38,7 @@
                         価格:${cart.goods.price}円
                     </td>
                     <td class="td_pro td_btm_r js-count">
-                        <select id="${cart.goods.id}" data-count="${cart.count}">
+                        <select id="${cart.goods.id?c}" data-count="${cart.count}">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -55,7 +55,7 @@
                       ${cart.goods.price * cart.count}円
                     </td>
                     <td class="td_pro td_btm_r">
-                        <input type="button" onclick="removeGoods(${cart.goods.id}, this)" value="削除">
+                        <input type="button" onclick="removeGoods(${cart.goods.id?c}, this)" value="削除">
                     </td>
                 </tr>
               <#assign sumMoney = sumMoney + cart.goods.price * cart.count />
@@ -260,7 +260,7 @@
             },
             success: function () {
                 alert("成功!!");
-                window.onload.href = "/index.action";
+                window.location.href = "/index.action";
             }
         });
     }

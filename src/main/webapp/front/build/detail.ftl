@@ -77,7 +77,7 @@
                         <table>
                             <tbody>
                             <tr>
-                                <td><a href="javascript:addGoods(${goods.id})"><img src="${img}/index_3_15.png" alt=""></a>
+                                <td><a href="javascript:addGoods(${goods.id?c})"><img src="${img}/index_3_15.png" alt=""></a>
                                 </td>
                                 <td><a href=""><img src="${img}/index_3_17.png" alt=""></a></td>
                             </tr>

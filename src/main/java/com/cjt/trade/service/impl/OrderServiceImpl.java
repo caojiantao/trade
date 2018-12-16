@@ -63,8 +63,8 @@ public class OrderServiceImpl implements IOrderService{
 						Integer count = good.getIntValue("count");
 						Goods g = iGoodsDao.getGoodsById(Integer.parseInt(good.getString("goodsId")));
 						String buyPrice = good.getString("buyPrice");
-
-						good.put("totalPrice", StringUtils.isEmpty(buyPrice)?g.getPrice():Double.parseDouble(buyPrice));
+						Double price = StringUtils.isEmpty(buyPrice)?g.getPrice():Double.parseDouble(buyPrice);
+						good.put("totalPrice", price*count);
 
 						good.putAll(BeanUtils.describe(g));
 						list.add(good);

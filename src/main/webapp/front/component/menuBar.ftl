@@ -6,5 +6,5 @@
     <a href="/pageInfo.action?type=3">重要事项</a>
     <a href="/list.action">商品一覧</a>
     <a href="/pageInfo.action?type=4">割引情报</a>
-    <a href="/faq.action">FAQ</a>
+    <a href="/feedback/faq.action">FAQ</a>
 </div>

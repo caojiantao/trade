@@ -35,6 +35,6 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(encrypt("cjt009764."));
+        System.out.println(encrypt("123456"));
     }
 }
